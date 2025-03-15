@@ -1,0 +1,1215 @@
+#usda 1.0
+(
+    customLayerData = {
+        dictionary cameraSettings = {
+            dictionary Front = {
+                double3 position = (5, -0.09386571690823386, 0.32074015007076695)
+                double radius = 1.3199264526367187
+            }
+            dictionary Perspective = {
+                double3 position = (0.8305879661094008, 0.6856259824060557, 0.8672549736707753)
+                double3 target = (0.03609831963856858, -0.10886366406477621, 0.072765346163005)
+            }
+            dictionary Right = {
+                double3 position = (0, -5, 0)
+                double radius = 5
+            }
+            dictionary Top = {
+                double3 position = (0.39387052192630256, -0.29947848933186727, 5)
+                double radius = 1.3410499572753907
+            }
+            string boundCamera = "/OmniverseKit_Persp"
+        }
+        dictionary omni_layer = {
+            string authoring_layer = "./swerveBOT.usda"
+            dictionary locked = {
+            }
+            dictionary muteness = {
+            }
+        }
+        int refinementOverrideImplVersion = 0
+        dictionary renderSettings = {
+            float3 "rtx:debugView:pixelDebug:textColor" = (0, 1e18, 0)
+            float3 "rtx:fog:fogColor" = (0.75, 0.75, 0.75)
+            float3 "rtx:index:backgroundColor" = (0, 0, 0)
+            float3 "rtx:index:regionOfInterestMax" = (0, 0, 0)
+            float3 "rtx:index:regionOfInterestMin" = (0, 0, 0)
+            float3 "rtx:post:backgroundZeroAlpha:backgroundDefaultColor" = (0, 0, 0)
+            float3 "rtx:post:colorcorr:contrast" = (1, 1, 1)
+            float3 "rtx:post:colorcorr:gain" = (1, 1, 1)
+            float3 "rtx:post:colorcorr:gamma" = (1, 1, 1)
+            float3 "rtx:post:colorcorr:offset" = (0, 0, 0)
+            float3 "rtx:post:colorcorr:saturation" = (1, 1, 1)
+            float3 "rtx:post:colorgrad:blackpoint" = (0, 0, 0)
+            float3 "rtx:post:colorgrad:contrast" = (1, 1, 1)
+            float3 "rtx:post:colorgrad:gain" = (1, 1, 1)
+            float3 "rtx:post:colorgrad:gamma" = (1, 1, 1)
+            float3 "rtx:post:colorgrad:lift" = (0, 0, 0)
+            float3 "rtx:post:colorgrad:multiply" = (1, 1, 1)
+            float3 "rtx:post:colorgrad:offset" = (0, 0, 0)
+            float3 "rtx:post:colorgrad:whitepoint" = (1, 1, 1)
+            float3 "rtx:post:lensDistortion:lensFocalLengthArray" = (10, 30, 50)
+            float3 "rtx:post:lensFlares:anisoFlareFalloffX" = (450, 475, 500)
+            float3 "rtx:post:lensFlares:anisoFlareFalloffY" = (10, 10, 10)
+            float3 "rtx:post:lensFlares:cutoffPoint" = (2, 2, 2)
+            float3 "rtx:post:lensFlares:haloFlareFalloff" = (10, 10, 10)
+            float3 "rtx:post:lensFlares:haloFlareRadius" = (75, 75, 75)
+            float3 "rtx:post:lensFlares:isotropicFlareFalloff" = (50, 50, 50)
+            float3 "rtx:post:lensFlares:spectralBlurWavelengthRange" = (380, 550, 770)
+            float3 "rtx:post:tonemap:whitepoint" = (1, 1, 1)
+            float3 "rtx:raytracing:indexdirect:svoBrickSize" = (32, 32, 32)
+            float3 "rtx:raytracing:inscattering:singleScatteringAlbedo" = (0.9, 0.9, 0.9)
+            float3 "rtx:raytracing:inscattering:transmittanceColor" = (0.5, 0.5, 0.5)
+            float3 "rtx:sceneDb:ambientLightColor" = (0.1, 0.1, 0.1)
+            float2 "rtx:viewTile:resolution" = (0, 0)
+        }
+    }
+    defaultPrim = "wheelbot"
+    doc = """Generated from Composed Stage of root layer /home/george/ROS2/ros2_wheelbot/src/description/urdf/robots/swerveBOT/swerveBOT.usd
+
+
+Generated from Composed Stage of root layer /home/george/ROS2/ros2_wheelbot/src/description/urdf/robots/swerveBOT/swerveBOT.usd
+"""
+    endTimeCode = 0
+    metersPerUnit = 1
+    startTimeCode = -1
+    upAxis = "Z"
+)
+
+def Xform "wheelbot" (
+    delete apiSchemas = ["PhysicsArticulationRootAPI", "PhysxArticulationAPI"]
+    prepend apiSchemas = ["PhysicsArticulationRootAPI", "PhysxArticulationAPI"]
+)
+{
+    quatd xformOp:orient = (1, 0, 0, 0)
+    double3 xformOp:scale = (1, 1, 1)
+    double3 xformOp:translate = (0, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+    def Scope "Looks"
+    {
+        def Material "material_Aluminium"
+        {
+            token outputs:mdl:displacement.connect = </wheelbot/Looks/material_Aluminium/Shader.outputs:out>
+            token outputs:mdl:surface.connect = </wheelbot/Looks/material_Aluminium/Shader.outputs:out>
+            token outputs:mdl:volume.connect = </wheelbot/Looks/material_Aluminium/Shader.outputs:out>
+
+            def Shader "Shader"
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @OmniPBR.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "OmniPBR"
+                color3f inputs:diffuse_color_constant = (0.10126585, 0.09485662, 0.09485662)
+                token outputs:out
+            }
+        }
+
+        def Material "material_PETG_orange"
+        {
+            token outputs:mdl:displacement.connect = </wheelbot/Looks/material_PETG_orange/Shader.outputs:out>
+            token outputs:mdl:surface.connect = </wheelbot/Looks/material_PETG_orange/Shader.outputs:out>
+            token outputs:mdl:volume.connect = </wheelbot/Looks/material_PETG_orange/Shader.outputs:out>
+
+            def Shader "Shader"
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @OmniPBR.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "OmniPBR"
+                color3f inputs:diffuse_color_constant = (0.9, 0.165, 0)
+                token outputs:out
+            }
+        }
+
+        def Material "material_Rubber" (
+            delete apiSchemas = ["PhysicsMaterialAPI"]
+            prepend apiSchemas = ["PhysxMaterialAPI"]
+        )
+        {
+            token outputs:mdl:displacement.connect = </wheelbot/Looks/material_Rubber/Shader.outputs:out>
+            token outputs:mdl:surface.connect = </wheelbot/Looks/material_Rubber/Shader.outputs:out>
+            token outputs:mdl:volume.connect = </wheelbot/Looks/material_Rubber/Shader.outputs:out>
+            uniform token physxMaterial:frictionCombineMode = "max"
+
+            def Shader "Shader"
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @OmniPBR.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "OmniPBR"
+                color3f inputs:diffuse_color_constant = (0, 0, 0)
+                token outputs:out
+            }
+        }
+
+        def Material "material_invisible"
+        {
+            token outputs:mdl:displacement.connect = </wheelbot/Looks/material_invisible/Shader.outputs:out>
+            token outputs:mdl:surface.connect = </wheelbot/Looks/material_invisible/Shader.outputs:out>
+            token outputs:mdl:volume.connect = </wheelbot/Looks/material_invisible/Shader.outputs:out>
+
+            def Shader "Shader"
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @OmniPBR.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "OmniPBR"
+                color3f inputs:diffuse_color_constant = (0, 0, 0)
+                token outputs:out
+            }
+        }
+    }
+
+    def Xform "base_link" (
+        apiSchemas = ["PhysicsMassAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI"]
+    )
+    {
+        float3 physics:diagonalInertia = (0.00001, 0.00001, 0.00001)
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.000001
+        bool physics:rigidBodyEnabled = 1
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Xform "chassis_link" (
+        apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        point3f physics:centerOfMass = (0, 0, 0)
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 5
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0.21699999272823334)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Cube "visuals" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI"]
+        )
+        {
+            float3[] extent = [(-0.255, -0.255, -0.02), (0.255, 0.255, 0.02)]
+            rel material:binding = </wheelbot/Looks/material_Aluminium>
+            bool physics:collisionEnabled = 1
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:scale = (0.5099999904632568, 0.5099999904632568, 0.03999999910593033)
+            double3 xformOp:translate = (0, 0, -1.226830985967542e-7)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def PhysicsFixedJoint "chassis_joint"
+        {
+            rel physics:body0 = </wheelbot/base_link>
+            rel physics:body1 = </wheelbot/chassis_link>
+            float physics:breakForce = 3.4028235e38
+            float physics:breakTorque = 3.4028235e38
+            point3f physics:localPos0 = (0, 0, 0.217)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+        }
+
+        def PhysicsRevoluteJoint "FL_steering_joint" (
+            apiSchemas = ["PhysxJointAPI", "PhysicsJointStateAPI:angular", "PhysxLimitAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 0.2
+            float drive:angular:physics:maxForce = 100
+            float drive:angular:physics:stiffness = 0
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "Z"
+            rel physics:body0 = </wheelbot/chassis_link>
+            rel physics:body1 = </wheelbot/FL_steering_link>
+            float physics:breakForce = inf
+            float physics:breakTorque = inf
+            point3f physics:localPos0 = (0.215, 0.215, -0.036)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+            float physics:lowerLimit = -inf
+            float physics:upperLimit = inf
+            float physxJoint:jointFriction = 0.3
+            float physxJoint:maxJointVelocity = 1000000
+            float physxLimit:angular:damping = 0
+            float state:angular:physics:position = 0
+            float state:angular:physics:velocity = 0
+        }
+
+        def PhysicsFixedJoint "FL_chassis_2_joint"
+        {
+            rel physics:body0 = </wheelbot/FL_steering_link>
+            rel physics:body1 = </wheelbot/FL_chassis_2_link>
+            float physics:breakForce = 3.4028235e38
+            float physics:breakTorque = 3.4028235e38
+            point3f physics:localPos0 = (0, 0, -0.0985)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+        }
+
+        def PhysicsRevoluteJoint "FL_drive_left_joint" (
+            apiSchemas = ["PhysxJointAPI", "PhysicsJointStateAPI:angular", "PhysicsDriveAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 1000000
+            float drive:angular:physics:maxForce = inf
+            float drive:angular:physics:stiffness = 0
+            float drive:angular:physics:targetVelocity = 0
+            uniform token drive:angular:physics:type = "acceleration"
+            uniform token physics:axis = "X"
+            rel physics:body0 = </wheelbot/FL_chassis_2_link>
+            rel physics:body1 = </wheelbot/FL_wheel_drive_left>
+            float physics:breakForce = inf
+            float physics:breakTorque = inf
+            bool physics:collisionEnabled = 0
+            point3f physics:localPos0 = (0, 0.115, 0)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0.70710677, 0, 0, 0.70710677)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+            float physxJoint:maxJointVelocity = 1000000
+            float state:angular:physics:position = 0
+            float state:angular:physics:velocity = 0
+        }
+
+        def PhysicsRevoluteJoint "FL_drive_right_joint" (
+            apiSchemas = ["PhysxJointAPI", "PhysicsJointStateAPI:angular", "PhysicsDriveAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 1000000
+            float drive:angular:physics:maxForce = inf
+            float drive:angular:physics:stiffness = 0
+            float drive:angular:physics:targetVelocity = 0
+            uniform token drive:angular:physics:type = "acceleration"
+            uniform token physics:axis = "X"
+            rel physics:body0 = </wheelbot/FL_chassis_2_link>
+            rel physics:body1 = </wheelbot/FL_wheel_drive_right>
+            float physics:breakForce = inf
+            float physics:breakTorque = inf
+            point3f physics:localPos0 = (0, -0.115, 0)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0.70710677, 0, 0, 0.70710677)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+            float physxJoint:maxJointVelocity = 5729.578
+            float state:angular:physics:position = 0
+            float state:angular:physics:velocity = 0
+        }
+
+        def PhysicsRevoluteJoint "FR_steering_joint" (
+            apiSchemas = ["PhysxJointAPI", "PhysicsJointStateAPI:angular", "PhysxLimitAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 0.2
+            float drive:angular:physics:maxForce = 100
+            float drive:angular:physics:stiffness = 0
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "Z"
+            rel physics:body0 = </wheelbot/chassis_link>
+            rel physics:body1 = </wheelbot/FR_steering_link>
+            float physics:breakForce = inf
+            float physics:breakTorque = inf
+            point3f physics:localPos0 = (0.215, -0.215, -0.036)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+            float physics:lowerLimit = -inf
+            float physics:upperLimit = inf
+            float physxJoint:jointFriction = 0.3
+            float physxJoint:maxJointVelocity = 1000000
+            float physxLimit:angular:damping = 0
+            float state:angular:physics:position = 0
+            float state:angular:physics:velocity = 0
+        }
+
+        def PhysicsFixedJoint "FR_chassis_2_joint"
+        {
+            rel physics:body0 = </wheelbot/FR_steering_link>
+            rel physics:body1 = </wheelbot/FR_chassis_2_link>
+            float physics:breakForce = 3.4028235e38
+            float physics:breakTorque = 3.4028235e38
+            point3f physics:localPos0 = (0, 0, -0.0985)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+        }
+
+        def PhysicsRevoluteJoint "FR_drive_left_joint" (
+            apiSchemas = ["PhysxJointAPI", "PhysicsJointStateAPI:angular", "PhysicsDriveAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 1000000
+            float drive:angular:physics:maxForce = inf
+            float drive:angular:physics:stiffness = 0
+            float drive:angular:physics:targetVelocity = 0
+            uniform token drive:angular:physics:type = "acceleration"
+            uniform token physics:axis = "X"
+            rel physics:body0 = </wheelbot/FR_chassis_2_link>
+            rel physics:body1 = </wheelbot/FR_wheel_drive_left>
+            float physics:breakForce = inf
+            float physics:breakTorque = inf
+            point3f physics:localPos0 = (0, 0.115, 0)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0.70710677, 0, 0, 0.70710677)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+            float physxJoint:maxJointVelocity = 5729.578
+            float state:angular:physics:position = 0
+            float state:angular:physics:velocity = 0
+        }
+
+        def PhysicsRevoluteJoint "FR_drive_right_joint" (
+            apiSchemas = ["PhysxJointAPI", "PhysicsJointStateAPI:angular", "PhysicsDriveAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 1000000
+            float drive:angular:physics:maxForce = inf
+            float drive:angular:physics:stiffness = 0
+            float drive:angular:physics:targetVelocity = 0
+            uniform token drive:angular:physics:type = "acceleration"
+            uniform token physics:axis = "X"
+            rel physics:body0 = </wheelbot/FR_chassis_2_link>
+            rel physics:body1 = </wheelbot/FR_wheel_drive_right>
+            float physics:breakForce = inf
+            float physics:breakTorque = inf
+            point3f physics:localPos0 = (0, -0.115, 0)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0.70710677, 0, 0, 0.70710677)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+            float physxJoint:maxJointVelocity = 5729.578
+            float state:angular:physics:position = 0
+            float state:angular:physics:velocity = 0
+        }
+
+        def PhysicsRevoluteJoint "RL_steering_joint" (
+            apiSchemas = ["PhysxJointAPI", "PhysicsJointStateAPI:angular", "PhysxLimitAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 0.2
+            float drive:angular:physics:maxForce = 100
+            float drive:angular:physics:stiffness = 0
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "Z"
+            rel physics:body0 = </wheelbot/chassis_link>
+            rel physics:body1 = </wheelbot/RL_steering_link>
+            float physics:breakForce = inf
+            float physics:breakTorque = inf
+            point3f physics:localPos0 = (-0.215, 0.215, -0.036)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+            float physics:lowerLimit = -inf
+            float physics:upperLimit = inf
+            float physxJoint:jointFriction = 0.3
+            float physxJoint:maxJointVelocity = 1000000
+            float physxLimit:angular:damping = 0
+            float state:angular:physics:position = 0
+            float state:angular:physics:velocity = 0
+        }
+
+        def PhysicsFixedJoint "RL_chassis_2_joint"
+        {
+            rel physics:body0 = </wheelbot/RL_steering_link>
+            rel physics:body1 = </wheelbot/RL_chassis_2_link>
+            float physics:breakForce = 3.4028235e38
+            float physics:breakTorque = 3.4028235e38
+            point3f physics:localPos0 = (0, 0, -0.0985)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+        }
+
+        def PhysicsRevoluteJoint "RL_drive_left_joint" (
+            apiSchemas = ["PhysxJointAPI", "PhysicsJointStateAPI:angular", "PhysicsDriveAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 1000000
+            float drive:angular:physics:maxForce = inf
+            float drive:angular:physics:stiffness = 0
+            float drive:angular:physics:targetVelocity = 0
+            uniform token drive:angular:physics:type = "acceleration"
+            uniform token physics:axis = "X"
+            rel physics:body0 = </wheelbot/RL_chassis_2_link>
+            rel physics:body1 = </wheelbot/RL_wheel_drive_left>
+            float physics:breakForce = inf
+            float physics:breakTorque = inf
+            point3f physics:localPos0 = (0, 0.115, 0)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0.70710677, 0, 0, 0.70710677)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+            float physxJoint:maxJointVelocity = 5729.578
+            float state:angular:physics:position = 0
+            float state:angular:physics:velocity = 0
+        }
+
+        def PhysicsRevoluteJoint "RL_drive_right_joint" (
+            apiSchemas = ["PhysxJointAPI", "PhysicsJointStateAPI:angular", "PhysicsDriveAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 1000000
+            float drive:angular:physics:maxForce = inf
+            float drive:angular:physics:stiffness = 0
+            float drive:angular:physics:targetVelocity = 0
+            uniform token drive:angular:physics:type = "acceleration"
+            uniform token physics:axis = "X"
+            rel physics:body0 = </wheelbot/RL_chassis_2_link>
+            rel physics:body1 = </wheelbot/RL_wheel_drive_right>
+            float physics:breakForce = inf
+            float physics:breakTorque = inf
+            point3f physics:localPos0 = (0, -0.115, 0)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0.70710677, 0, 0, 0.70710677)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+            float physxJoint:maxJointVelocity = 5729.578
+            float state:angular:physics:position = 0
+            float state:angular:physics:velocity = 0
+        }
+
+        def PhysicsRevoluteJoint "RR_steering_joint" (
+            apiSchemas = ["PhysxJointAPI", "PhysicsJointStateAPI:angular", "PhysxLimitAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 0.2
+            float drive:angular:physics:maxForce = 100
+            float drive:angular:physics:stiffness = 0
+            uniform token drive:angular:physics:type = "force"
+            uniform token physics:axis = "Z"
+            rel physics:body0 = </wheelbot/chassis_link>
+            rel physics:body1 = </wheelbot/RR_steering_link>
+            float physics:breakForce = inf
+            float physics:breakTorque = inf
+            point3f physics:localPos0 = (-0.215, -0.215, -0.036)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+            float physics:lowerLimit = -inf
+            float physics:upperLimit = inf
+            float physxJoint:jointFriction = 0.3
+            float physxJoint:maxJointVelocity = 1000000
+            float physxLimit:angular:damping = 0
+            float state:angular:physics:position = 0
+            float state:angular:physics:velocity = 0
+        }
+
+        def PhysicsFixedJoint "RR_chassis_2_joint"
+        {
+            rel physics:body0 = </wheelbot/RR_steering_link>
+            rel physics:body1 = </wheelbot/RR_chassis_2_link>
+            float physics:breakForce = 3.4028235e38
+            float physics:breakTorque = 3.4028235e38
+            point3f physics:localPos0 = (0, 0, -0.0985)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+        }
+
+        def PhysicsRevoluteJoint "RR_drive_left_joint" (
+            apiSchemas = ["PhysxJointAPI", "PhysicsJointStateAPI:angular", "PhysicsDriveAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 1000000
+            float drive:angular:physics:maxForce = inf
+            float drive:angular:physics:stiffness = 0
+            float drive:angular:physics:targetVelocity = 0
+            uniform token drive:angular:physics:type = "acceleration"
+            uniform token physics:axis = "X"
+            rel physics:body0 = </wheelbot/RR_chassis_2_link>
+            rel physics:body1 = </wheelbot/RR_wheel_drive_left>
+            float physics:breakForce = inf
+            float physics:breakTorque = inf
+            point3f physics:localPos0 = (0, 0.115, 0)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0.70710677, 0, 0, 0.70710677)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+            float physxJoint:maxJointVelocity = 5729.578
+            float state:angular:physics:position = 0
+            float state:angular:physics:velocity = 0
+        }
+
+        def PhysicsRevoluteJoint "RR_drive_right_joint" (
+            apiSchemas = ["PhysxJointAPI", "PhysicsJointStateAPI:angular", "PhysicsDriveAPI:angular"]
+        )
+        {
+            float drive:angular:physics:damping = 1000000
+            float drive:angular:physics:maxForce = inf
+            float drive:angular:physics:stiffness = 0
+            float drive:angular:physics:targetVelocity = 0
+            uniform token drive:angular:physics:type = "acceleration"
+            uniform token physics:axis = "X"
+            rel physics:body0 = </wheelbot/RR_chassis_2_link>
+            rel physics:body1 = </wheelbot/RR_wheel_drive_right>
+            float physics:breakForce = inf
+            float physics:breakTorque = inf
+            point3f physics:localPos0 = (0, -0.115, 0)
+            point3f physics:localPos1 = (0, 0, 0)
+            quatf physics:localRot0 = (0.70710677, 0, 0, 0.70710677)
+            quatf physics:localRot1 = (1, 0, 0, 0)
+            float physxJoint:maxJointVelocity = 5729.578
+            float state:angular:physics:position = 0
+            float state:angular:physics:velocity = 0
+        }
+
+        def PhysicsFixedJoint "Realsense_front_joint"
+        {
+            rel physics:body0 = </wheelbot/chassis_link>
+            rel physics:body1 = </wheelbot/Realsense_front/RSD455>
+            float physics:breakForce = inf
+            float physics:breakTorque = inf
+            point3f physics:localPos0 = (8.34465e-9, -1.909877e-24, 0)
+            point3f physics:localPos1 = (0.29, 3.5514758e-17, -7.2717667e-9)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (-6.123234e-17, 0, 0, 1)
+        }
+
+        def PhysicsFixedJoint "Rplidar_front_joint"
+        {
+            rel physics:body0 = </wheelbot/chassis_link>
+            rel physics:body1 = </wheelbot/RPLIDAR_front/RPLIDAR_S2e>
+            float physics:breakForce = inf
+            float physics:breakTorque = inf
+            point3f physics:localPos0 = (0, 0, 0)
+            point3f physics:localPos1 = (-0.40941483, -5.551115e-17, 0.016999993)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (0.9238795, 0, 0, 0.38268343)
+        }
+
+        def PhysicsFixedJoint "Rplidar_back_joint"
+        {
+            rel physics:body0 = </wheelbot/chassis_link>
+            rel physics:body1 = </wheelbot/RPLIDAR_back/RPLIDAR_S2e>
+            float physics:breakForce = inf
+            float physics:breakTorque = inf
+            point3f physics:localPos0 = (0, 0, 0)
+            point3f physics:localPos1 = (-0.40941483, -8.326673e-17, -7.2717667e-9)
+            quatf physics:localRot0 = (1, 0, 0, 0)
+            quatf physics:localRot1 = (-0.38268343, 0, 0, 0.9238795)
+        }
+
+        def Mesh "Cube" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+            int[] faceVertexCounts = [4, 4, 4, 4, 4, 4]
+            int[] faceVertexIndices = [0, 1, 3, 2, 4, 6, 7, 5, 6, 2, 3, 7, 4, 5, 1, 0, 4, 0, 2, 6, 5, 7, 3, 1]
+            rel material:binding = </wheelbot/Looks/material_PETG_orange> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 0, -1), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, 1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (0, -1, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (-1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0), (1, 0, 0)] (
+                interpolation = "faceVarying"
+            )
+            point3f[] points = [(-0.5, -0.5, 0.5), (0.5, -0.5, 0.5), (-0.5, 0.5, 0.5), (0.5, 0.5, 0.5), (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5), (-0.5, 0.5, -0.5), (0.5, 0.5, -0.5)]
+            texCoord2f[] primvars:st = [(0, 0), (1, 0), (1, 1), (0, 1), (1, 0), (1, 1), (0, 1), (0, 0), (0, 1), (0, 0), (1, 0), (1, 1), (0, 0), (1, 0), (1, 1), (0, 1), (0, 0), (1, 0), (1, 1), (0, 1), (1, 0), (1, 1), (0, 1), (0, 0)] (
+                interpolation = "faceVarying"
+            )
+            uniform token subdivisionScheme = "none"
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:scale = (0.11, 0.11, 0.21)
+            double3 xformOp:translate = (0.2, 0, 0.125)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def Xform "FL_steering_link" (
+        apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        float3 physics:diagonalInertia = (0.00001, 0.00001, 0.00001)
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.1
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0.215, 0.2150000035762787, 0.1809999942779541)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Cylinder "visuals" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI"]
+        )
+        {
+            uniform token axis = "Z"
+            float3[] extent = [(-0.064, -0.064, -0.016), (0.064, 0.064, 0.016)]
+            double height = 0.03200000151991844
+            rel material:binding = </wheelbot/Looks/material_Rubber>
+            bool physics:collisionEnabled = 1
+            double radius = 0.06400000303983688
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def Xform "FL_chassis_2_link" (
+        apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        point3f physics:centerOfMass = (0, 0, 0)
+        float physics:mass = 5
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0.215, 0.2150000035762787, 0.08249999582767487)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Cube "visuals" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI"]
+        )
+        {
+            float3[] extent = [(-0.045, -0.08, -0.045), (0.045, 0.08, 0.045)]
+            rel material:binding = </wheelbot/Looks/material_Aluminium>
+            bool physics:collisionEnabled = 1
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:scale = (0.09000000357627869, 0.1599999964237213, 0.09000000357627869)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def Xform "FL_wheel_drive_left" (
+        apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI", "MaterialBindingAPI", "PhysxRigidBodyAPI"]
+    )
+    {
+        rel material:binding = None (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        point3f physics:centerOfMass = (0, 0, 0)
+        float physics:mass = 0.3
+        float physxRigidBody:maxAngularVelocity = 500
+        bool physxRigidBody:solveContact = 1
+        int physxRigidBody:solverPositionIterationCount = 16
+        quatd xformOp:orient = (0.7071067690849304, 0, 0, 0.7071067690849304)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0.215, 0.33000001311302185, 0.08249999582767487)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Cylinder "Cylinder_01" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            uniform token axis = "Z"
+            float3[] extent = [(-0.0825, -0.0825, -0.0225), (0.0825, 0.0825, 0.0225)]
+            double height = 0.045
+            rel material:binding = </wheelbot/Looks/material_PETG_orange> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            rel material:binding:physics = </wheelbot/PhysicsMaterial_wheels> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            double radius = 0.0825
+            custom bool refinementEnableOverride = 1
+            custom int refinementLevel = 2
+            quatd xformOp:orient = (0.5000000000000001, 0.5, 0.5, 0.49999999999999994)
+            double3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def Xform "FL_wheel_drive_right" (
+        apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI", "MaterialBindingAPI", "PhysxRigidBodyAPI"]
+    )
+    {
+        rel material:binding = None (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        point3f physics:centerOfMass = (0, 0, 0)
+        float physics:mass = 0.3
+        float physxRigidBody:maxAngularVelocity = 500
+        bool physxRigidBody:solveContact = 1
+        quatd xformOp:orient = (0.7071067690849304, 0, 0, 0.7071067690849304)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0.215, 0.10000000149011612, 0.08249999582767487)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Cylinder "Cylinder_02" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            uniform token axis = "Z"
+            float3[] extent = [(-0.0825, -0.0825, -0.0225), (0.0825, 0.0825, 0.0225)]
+            double height = 0.045
+            rel material:binding = </wheelbot/Looks/material_PETG_orange> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            rel material:binding:physics = </wheelbot/PhysicsMaterial_wheels> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            double radius = 0.0825
+            custom bool refinementEnableOverride = 1
+            custom int refinementLevel = 2
+            quatd xformOp:orient = (0.5000000000000001, 0.5, 0.5, 0.49999999999999994)
+            double3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def Xform "FR_steering_link" (
+        apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        float3 physics:diagonalInertia = (0.00001, 0.00001, 0.00001)
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.1
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0.215, -0.2150000035762787, 0.1809999942779541)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Cylinder "visuals" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI"]
+        )
+        {
+            uniform token axis = "Z"
+            float3[] extent = [(-0.064, -0.064, -0.016), (0.064, 0.064, 0.016)]
+            double height = 0.03200000151991844
+            rel material:binding = </wheelbot/Looks/material_Rubber>
+            bool physics:collisionEnabled = 1
+            double radius = 0.06400000303983688
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def Xform "FR_chassis_2_link" (
+        apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        point3f physics:centerOfMass = (0, 0, 0)
+        float physics:mass = 5
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0.215, -0.2150000035762787, 0.08249999582767487)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Cube "visuals" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI"]
+        )
+        {
+            float3[] extent = [(-0.045, -0.08, -0.045), (0.045, 0.08, 0.045)]
+            rel material:binding = </wheelbot/Looks/material_Aluminium>
+            bool physics:collisionEnabled = 1
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:scale = (0.09000000357627869, 0.1599999964237213, 0.09000000357627869)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def Xform "FR_wheel_drive_left" (
+        apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI", "MaterialBindingAPI", "PhysxRigidBodyAPI"]
+    )
+    {
+        rel material:binding = None (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        point3f physics:centerOfMass = (0, 0, 0)
+        float physics:mass = 0.3
+        float physxRigidBody:maxAngularVelocity = 500
+        bool physxRigidBody:solveContact = 1
+        quatd xformOp:orient = (0.7071067690849304, 0, 0, 0.7071067690849304)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0.215, -0.10000000149011612, 0.08249999582767487)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Cylinder "Cylinder_03" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            uniform token axis = "Z"
+            float3[] extent = [(-0.0825, -0.0825, -0.0225), (0.0825, 0.0825, 0.0225)]
+            double height = 0.045
+            rel material:binding = </wheelbot/Looks/material_PETG_orange> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            rel material:binding:physics = </wheelbot/PhysicsMaterial_wheels> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            double radius = 0.0825
+            custom bool refinementEnableOverride = 1
+            custom int refinementLevel = 2
+            quatd xformOp:orient = (0.5000000000000001, 0.5, 0.5, 0.49999999999999994)
+            double3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def Xform "FR_wheel_drive_right" (
+        apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI", "MaterialBindingAPI", "PhysxRigidBodyAPI"]
+    )
+    {
+        rel material:binding = None (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        point3f physics:centerOfMass = (0, 0, 0)
+        float physics:mass = 0.3
+        float physxRigidBody:maxAngularVelocity = 500
+        bool physxRigidBody:solveContact = 1
+        quatd xformOp:orient = (0.7071067690849304, 0, 0, 0.7071067690849304)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0.215, -0.33000001311302185, 0.08249999582767487)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Cylinder "Cylinder_04" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            uniform token axis = "Z"
+            float3[] extent = [(-0.0825, -0.0825, -0.0225), (0.0825, 0.0825, 0.0225)]
+            double height = 0.045
+            rel material:binding = </wheelbot/Looks/material_PETG_orange> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            rel material:binding:physics = </wheelbot/PhysicsMaterial_wheels> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            double radius = 0.0825
+            custom bool refinementEnableOverride = 1
+            custom int refinementLevel = 2
+            quatd xformOp:orient = (0.5000000000000001, 0.5, 0.5, 0.49999999999999994)
+            double3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def Xform "RL_steering_link" (
+        apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        float3 physics:diagonalInertia = (0.00001, 0.00001, 0.00001)
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.1
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-0.215, 0.2150000035762787, 0.1809999942779541)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Cylinder "visuals" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI"]
+        )
+        {
+            uniform token axis = "Z"
+            float3[] extent = [(-0.064, -0.064, -0.016), (0.064, 0.064, 0.016)]
+            double height = 0.03200000151991844
+            rel material:binding = </wheelbot/Looks/material_Rubber>
+            bool physics:collisionEnabled = 1
+            double radius = 0.06400000303983688
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def Xform "RL_chassis_2_link" (
+        apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        point3f physics:centerOfMass = (0, 0, 0)
+        float physics:mass = 5
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-0.215, 0.2150000035762787, 0.08249999582767487)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Cube "visuals" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI"]
+        )
+        {
+            float3[] extent = [(-0.045, -0.08, -0.045), (0.045, 0.08, 0.045)]
+            rel material:binding = </wheelbot/Looks/material_Aluminium>
+            bool physics:collisionEnabled = 1
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:scale = (0.09000000357627869, 0.1599999964237213, 0.09000000357627869)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def Xform "RL_wheel_drive_left" (
+        apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI", "MaterialBindingAPI", "PhysxRigidBodyAPI"]
+    )
+    {
+        rel material:binding = None (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        point3f physics:centerOfMass = (0, 0, 0)
+        float physics:mass = 0.3
+        float physxRigidBody:maxAngularVelocity = 500
+        bool physxRigidBody:solveContact = 1
+        quatd xformOp:orient = (0.7071067690849304, 0, 0, 0.7071067690849304)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-0.215, 0.33000001311302185, 0.08249999582767487)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Cylinder "Cylinder_05" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            uniform token axis = "Z"
+            float3[] extent = [(-0.0825, -0.0825, -0.0225), (0.0825, 0.0825, 0.0225)]
+            double height = 0.045
+            rel material:binding = </wheelbot/Looks/material_PETG_orange> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            rel material:binding:physics = </wheelbot/PhysicsMaterial_wheels> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            double radius = 0.0825
+            custom bool refinementEnableOverride = 1
+            custom int refinementLevel = 2
+            quatd xformOp:orient = (0.5000000000000001, 0.5, 0.5, 0.49999999999999994)
+            double3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def Xform "RL_wheel_drive_right" (
+        apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI", "MaterialBindingAPI", "PhysxRigidBodyAPI"]
+    )
+    {
+        rel material:binding = None (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        point3f physics:centerOfMass = (0, 0, 0)
+        float physics:mass = 0.3
+        float physxRigidBody:maxAngularVelocity = 500
+        bool physxRigidBody:solveContact = 1
+        quatd xformOp:orient = (0.7071067690849304, 0, 0, 0.7071067690849304)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-0.215, 0.10000000149011612, 0.08249999582767487)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Cylinder "Cylinder_06" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            uniform token axis = "Z"
+            float3[] extent = [(-0.0825, -0.0825, -0.0225), (0.0825, 0.0825, 0.0225)]
+            double height = 0.045
+            rel material:binding = </wheelbot/Looks/material_PETG_orange> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            rel material:binding:physics = </wheelbot/PhysicsMaterial_wheels> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            double radius = 0.0825
+            custom bool refinementEnableOverride = 1
+            custom int refinementLevel = 2
+            quatd xformOp:orient = (0.5000000000000001, 0.5, 0.5, 0.49999999999999994)
+            double3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def Xform "RR_steering_link" (
+        apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        float3 physics:diagonalInertia = (0.00001, 0.00001, 0.00001)
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.1
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-0.215, -0.2150000035762787, 0.1809999942779541)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Cylinder "visuals" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI"]
+        )
+        {
+            uniform token axis = "Z"
+            float3[] extent = [(-0.064, -0.064, -0.016), (0.064, 0.064, 0.016)]
+            double height = 0.03200000151991844
+            rel material:binding = </wheelbot/Looks/material_Rubber>
+            bool physics:collisionEnabled = 1
+            double radius = 0.06400000303983688
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def Xform "RR_chassis_2_link" (
+        apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        point3f physics:centerOfMass = (0, 0, 0)
+        float physics:mass = 5
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-0.215, -0.2150000035762787, 0.08249999582767487)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Cube "visuals" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI"]
+        )
+        {
+            float3[] extent = [(-0.045, -0.08, -0.045), (0.045, 0.08, 0.045)]
+            rel material:binding = </wheelbot/Looks/material_Aluminium>
+            bool physics:collisionEnabled = 1
+            double size = 1
+            quatd xformOp:orient = (1, 0, 0, 0)
+            double3 xformOp:scale = (0.09000000357627869, 0.1599999964237213, 0.09000000357627869)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def Xform "RR_wheel_drive_left" (
+        apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI", "MaterialBindingAPI", "PhysxRigidBodyAPI"]
+    )
+    {
+        rel material:binding = None (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        point3f physics:centerOfMass = (0, 0, 0)
+        float physics:mass = 0.3
+        float physxRigidBody:maxAngularVelocity = 500
+        bool physxRigidBody:solveContact = 1
+        quatd xformOp:orient = (0.7071067690849304, 0, 0, 0.7071067690849304)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-0.215, -0.10000000149011612, 0.08249999582767487)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Cylinder "Cylinder_07" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            uniform token axis = "Z"
+            float3[] extent = [(-0.0825, -0.0825, -0.0225), (0.0825, 0.0825, 0.0225)]
+            double height = 0.045
+            rel material:binding = </wheelbot/Looks/material_PETG_orange> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            rel material:binding:physics = </wheelbot/PhysicsMaterial_wheels> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            double radius = 0.0825
+            custom bool refinementEnableOverride = 1
+            custom int refinementLevel = 2
+            quatd xformOp:orient = (0.5000000000000001, 0.5, 0.5, 0.49999999999999994)
+            double3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def Xform "RR_wheel_drive_right" (
+        apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI", "MaterialBindingAPI", "PhysxRigidBodyAPI"]
+    )
+    {
+        rel material:binding = None (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        point3f physics:centerOfMass = (0, 0, 0)
+        float physics:mass = 0.3
+        float physxRigidBody:maxAngularVelocity = 500
+        bool physxRigidBody:solveContact = 1
+        quatd xformOp:orient = (0.7071067690849304, 0, 0, 0.7071067690849304)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-0.215, -0.33000001311302185, 0.08249999582767487)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Cylinder "Cylinder_08" (
+            prepend apiSchemas = ["PhysicsCollisionAPI", "PhysxCollisionAPI", "MaterialBindingAPI"]
+        )
+        {
+            uniform token axis = "Z"
+            float3[] extent = [(-0.0825, -0.0825, -0.0225), (0.0825, 0.0825, 0.0225)]
+            double height = 0.045
+            rel material:binding = </wheelbot/Looks/material_PETG_orange> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            rel material:binding:physics = </wheelbot/PhysicsMaterial_wheels> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+            bool physics:collisionEnabled = 1
+            double radius = 0.0825
+            custom bool refinementEnableOverride = 1
+            custom int refinementLevel = 2
+            quatd xformOp:orient = (0.5000000000000001, 0.5, 0.5, 0.49999999999999994)
+            double3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def Material "PhysicsMaterial_wheels" (
+        prepend apiSchemas = ["PhysicsMaterialAPI", "PhysxMaterialAPI"]
+    )
+    {
+        float physics:dynamicFriction = 2
+        float physics:staticFriction = 2
+        uniform token physxMaterial:frictionCombineMode = "max"
+    }
+
+    def Xform "Realsense_front" (
+        prepend references = @http://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.2/Isaac/Sensors/Intel/RealSense/rsd455.usd@
+    )
+    {
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0.29, 0, 0.217)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def "RPLIDAR_front" (
+        delete payload = @./RPLIDAR.usd@
+        prepend references = @./RPLIDAR.usd@
+    )
+    {
+        quatd xformOp:orient = (0.9238795325112867, 0, 0, -0.3826834323650898)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0.2895, -0.2895, 0.2)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        over "RPLIDAR_S2e"
+        {
+            over "Visual"
+            {
+                over "RPLidar_mesh"
+                {
+                    quatd xformOp:orient = (1, 0, 0, 0)
+                    double3 xformOp:translate = (0, 0, 0)
+                }
+            }
+        }
+    }
+
+    def "RPLIDAR_back" (
+        delete payload = @./RPLIDAR.usd@
+        prepend references = @./RPLIDAR.usd@
+    )
+    {
+        quatd xformOp:orient = (0.38268343236508984, 0, 0, 0.9238795325112867)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-0.2895, 0.2895, 0.217)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        over "RPLIDAR_S2e"
+        {
+            over "Visual"
+            {
+                over "RPLidar_mesh"
+                {
+                    double3 xformOp:translate = (0, 0, -0.017)
+                }
+            }
+        }
+    }
+}
+

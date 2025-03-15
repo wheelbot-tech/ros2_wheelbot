@@ -1,0 +1,964 @@
+#usda 1.0
+(
+    customLayerData = {
+        dictionary cameraSettings = {
+            dictionary Front = {
+                double3 position = (5.000000111758711, 0, 0)
+                double radius = 5
+            }
+            dictionary Perspective = {
+                double3 position = (6.291266598647416, 4.5566157025973535, 3.8207053134417457)
+                double3 target = (1.4545005165507154, -0.38472064369628534, -1.0440182797924988)
+            }
+            dictionary Right = {
+                double3 position = (0, -5.000000111758711, 0)
+                double radius = 5
+            }
+            dictionary Top = {
+                double3 position = (0, 0, 5.000000111758711)
+                double radius = 5
+            }
+            string boundCamera = "/OmniverseKit_Persp"
+        }
+        dictionary omni_layer = {
+            string authoring_layer = "./cylinder_garden2.usda"
+            dictionary locked = {
+            }
+            dictionary muteness = {
+            }
+        }
+        int refinementOverrideImplVersion = 0
+        dictionary renderSettings = {
+        }
+    }
+    defaultPrim = "World"
+    endTimeCode = 1000000
+    metersPerUnit = 0.9999999776482582
+    startTimeCode = 0
+    timeCodesPerSecond = 60
+    upAxis = "Z"
+)
+
+def Xform "World"
+{
+    def Xform "GroundPlane"
+    {
+        quatf xformOp:orient = (1, 0, 0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def Mesh "CollisionMesh"
+        {
+            uniform bool doubleSided = 0
+            int[] faceVertexCounts = [4]
+            int[] faceVertexIndices = [0, 1, 2, 3]
+            normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1)]
+            point3f[] points = [(-25, -25, 0), (25, -25, 0), (25, 25, 0), (-25, 25, 0)]
+            color3f[] primvars:displayColor = [(0.5, 0.5, 0.5)]
+            texCoord2f[] primvars:st = [(0, 0), (1, 0), (1, 1), (0, 1)] (
+                interpolation = "varying"
+            )
+        }
+
+        def Plane "CollisionPlane" (
+            prepend apiSchemas = ["PhysicsCollisionAPI"]
+        )
+        {
+            uniform token axis = "Z"
+            uniform token purpose = "guide"
+        }
+
+        def Scope "Looks"
+        {
+            def Material "Cylinder"
+            {
+                token outputs:mdl:displacement.connect = </World/GroundPlane/Looks/Cylinder/Shader.outputs:out>
+                token outputs:mdl:surface.connect = </World/GroundPlane/Looks/Cylinder/Shader.outputs:out>
+                token outputs:mdl:volume.connect = </World/GroundPlane/Looks/Cylinder/Shader.outputs:out>
+
+                def Shader "Shader"
+                {
+                    uniform token info:implementationSource = "sourceAsset"
+                    uniform asset info:mdl:sourceAsset = @OmniPBR.mdl@
+                    uniform token info:mdl:sourceAsset:subIdentifier = "OmniPBR"
+                    color3f inputs:diffuse_tint = (0.069433324, 0.20294201, 0.8227848)
+                    token outputs:out (
+                        renderType = "material"
+                    )
+                }
+            }
+        }
+
+        def DistantLight "defaultLight" (
+            prepend apiSchemas = ["ShapingAPI"]
+        )
+        {
+            float inputs:angle = 1
+            float inputs:intensity = 300
+            float inputs:shaping:cone:angle = 180
+            float inputs:shaping:cone:softness
+            float inputs:shaping:focus
+            color3f inputs:shaping:focusTint
+            asset inputs:shaping:ies:file
+            quatd xformOp:orient = (0.6532814824381883, 0.2705980500730985, 0.27059805007309845, 0.6532814824381882)
+            double3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def DomeLight "DomeLight" (
+        prepend apiSchemas = ["ShapingAPI"]
+    )
+    {
+        float inputs:intensity = 1000
+        float inputs:shaping:cone:angle = 180
+        float inputs:shaping:cone:softness
+        float inputs:shaping:focus
+        color3f inputs:shaping:focusTint
+        asset inputs:shaping:ies:file
+        token inputs:texture:format = "latlong"
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Cylinder "Cylinder" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double height = 1.0000000223517422
+        rel material:binding = </World/GroundPlane/Looks/Cylinder> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        bool physics:collisionEnabled = 1
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.3
+        bool physics:rigidBodyEnabled = 1
+        double radius = 0.5000000111758711
+        custom bool refinementEnableOverride = 1
+        custom int refinementLevel = 2
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.3, 0.3, 0.75)
+        double3 xformOp:translate = (1, 1, 0.25)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Cylinder "Cylinder_01" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double height = 1.0000000223517422
+        rel material:binding = </World/GroundPlane/Looks/Cylinder> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        bool physics:collisionEnabled = 1
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.3
+        bool physics:rigidBodyEnabled = 1
+        double radius = 0.5000000111758711
+        custom bool refinementEnableOverride = 1
+        custom int refinementLevel = 2
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.3, 0.3, 0.75)
+        double3 xformOp:translate = (3, 1, 0.25)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Cylinder "Cylinder_02" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double height = 1.0000000223517422
+        rel material:binding = </World/GroundPlane/Looks/Cylinder> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        bool physics:collisionEnabled = 1
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.3
+        bool physics:rigidBodyEnabled = 1
+        double radius = 0.5000000111758711
+        custom bool refinementEnableOverride = 1
+        custom int refinementLevel = 2
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.3, 0.3, 0.75)
+        double3 xformOp:translate = (5, 1, 0.25)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Cylinder "Cylinder_03" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double height = 1.0000000223517422
+        rel material:binding = </World/GroundPlane/Looks/Cylinder> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        bool physics:collisionEnabled = 1
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.3
+        bool physics:rigidBodyEnabled = 1
+        double radius = 0.5000000111758711
+        custom bool refinementEnableOverride = 1
+        custom int refinementLevel = 2
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.3, 0.3, 0.75)
+        double3 xformOp:translate = (-1, 1, 0.25)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Cylinder "Cylinder_04" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double height = 1.0000000223517422
+        rel material:binding = </World/GroundPlane/Looks/Cylinder> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        bool physics:collisionEnabled = 1
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.3
+        bool physics:rigidBodyEnabled = 1
+        double radius = 0.5000000111758711
+        custom bool refinementEnableOverride = 1
+        custom int refinementLevel = 2
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.3, 0.3, 0.75)
+        double3 xformOp:translate = (-3, 1, 0.25)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Cylinder "Cylinder_05" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double height = 1.0000000223517422
+        rel material:binding = </World/GroundPlane/Looks/Cylinder> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        bool physics:collisionEnabled = 1
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.3
+        bool physics:rigidBodyEnabled = 1
+        double radius = 0.5000000111758711
+        custom bool refinementEnableOverride = 1
+        custom int refinementLevel = 2
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.3, 0.3, 0.75)
+        double3 xformOp:translate = (-5, 1, 0.25)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Cylinder "Cylinder_06" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double height = 1.0000000223517422
+        rel material:binding = </World/GroundPlane/Looks/Cylinder> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        bool physics:collisionEnabled = 1
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.3
+        bool physics:rigidBodyEnabled = 1
+        double radius = 0.5000000111758711
+        custom bool refinementEnableOverride = 1
+        custom int refinementLevel = 2
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.3, 0.3, 0.75)
+        double3 xformOp:translate = (1, 3, 0.25)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Cylinder "Cylinder_07" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double height = 1.0000000223517422
+        rel material:binding = </World/GroundPlane/Looks/Cylinder> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        bool physics:collisionEnabled = 1
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.3
+        bool physics:rigidBodyEnabled = 1
+        double radius = 0.5000000111758711
+        custom bool refinementEnableOverride = 1
+        custom int refinementLevel = 2
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.3, 0.3, 0.75)
+        double3 xformOp:translate = (3, 3, 0.25)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Cylinder "Cylinder_08" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double height = 1.0000000223517422
+        rel material:binding = </World/GroundPlane/Looks/Cylinder> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        bool physics:collisionEnabled = 1
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.3
+        bool physics:rigidBodyEnabled = 1
+        double radius = 0.5000000111758711
+        custom bool refinementEnableOverride = 1
+        custom int refinementLevel = 2
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.3, 0.3, 0.75)
+        double3 xformOp:translate = (5, 3, 0.25)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Cylinder "Cylinder_09" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double height = 1.0000000223517422
+        rel material:binding = </World/GroundPlane/Looks/Cylinder> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        bool physics:collisionEnabled = 1
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.3
+        bool physics:rigidBodyEnabled = 1
+        double radius = 0.5000000111758711
+        custom bool refinementEnableOverride = 1
+        custom int refinementLevel = 2
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.3, 0.3, 0.75)
+        double3 xformOp:translate = (-1, 3, 0.25)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Cylinder "Cylinder_10" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double height = 1.0000000223517422
+        rel material:binding = </World/GroundPlane/Looks/Cylinder> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        bool physics:collisionEnabled = 1
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.3
+        bool physics:rigidBodyEnabled = 1
+        double radius = 0.5000000111758711
+        custom bool refinementEnableOverride = 1
+        custom int refinementLevel = 2
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.3, 0.3, 0.75)
+        double3 xformOp:translate = (-2.999999999999999, 3, 0.25)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Cylinder "Cylinder_11" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double height = 1.0000000223517422
+        rel material:binding = </World/GroundPlane/Looks/Cylinder> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        bool physics:collisionEnabled = 1
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.3
+        bool physics:rigidBodyEnabled = 1
+        double radius = 0.5000000111758711
+        custom bool refinementEnableOverride = 1
+        custom int refinementLevel = 2
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.3, 0.3, 0.75)
+        double3 xformOp:translate = (-5, 3, 0.25)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Cylinder "Cylinder_12" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double height = 1.0000000223517422
+        rel material:binding = </World/GroundPlane/Looks/Cylinder> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        bool physics:collisionEnabled = 1
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.3
+        bool physics:rigidBodyEnabled = 1
+        double radius = 0.5000000111758711
+        custom bool refinementEnableOverride = 1
+        custom int refinementLevel = 2
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.3, 0.3, 0.75)
+        double3 xformOp:translate = (1, 5, 0.25)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Cylinder "Cylinder_13" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double height = 1.0000000223517422
+        rel material:binding = </World/GroundPlane/Looks/Cylinder> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        bool physics:collisionEnabled = 1
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.3
+        bool physics:rigidBodyEnabled = 1
+        double radius = 0.5000000111758711
+        custom bool refinementEnableOverride = 1
+        custom int refinementLevel = 2
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.3, 0.3, 0.75)
+        double3 xformOp:translate = (3, 5, 0.25)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Cylinder "Cylinder_14" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double height = 1.0000000223517422
+        rel material:binding = </World/GroundPlane/Looks/Cylinder> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        bool physics:collisionEnabled = 1
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.3
+        bool physics:rigidBodyEnabled = 1
+        double radius = 0.5000000111758711
+        custom bool refinementEnableOverride = 1
+        custom int refinementLevel = 2
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.3, 0.3, 0.75)
+        double3 xformOp:translate = (5, 5, 0.25)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Cylinder "Cylinder_15" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double height = 1.0000000223517422
+        rel material:binding = </World/GroundPlane/Looks/Cylinder> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        bool physics:collisionEnabled = 1
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.3
+        bool physics:rigidBodyEnabled = 1
+        double radius = 0.5000000111758711
+        custom bool refinementEnableOverride = 1
+        custom int refinementLevel = 2
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.3, 0.3, 0.75)
+        double3 xformOp:translate = (-1, 5, 0.25)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Cylinder "Cylinder_16" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double height = 1.0000000223517422
+        rel material:binding = </World/GroundPlane/Looks/Cylinder> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        bool physics:collisionEnabled = 1
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.3
+        bool physics:rigidBodyEnabled = 1
+        double radius = 0.5000000111758711
+        custom bool refinementEnableOverride = 1
+        custom int refinementLevel = 2
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.3, 0.3, 0.75)
+        double3 xformOp:translate = (-2.999999999999999, 5, 0.25)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Cylinder "Cylinder_17" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double height = 1.0000000223517422
+        rel material:binding = </World/GroundPlane/Looks/Cylinder> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        bool physics:collisionEnabled = 1
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.3
+        bool physics:rigidBodyEnabled = 1
+        double radius = 0.5000000111758711
+        custom bool refinementEnableOverride = 1
+        custom int refinementLevel = 2
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.3, 0.3, 0.75)
+        double3 xformOp:translate = (-5, 5, 0.25)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Cylinder "Cylinder_18" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double height = 1.0000000223517422
+        rel material:binding = </World/GroundPlane/Looks/Cylinder> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        bool physics:collisionEnabled = 1
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.3
+        bool physics:rigidBodyEnabled = 1
+        double radius = 0.5000000111758711
+        custom bool refinementEnableOverride = 1
+        custom int refinementLevel = 2
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.3, 0.3, 0.75)
+        double3 xformOp:translate = (1, -1, 0.25)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Cylinder "Cylinder_19" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double height = 1.0000000223517422
+        rel material:binding = </World/GroundPlane/Looks/Cylinder> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        bool physics:collisionEnabled = 1
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.3
+        bool physics:rigidBodyEnabled = 1
+        double radius = 0.5000000111758711
+        custom bool refinementEnableOverride = 1
+        custom int refinementLevel = 2
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.3, 0.3, 0.75)
+        double3 xformOp:translate = (3, -1, 0.25)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Cylinder "Cylinder_20" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double height = 1.0000000223517422
+        rel material:binding = </World/GroundPlane/Looks/Cylinder> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        bool physics:collisionEnabled = 1
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.3
+        bool physics:rigidBodyEnabled = 1
+        double radius = 0.5000000111758711
+        custom bool refinementEnableOverride = 1
+        custom int refinementLevel = 2
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.3, 0.3, 0.75)
+        double3 xformOp:translate = (5, -1, 0.25)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Cylinder "Cylinder_21" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double height = 1.0000000223517422
+        rel material:binding = </World/GroundPlane/Looks/Cylinder> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        bool physics:collisionEnabled = 1
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.3
+        bool physics:rigidBodyEnabled = 1
+        double radius = 0.5000000111758711
+        custom bool refinementEnableOverride = 1
+        custom int refinementLevel = 2
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.3, 0.3, 0.75)
+        double3 xformOp:translate = (-1, -1, 0.25)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Cylinder "Cylinder_22" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double height = 1.0000000223517422
+        rel material:binding = </World/GroundPlane/Looks/Cylinder> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        bool physics:collisionEnabled = 1
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.3
+        bool physics:rigidBodyEnabled = 1
+        double radius = 0.5000000111758711
+        custom bool refinementEnableOverride = 1
+        custom int refinementLevel = 2
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.3, 0.3, 0.75)
+        double3 xformOp:translate = (-3, -1, 0.25)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Cylinder "Cylinder_23" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double height = 1.0000000223517422
+        rel material:binding = </World/GroundPlane/Looks/Cylinder> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        bool physics:collisionEnabled = 1
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.3
+        bool physics:rigidBodyEnabled = 1
+        double radius = 0.5000000111758711
+        custom bool refinementEnableOverride = 1
+        custom int refinementLevel = 2
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.3, 0.3, 0.75)
+        double3 xformOp:translate = (-5, -1, 0.25)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Cylinder "Cylinder_24" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double height = 1.0000000223517422
+        rel material:binding = </World/GroundPlane/Looks/Cylinder> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        bool physics:collisionEnabled = 1
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.3
+        bool physics:rigidBodyEnabled = 1
+        double radius = 0.5000000111758711
+        custom bool refinementEnableOverride = 1
+        custom int refinementLevel = 2
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.3, 0.3, 0.75)
+        double3 xformOp:translate = (1, -3, 0.25)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Cylinder "Cylinder_25" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double height = 1.0000000223517422
+        rel material:binding = </World/GroundPlane/Looks/Cylinder> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        bool physics:collisionEnabled = 1
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.3
+        bool physics:rigidBodyEnabled = 1
+        double radius = 0.5000000111758711
+        custom bool refinementEnableOverride = 1
+        custom int refinementLevel = 2
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.3, 0.3, 0.75)
+        double3 xformOp:translate = (3, -3, 0.25)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Cylinder "Cylinder_26" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double height = 1.0000000223517422
+        rel material:binding = </World/GroundPlane/Looks/Cylinder> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        bool physics:collisionEnabled = 1
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.3
+        bool physics:rigidBodyEnabled = 1
+        double radius = 0.5000000111758711
+        custom bool refinementEnableOverride = 1
+        custom int refinementLevel = 2
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.3, 0.3, 0.75)
+        double3 xformOp:translate = (5, -3, 0.25)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Cylinder "Cylinder_27" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double height = 1.0000000223517422
+        rel material:binding = </World/GroundPlane/Looks/Cylinder> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        bool physics:collisionEnabled = 1
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.3
+        bool physics:rigidBodyEnabled = 1
+        double radius = 0.5000000111758711
+        custom bool refinementEnableOverride = 1
+        custom int refinementLevel = 2
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.3, 0.3, 0.75)
+        double3 xformOp:translate = (-1, -3, 0.25)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Cylinder "Cylinder_28" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double height = 1.0000000223517422
+        rel material:binding = </World/GroundPlane/Looks/Cylinder> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        bool physics:collisionEnabled = 1
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.3
+        bool physics:rigidBodyEnabled = 1
+        double radius = 0.5000000111758711
+        custom bool refinementEnableOverride = 1
+        custom int refinementLevel = 2
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.3, 0.3, 0.75)
+        double3 xformOp:translate = (-3, -3, 0.25)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Cylinder "Cylinder_29" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double height = 1.0000000223517422
+        rel material:binding = </World/GroundPlane/Looks/Cylinder> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        bool physics:collisionEnabled = 1
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.3
+        bool physics:rigidBodyEnabled = 1
+        double radius = 0.5000000111758711
+        custom bool refinementEnableOverride = 1
+        custom int refinementLevel = 2
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.3, 0.3, 0.75)
+        double3 xformOp:translate = (-5, -3, 0.25)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Cylinder "Cylinder_30" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double height = 1.0000000223517422
+        rel material:binding = </World/GroundPlane/Looks/Cylinder> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        bool physics:collisionEnabled = 1
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.3
+        bool physics:rigidBodyEnabled = 1
+        double radius = 0.5000000111758711
+        custom bool refinementEnableOverride = 1
+        custom int refinementLevel = 2
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.3, 0.3, 0.75)
+        double3 xformOp:translate = (1, -5, 0.25)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Cylinder "Cylinder_31" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double height = 1.0000000223517422
+        rel material:binding = </World/GroundPlane/Looks/Cylinder> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        bool physics:collisionEnabled = 1
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.3
+        bool physics:rigidBodyEnabled = 1
+        double radius = 0.5000000111758711
+        custom bool refinementEnableOverride = 1
+        custom int refinementLevel = 2
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.3, 0.3, 0.75)
+        double3 xformOp:translate = (3, -5, 0.25)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Cylinder "Cylinder_32" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double height = 1.0000000223517422
+        rel material:binding = </World/GroundPlane/Looks/Cylinder> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        bool physics:collisionEnabled = 1
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.3
+        bool physics:rigidBodyEnabled = 1
+        double radius = 0.5000000111758711
+        custom bool refinementEnableOverride = 1
+        custom int refinementLevel = 2
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.3, 0.3, 0.75)
+        double3 xformOp:translate = (5, -5, 0.25)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Cylinder "Cylinder_33" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double height = 1.0000000223517422
+        rel material:binding = </World/GroundPlane/Looks/Cylinder> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        bool physics:collisionEnabled = 1
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.3
+        bool physics:rigidBodyEnabled = 1
+        double radius = 0.5000000111758711
+        custom bool refinementEnableOverride = 1
+        custom int refinementLevel = 2
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.3, 0.3, 0.75)
+        double3 xformOp:translate = (-1, -5, 0.25)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Cylinder "Cylinder_34" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double height = 1.0000000223517422
+        rel material:binding = </World/GroundPlane/Looks/Cylinder> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        bool physics:collisionEnabled = 1
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.3
+        bool physics:rigidBodyEnabled = 1
+        double radius = 0.5000000111758711
+        custom bool refinementEnableOverride = 1
+        custom int refinementLevel = 2
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.3, 0.3, 0.75)
+        double3 xformOp:translate = (-3, -5, 0.25)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def Cylinder "Cylinder_35" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI", "PhysicsRigidBodyAPI", "PhysxRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        double height = 1.0000000223517422
+        rel material:binding = </World/GroundPlane/Looks/Cylinder> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+        bool physics:collisionEnabled = 1
+        bool physics:kinematicEnabled = 0
+        float physics:mass = 0.3
+        bool physics:rigidBodyEnabled = 1
+        double radius = 0.5000000111758711
+        custom bool refinementEnableOverride = 1
+        custom int refinementLevel = 2
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (0.3, 0.3, 0.75)
+        double3 xformOp:translate = (-5, -5, 0.25)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+}
+
+def Xform "Environment"
+{
+    quatd xformOp:orient = (1, 0, 0, 0)
+    double3 xformOp:scale = (1, 1, 1)
+    double3 xformOp:translate = (0, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+}
+
