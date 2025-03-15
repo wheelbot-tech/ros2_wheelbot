@@ -1,1 +1,0 @@
-/home/george/ROS2/ros2_hoverboard/src/sensors/rplidar_ros2/launch/rplidar_s1_tcp.launch.py

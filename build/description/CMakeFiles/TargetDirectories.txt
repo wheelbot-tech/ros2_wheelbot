@@ -1,9 +1,0 @@
-/home/george/ROS2/ros2_hoverboard/build/description/CMakeFiles/uninstall.dir
-/home/george/ROS2/ros2_hoverboard/build/description/CMakeFiles/description_uninstall.dir
-/home/george/ROS2/ros2_hoverboard/build/description/CMakeFiles/test.dir
-/home/george/ROS2/ros2_hoverboard/build/description/CMakeFiles/edit_cache.dir
-/home/george/ROS2/ros2_hoverboard/build/description/CMakeFiles/rebuild_cache.dir
-/home/george/ROS2/ros2_hoverboard/build/description/CMakeFiles/list_install_components.dir
-/home/george/ROS2/ros2_hoverboard/build/description/CMakeFiles/install.dir
-/home/george/ROS2/ros2_hoverboard/build/description/CMakeFiles/install/local.dir
-/home/george/ROS2/ros2_hoverboard/build/description/CMakeFiles/install/strip.dir

@@ -1,1 +1,0 @@
-/home/george/ROS2/ros2_hoverboard/src/isaac_sim/tools/isaac_launch_script_old.py

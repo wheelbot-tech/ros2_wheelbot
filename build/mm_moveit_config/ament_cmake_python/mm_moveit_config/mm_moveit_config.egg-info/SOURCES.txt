@@ -1,7 +1,0 @@
-setup.py
-mm_moveit_config/__init__.py
-mm_moveit_config/launch_common.py
-mm_moveit_config.egg-info/PKG-INFO
-mm_moveit_config.egg-info/SOURCES.txt
-mm_moveit_config.egg-info/dependency_links.txt
-mm_moveit_config.egg-info/top_level.txt

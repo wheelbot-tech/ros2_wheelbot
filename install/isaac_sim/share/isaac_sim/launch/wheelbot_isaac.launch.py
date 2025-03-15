@@ -1,1 +1,0 @@
-/home/george/ROS2/ros2_hoverboard/src/isaac_sim/launch/wheelbot_isaac.launch.py

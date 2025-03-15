@@ -1,3 +1,0 @@
-/home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/lib/libtopic_based_ros2_control.so
-/home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control/cmake/topic_based_ros2_controlTargetsExport.cmake
-/home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control/cmake/topic_based_ros2_controlTargetsExport-noconfig.cmake

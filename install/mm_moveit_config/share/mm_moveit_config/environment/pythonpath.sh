@@ -1,1 +1,0 @@
-/home/george/ROS2/ros2_hoverboard/build/mm_moveit_config/ament_cmake_environment_hooks/pythonpath.sh

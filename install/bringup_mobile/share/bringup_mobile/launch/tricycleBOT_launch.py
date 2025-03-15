@@ -1,1 +1,0 @@
-/home/george/ROS2/ros2_hoverboard/src/mobile_robot/bringup_mobile/launch/tricycleBOT_launch.py

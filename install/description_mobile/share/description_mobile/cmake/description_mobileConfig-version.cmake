@@ -1,1 +1,0 @@
-/home/george/ROS2/ros2_hoverboard/build/description_mobile/ament_cmake_core/description_mobileConfig-version.cmake

@@ -1,1 +1,0 @@
-/home/george/ROS2/ros2_hoverboard/src/manipulator/ur_description/test/test_view_ur_launch.py

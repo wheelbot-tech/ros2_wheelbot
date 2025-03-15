@@ -1,9 +1,0 @@
-/home/george/ROS2/ros2_hoverboard/build/description_mobile/CMakeFiles/uninstall.dir
-/home/george/ROS2/ros2_hoverboard/build/description_mobile/CMakeFiles/description_mobile_uninstall.dir
-/home/george/ROS2/ros2_hoverboard/build/description_mobile/CMakeFiles/test.dir
-/home/george/ROS2/ros2_hoverboard/build/description_mobile/CMakeFiles/edit_cache.dir
-/home/george/ROS2/ros2_hoverboard/build/description_mobile/CMakeFiles/rebuild_cache.dir
-/home/george/ROS2/ros2_hoverboard/build/description_mobile/CMakeFiles/list_install_components.dir
-/home/george/ROS2/ros2_hoverboard/build/description_mobile/CMakeFiles/install.dir
-/home/george/ROS2/ros2_hoverboard/build/description_mobile/CMakeFiles/install/local.dir
-/home/george/ROS2/ros2_hoverboard/build/description_mobile/CMakeFiles/install/strip.dir

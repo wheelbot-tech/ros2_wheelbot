@@ -1,1 +1,0 @@
-/home/george/ROS2/ros2_hoverboard/build/description/ament_cmake_environment_hooks/local_setup.zsh

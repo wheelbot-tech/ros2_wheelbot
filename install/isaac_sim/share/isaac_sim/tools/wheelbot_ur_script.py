@@ -1,1 +1,0 @@
-/home/george/ROS2/ros2_hoverboard/src/isaac_sim/tools/wheelbot_ur_script.py

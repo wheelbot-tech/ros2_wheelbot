@@ -1,1 +1,0 @@
-/home/george/ROS2/ros2_hoverboard/src/sensors/ros_components_description/launch/gz_kinova_6dof.launch.py

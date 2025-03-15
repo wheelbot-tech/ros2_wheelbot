@@ -1,1 +1,0 @@
-/home/george/ROS2/ros2_hoverboard/src/mobile_manipulator/mm_moveit_config/launch/mm_sim_moveit.launch.py

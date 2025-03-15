@@ -1,1 +1,0 @@
-/home/george/ROS2/ros2_hoverboard/src/mobile_robot/navigation_ws/nav2/launch/navigation_wheelbot_sim.launch.py
