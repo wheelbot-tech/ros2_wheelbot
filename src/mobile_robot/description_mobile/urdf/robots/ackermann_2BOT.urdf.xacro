@@ -1,0 +1,86 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="ackermannBOT" >
+
+
+<!-- import main macro -->
+<xacro:include filename="$(find description)/meshes/materials.xacro" />
+<xacro:include filename="$(find description)/urdf/properties/properties_ackermann_2BOT.urdf.xacro"/>
+
+<xacro:include filename="$(find description)/urdf/mech/chassis.urdf.xacro"/>
+<xacro:include filename="$(find description)/urdf/mech/diff_drive_module.urdf.xacro"/>
+<xacro:include filename="$(find description)/urdf/mech/virtual_ackermann_2_module.urdf.xacro"/>
+<xacro:include filename="$(find description)/urdf/mech/caster_wheel.urdf.xacro" />
+
+<xacro:include filename="$(find description)/ros2_control/ackermann_2bot.ros2_control.xacro" />
+<xacro:include filename="$(find description)/ros2_control/drive_module.ros2_control.xacro" />
+
+<!-- parameters -->
+<xacro:arg name="name" default="ackermann_2BOT" />
+<xacro:arg name="prefix" default="" />
+<xacro:arg name="position_Z" default="${str(wheel_radius + base_height/2 + rulment_axial_height)}" />
+
+<link name="base_link"/>
+
+<xacro:chassis 
+  prefix="$(arg prefix)"
+  parent="base_link"
+  pos_z="${str(2*wheel_radius + base_height/2 + rulment_axial_height)}"
+/>
+
+<xacro:virtual_ackermann_2_module
+  prefix="$(arg prefix)"
+  parent="chassis_link"
+  pos_x="${str(base_width/2 -0.02)}"
+  pos_y="${str(wheel_track/2)}"
+  pos_z="$(arg position_Z)"
+/>
+
+<xacro:caster_wheel 
+  prefix="$(arg prefix)"
+  side = "FL"
+  mass="0.01"
+  wheel_radius="${wheel_radius}" 
+  parent="chassis_link"
+  pos_x="${str(base_width/2 -0.02)}"
+  pos_y="${str(wheel_track/2)}"
+  pos_z="$(arg position_Z)" 
+/>
+
+<xacro:diff_drive_module  
+  prefix="$(arg prefix)"
+  name="diffBOT_FR"
+  parent="chassis_link"
+  drive_pos="FR_"
+  steering_pos="virtual_front_right"
+>
+  <origin xyz="${base_width/2 -0.02} -${wheel_track/2} -${base_height/2 + rulment_axial_height/2}" rpy="0 0 0"/>
+</xacro:diff_drive_module>
+
+<xacro:diff_drive_module
+  prefix="$(arg prefix)"
+  name="diffBOT_RL"
+  parent="chassis_link"
+  drive_pos="RL_"
+  steering_pos="virtual_front_left"
+>
+  <origin xyz="-${base_width/2 -0.02} ${wheel_track/2} -${base_height/2 + rulment_axial_height/2}" rpy="0 0 0"/>
+</xacro:diff_drive_module>
+
+<xacro:caster_wheel 
+  prefix="$(arg prefix)"
+  side = "RR"
+  mass="0.01"
+  wheel_radius="${wheel_radius}" 
+  parent="chassis_link"
+  pos_x="-${base_width/2 -0.02}"
+  pos_y="-${wheel_track/2}"
+  pos_z="$(arg position_Z)"
+/>
+
+<!-- ros2_control -->
+<xacro:ackermann_2bot_ros2_control
+  name="$(arg name)"
+  prefix="$(arg prefix)"
+/>
+
+</robot>

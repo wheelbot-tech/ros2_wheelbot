@@ -1,0 +1,90 @@
+[0.027s] Invoking command in '/home/george/ROS2/ros2_hoverboard/build/topic_based_ros2_control': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /home/george/ROS2/ros2_hoverboard/src/topic_based_ros2_control -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control
+[0.100s] -- The CXX compiler identification is GNU 11.4.0
+[0.109s] -- Detecting CXX compiler ABI info
+[0.210s] -- Detecting CXX compiler ABI info - done
+[0.216s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.216s] -- Detecting CXX compile features
+[0.217s] -- Detecting CXX compile features - done
+[0.228s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.724s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[0.815s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[0.854s] -- Found angles: 1.15.0 (/opt/ros/humble/share/angles/cmake)
+[0.857s] -- Found rclcpp: 16.0.11 (/opt/ros/humble/share/rclcpp/cmake)
+[0.905s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.911s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.922s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.935s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.953s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.006s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.009s] -- Found rmw_cyclonedds_cpp: 1.3.4 (/opt/ros/humble/share/rmw_cyclonedds_cpp/cmake)
+[1.035s] -- Using RMW implementation 'rmw_cyclonedds_cpp' as default
+[1.046s] -- Looking for C++ include pthread.h
+[1.145s] -- Looking for C++ include pthread.h - found
+[1.148s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[1.255s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[1.256s] -- Found Threads: TRUE  
+[1.314s] -- Found hardware_interface: 2.48.0 (/opt/ros/humble/share/hardware_interface/cmake)
+[1.489s] -- Found ament_cmake_gtest: 1.3.11 (/opt/ros/humble/share/ament_cmake_gtest/cmake)
+[1.492s] -- Found ament_lint_auto: 0.12.11 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[1.495s] -- Found ament_cmake_pytest: 1.3.11 (/opt/ros/humble/share/ament_cmake_pytest/cmake)
+[1.498s] -- Found ros2_control_test_assets: 2.48.0 (/opt/ros/humble/share/ros2_control_test_assets/cmake)
+[1.689s] -- Found gtest sources under '/opt/ros/humble/src/gtest_vendor': C++ tests using 'Google Test' will be built
+[1.766s] -- The C compiler identification is GNU 11.4.0
+[1.779s] -- Detecting C compiler ABI info
+[1.921s] -- Detecting C compiler ABI info - done
+[1.928s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.928s] -- Detecting C compile features
+[1.929s] -- Detecting C compile features - done
+[1.962s] -- Added test 'copyright' to check source files copyright and LICENSE
+[1.974s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[1.974s] -- Configured cppcheck include dirs: $<BUILD_INTERFACE:/home/george/ROS2/ros2_hoverboard/src/topic_based_ros2_control/include>
+[1.974s] -- Configured cppcheck exclude dirs and/or files: 
+[1.979s] -- Added test 'lint_cmake' to check CMake code style
+[1.982s] -- Added test 'xmllint' to check XML markup files
+[1.988s] -- Configuring done
+[2.108s] -- Generating done
+[2.134s] -- Build files have been written to: /home/george/ROS2/ros2_hoverboard/build/topic_based_ros2_control
+[2.164s] Invoked command in '/home/george/ROS2/ros2_hoverboard/build/topic_based_ros2_control' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /home/george/ROS2/ros2_hoverboard/src/topic_based_ros2_control -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control
+[2.169s] Invoking command in '/home/george/ROS2/ros2_hoverboard/build/topic_based_ros2_control': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/george/ROS2/ros2_hoverboard/build/topic_based_ros2_control -- -j6 -l6
+[2.578s] [ 12%] [32mBuilding CXX object CMakeFiles/topic_based_ros2_control.dir/src/topic_based_system.cpp.o[0m
+[2.578s] [ 25%] [32mBuilding CXX object gtest/CMakeFiles/gtest.dir/src/gtest-all.cc.o[0m
+[2.578s] [ 37%] [32mBuilding CXX object gtest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o[0m
+[4.113s] [ 50%] [32m[1mLinking CXX static library libgtest_main.a[0m
+[4.250s] [ 50%] Built target gtest_main
+[8.711s] [ 62%] [32m[1mLinking CXX static library libgtest.a[0m
+[8.885s] [ 62%] Built target gtest
+[15.240s] [ 75%] [32m[1mLinking CXX shared library libtopic_based_ros2_control.so[0m
+[16.154s] [ 75%] Built target topic_based_ros2_control
+[16.205s] [ 87%] [32mBuilding CXX object CMakeFiles/topic_based_system_test.dir/test/topic_based_system_test.cpp.o[0m
+[18.234s] [100%] [32m[1mLinking CXX executable topic_based_system_test[0m
+[18.534s] [100%] Built target topic_based_system_test
+[18.552s] Invoked command in '/home/george/ROS2/ros2_hoverboard/build/topic_based_ros2_control' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/george/ROS2/ros2_hoverboard/build/topic_based_ros2_control -- -j6 -l6
+[18.552s] Invoking command in '/home/george/ROS2/ros2_hoverboard/build/topic_based_ros2_control': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/george/ROS2/ros2_hoverboard/build/topic_based_ros2_control
+[18.627s] -- Install configuration: ""
+[18.627s] -- Execute custom install script
+[18.627s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control//topic_based_ros2_control_plugin_description.xml
+[18.627s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control/environment/library_path.sh
+[18.627s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control/environment/library_path.dsv
+[18.627s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/ament_index/resource_index/package_run_dependencies/topic_based_ros2_control
+[18.640s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/ament_index/resource_index/parent_prefix_path/topic_based_ros2_control
+[18.659s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control/environment/ament_prefix_path.sh
+[18.677s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control/environment/ament_prefix_path.dsv
+[18.692s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control/environment/path.sh
+[18.702s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control/environment/path.dsv
+[18.715s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control/local_setup.bash
+[18.732s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control/local_setup.sh
+[18.745s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control/local_setup.zsh
+[18.764s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control/local_setup.dsv
+[18.782s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control/package.dsv
+[18.802s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/ament_index/resource_index/packages/topic_based_ros2_control
+[18.819s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/ament_index/resource_index/hardware_interface__pluginlib__plugin/topic_based_ros2_control
+[18.840s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control/cmake/ament_cmake_export_targets-extras.cmake
+[18.856s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control/cmake/ament_cmake_export_dependencies-extras.cmake
+[18.874s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control/cmake/topic_based_ros2_controlConfig.cmake
+[18.893s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control/cmake/topic_based_ros2_controlConfig-version.cmake
+[18.916s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control/package.xml
+[18.931s] -- Installing: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/lib/libtopic_based_ros2_control.so
+[18.937s] -- Set runtime path of "/home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/lib/libtopic_based_ros2_control.so" to ""
+[18.938s] -- Installing: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control/cmake/topic_based_ros2_controlTargetsExport.cmake
+[18.938s] -- Installing: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control/cmake/topic_based_ros2_controlTargetsExport-noconfig.cmake
+[18.944s] Invoked command in '/home/george/ROS2/ros2_hoverboard/build/topic_based_ros2_control' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/george/ROS2/ros2_hoverboard/build/topic_based_ros2_control

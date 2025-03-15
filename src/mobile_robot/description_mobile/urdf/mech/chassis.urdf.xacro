@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+
+    <xacro:macro name="chassis" params="
+        prefix parent
+        pos_z"
+    >
+    
+     <link name="${prefix}chassis_link">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="${base_length} ${base_width} ${base_height}"/>
+            </geometry>
+        </collision>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="${base_length} ${base_width} ${base_height}"/>
+            </geometry>
+            <material name="transparent"/>
+        </visual>
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="${base_mass}"/>
+            <inertia
+                ixx="0.000270" ixy="0.0" ixz="0.0"
+                iyy="0.000270" iyz="0.0"
+                izz="0.000426"/>
+            </inertial>
+     </link>
+
+     <link name="${prefix}ur_stand_link">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.40 0.40 0.40"/>
+            </geometry>
+        </collision>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.40 0.40 0.40"/>
+            </geometry>
+            <material name="PETG_orange"/>
+        </visual>
+
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="${base_mass}"/>
+            <inertia
+                ixx="0.000270" ixy="0.0" ixz="0.0"
+                iyy="0.000270" iyz="0.0"
+                izz="0.000426"/>
+            </inertial>
+     </link>
+
+
+     <joint name="${prefix}chassis_joint" type="fixed">
+        <parent link="${prefix}${parent}"/>
+        <child link="${prefix}chassis_link"/>
+        <origin xyz="0 0 ${pos_z}" rpy="0 0 0"/>
+        <axis xyz="0 0 1"/>
+        <dynamics damping="0.2"/>
+     </joint>
+
+
+     <joint name="${prefix}ur_stand_joint" type="fixed">
+        <parent link="${prefix}chassis_link"/>
+        <child link="${prefix}ur_stand_link"/>
+        <origin xyz="0 0 ${str(base_height/2 + 0.20)}" rpy="0 0 0"/>
+        <axis xyz="0 0 1"/>
+        <dynamics damping="0.2"/>
+     </joint>
+
+    </xacro:macro>
+</robot>

@@ -1,0 +1,4 @@
+Invoking command in '/home/george/ROS2/ros2_hoverboard/build/description_mobile': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/george/ROS2/ros2_hoverboard/build/description_mobile -- -j6 -l6
+Invoked command in '/home/george/ROS2/ros2_hoverboard/build/description_mobile' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/george/ROS2/ros2_hoverboard/build/description_mobile -- -j6 -l6
+Invoking command in '/home/george/ROS2/ros2_hoverboard/build/description_mobile': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/george/ROS2/ros2_hoverboard/build/description_mobile
+Invoked command in '/home/george/ROS2/ros2_hoverboard/build/description_mobile' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/george/ROS2/ros2_hoverboard/build/description_mobile

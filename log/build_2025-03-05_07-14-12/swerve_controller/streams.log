@@ -1,0 +1,28 @@
+[0.048s] Invoking command in '/home/george/ROS2/ros2_hoverboard/build/swerve_controller': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/george/ROS2/ros2_hoverboard/build/swerve_controller -- -j6 -l6
+[0.183s] [100%] Built target swerve_controller
+[0.201s] Invoked command in '/home/george/ROS2/ros2_hoverboard/build/swerve_controller' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/george/ROS2/ros2_hoverboard/build/swerve_controller -- -j6 -l6
+[0.202s] Invoking command in '/home/george/ROS2/ros2_hoverboard/build/swerve_controller': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/george/ROS2/ros2_hoverboard/build/swerve_controller
+[0.230s] -- Install configuration: ""
+[0.231s] -- Execute custom install script
+[0.231s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/swerve_controller/share/swerve_controller//swerve_plugin.xml
+[0.231s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/swerve_controller/include/swerve_controller/speed_limiter.hpp
+[0.231s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/swerve_controller/include/swerve_controller/swerve_controller.hpp
+[0.231s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/swerve_controller/include/swerve_controller/visibility_control.h
+[0.231s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/swerve_controller/lib/libswerve_controller.so
+[0.231s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/swerve_controller/share/ament_index/resource_index/package_run_dependencies/swerve_controller
+[0.231s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/swerve_controller/share/ament_index/resource_index/parent_prefix_path/swerve_controller
+[0.231s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/swerve_controller/share/swerve_controller/environment/ament_prefix_path.sh
+[0.231s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/swerve_controller/share/swerve_controller/environment/ament_prefix_path.dsv
+[0.231s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/swerve_controller/share/swerve_controller/environment/path.sh
+[0.231s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/swerve_controller/share/swerve_controller/environment/path.dsv
+[0.232s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/swerve_controller/share/swerve_controller/local_setup.bash
+[0.232s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/swerve_controller/share/swerve_controller/local_setup.sh
+[0.232s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/swerve_controller/share/swerve_controller/local_setup.zsh
+[0.232s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/swerve_controller/share/swerve_controller/local_setup.dsv
+[0.232s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/swerve_controller/share/swerve_controller/package.dsv
+[0.232s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/swerve_controller/share/ament_index/resource_index/packages/swerve_controller
+[0.232s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/swerve_controller/share/ament_index/resource_index/controller_interface__pluginlib__plugin/swerve_controller
+[0.232s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/swerve_controller/share/swerve_controller/cmake/swerve_controllerConfig.cmake
+[0.232s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/swerve_controller/share/swerve_controller/cmake/swerve_controllerConfig-version.cmake
+[0.232s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/swerve_controller/share/swerve_controller/package.xml
+[0.271s] Invoked command in '/home/george/ROS2/ros2_hoverboard/build/swerve_controller' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/george/ROS2/ros2_hoverboard/build/swerve_controller

@@ -1,0 +1,233 @@
+[0.032s] Invoking command in '/home/george/ROS2/ros2_hoverboard/build/isaac_sim': CMAKE_PREFIX_PATH=/home/george/ROS2/ros2_hoverboard/install/description:/home/george/ROS2/ros2_hoverboard/install/ros_components_description:/home/george/ROS2/ros2_hoverboard/install/bringup:/home/george/ROS2/ros2_hoverboard/install/mm_moveit_config:/home/george/ROS2/ros2_hoverboard/install/ur_description:/home/george/ROS2/ros2_hoverboard/install/bringup_mobile:/home/george/ROS2/ros2_hoverboard/install/twist_mux:/home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control:/home/george/ROS2/ros2_hoverboard/install/swerve_controller:/home/george/ROS2/ros2_hoverboard/install/rplidar_ros2:/home/george/ROS2/ros2_hoverboard/install/nav2:/home/george/ROS2/ros2_hoverboard/install/isaac_sim:/home/george/ROS2/ros2_hoverboard/install/description_mobile:/home/george/ROS2/ws_rmw_zenoh/install/rmw_zenoh_cpp:/home/george/ROS2/ws_rmw_zenoh/install/zenoh_cpp_vendor:/opt/ros/humble /usr/bin/cmake /home/george/ROS2/ros2_hoverboard/src/isaac_sim -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/george/ROS2/ros2_hoverboard/install/isaac_sim
+[1.113s] -- The C compiler identification is GNU 11.4.0
+[1.113s] -- The CXX compiler identification is GNU 11.4.0
+[1.113s] -- Detecting C compiler ABI info
+[1.113s] -- Detecting C compiler ABI info - done
+[1.113s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.113s] -- Detecting C compile features
+[1.113s] -- Detecting C compile features - done
+[1.113s] -- Detecting CXX compiler ABI info
+[1.113s] -- Detecting CXX compiler ABI info - done
+[1.113s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[1.113s] -- Detecting CXX compile features
+[1.113s] -- Detecting CXX compile features - done
+[1.113s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.611s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.761s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[1.847s] -- Found rclcpp: 16.0.11 (/opt/ros/humble/share/rclcpp/cmake)
+[1.918s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.929s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.939s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.955s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.977s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[2.076s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[2.085s] -- Found rmw_cyclonedds_cpp: 1.3.4 (/opt/ros/humble/share/rmw_cyclonedds_cpp/cmake)
+[2.130s] -- Using RMW implementation 'rmw_cyclonedds_cpp' as default
+[2.142s] -- Looking for pthread.h
+[2.303s] -- Looking for pthread.h - found
+[2.303s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[2.448s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[2.448s] -- Found Threads: TRUE  
+[2.570s] -- Found sensor_msgs: 4.2.4 (/opt/ros/humble/share/sensor_msgs/cmake)
+[2.848s] -- Configuring done
+[2.864s] -- Generating done
+[2.871s] -- Build files have been written to: /home/george/ROS2/ros2_hoverboard/build/isaac_sim
+[2.877s] Invoked command in '/home/george/ROS2/ros2_hoverboard/build/isaac_sim' returned '0': CMAKE_PREFIX_PATH=/home/george/ROS2/ros2_hoverboard/install/description:/home/george/ROS2/ros2_hoverboard/install/ros_components_description:/home/george/ROS2/ros2_hoverboard/install/bringup:/home/george/ROS2/ros2_hoverboard/install/mm_moveit_config:/home/george/ROS2/ros2_hoverboard/install/ur_description:/home/george/ROS2/ros2_hoverboard/install/bringup_mobile:/home/george/ROS2/ros2_hoverboard/install/twist_mux:/home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control:/home/george/ROS2/ros2_hoverboard/install/swerve_controller:/home/george/ROS2/ros2_hoverboard/install/rplidar_ros2:/home/george/ROS2/ros2_hoverboard/install/nav2:/home/george/ROS2/ros2_hoverboard/install/isaac_sim:/home/george/ROS2/ros2_hoverboard/install/description_mobile:/home/george/ROS2/ws_rmw_zenoh/install/rmw_zenoh_cpp:/home/george/ROS2/ws_rmw_zenoh/install/zenoh_cpp_vendor:/opt/ros/humble /usr/bin/cmake /home/george/ROS2/ros2_hoverboard/src/isaac_sim -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/george/ROS2/ros2_hoverboard/install/isaac_sim
+[2.882s] Invoking command in '/home/george/ROS2/ros2_hoverboard/build/isaac_sim': CMAKE_PREFIX_PATH=/home/george/ROS2/ros2_hoverboard/install/description:/home/george/ROS2/ros2_hoverboard/install/ros_components_description:/home/george/ROS2/ros2_hoverboard/install/bringup:/home/george/ROS2/ros2_hoverboard/install/mm_moveit_config:/home/george/ROS2/ros2_hoverboard/install/ur_description:/home/george/ROS2/ros2_hoverboard/install/bringup_mobile:/home/george/ROS2/ros2_hoverboard/install/twist_mux:/home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control:/home/george/ROS2/ros2_hoverboard/install/swerve_controller:/home/george/ROS2/ros2_hoverboard/install/rplidar_ros2:/home/george/ROS2/ros2_hoverboard/install/nav2:/home/george/ROS2/ros2_hoverboard/install/isaac_sim:/home/george/ROS2/ros2_hoverboard/install/description_mobile:/home/george/ROS2/ws_rmw_zenoh/install/rmw_zenoh_cpp:/home/george/ROS2/ws_rmw_zenoh/install/zenoh_cpp_vendor:/opt/ros/humble /usr/bin/cmake --build /home/george/ROS2/ros2_hoverboard/build/isaac_sim -- -j6 -l6
+[2.991s] [ 50%] [32mBuilding CXX object CMakeFiles/test_wheel_command.dir/src/test_wheel_command.cpp.o[0m
+[9.229s] [100%] [32m[1mLinking CXX executable test_wheel_command[0m
+[9.499s] [100%] Built target test_wheel_command
+[9.555s] Invoked command in '/home/george/ROS2/ros2_hoverboard/build/isaac_sim' returned '0': CMAKE_PREFIX_PATH=/home/george/ROS2/ros2_hoverboard/install/description:/home/george/ROS2/ros2_hoverboard/install/ros_components_description:/home/george/ROS2/ros2_hoverboard/install/bringup:/home/george/ROS2/ros2_hoverboard/install/mm_moveit_config:/home/george/ROS2/ros2_hoverboard/install/ur_description:/home/george/ROS2/ros2_hoverboard/install/bringup_mobile:/home/george/ROS2/ros2_hoverboard/install/twist_mux:/home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control:/home/george/ROS2/ros2_hoverboard/install/swerve_controller:/home/george/ROS2/ros2_hoverboard/install/rplidar_ros2:/home/george/ROS2/ros2_hoverboard/install/nav2:/home/george/ROS2/ros2_hoverboard/install/isaac_sim:/home/george/ROS2/ros2_hoverboard/install/description_mobile:/home/george/ROS2/ws_rmw_zenoh/install/rmw_zenoh_cpp:/home/george/ROS2/ws_rmw_zenoh/install/zenoh_cpp_vendor:/opt/ros/humble /usr/bin/cmake --build /home/george/ROS2/ros2_hoverboard/build/isaac_sim -- -j6 -l6
+[9.555s] Invoking command in '/home/george/ROS2/ros2_hoverboard/build/isaac_sim': CMAKE_PREFIX_PATH=/home/george/ROS2/ros2_hoverboard/install/description:/home/george/ROS2/ros2_hoverboard/install/ros_components_description:/home/george/ROS2/ros2_hoverboard/install/bringup:/home/george/ROS2/ros2_hoverboard/install/mm_moveit_config:/home/george/ROS2/ros2_hoverboard/install/ur_description:/home/george/ROS2/ros2_hoverboard/install/bringup_mobile:/home/george/ROS2/ros2_hoverboard/install/twist_mux:/home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control:/home/george/ROS2/ros2_hoverboard/install/swerve_controller:/home/george/ROS2/ros2_hoverboard/install/rplidar_ros2:/home/george/ROS2/ros2_hoverboard/install/nav2:/home/george/ROS2/ros2_hoverboard/install/isaac_sim:/home/george/ROS2/ros2_hoverboard/install/description_mobile:/home/george/ROS2/ws_rmw_zenoh/install/rmw_zenoh_cpp:/home/george/ROS2/ws_rmw_zenoh/install/zenoh_cpp_vendor:/opt/ros/humble /usr/bin/cmake --install /home/george/ROS2/ros2_hoverboard/build/isaac_sim
+[9.568s] -- Install configuration: ""
+[9.568s] -- Execute custom install script
+[9.568s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//config/angular_filter_scan.yaml
+[9.585s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//config/isaac.rviz
+[9.600s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//launch/wheelbot_isaac.launch.py
+[9.616s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//launch/wheelbot_isaac.launch_2.py
+[9.634s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//launch/wheelbot_ur_isaac.launch.py
+[9.650s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//tools/isaac_launch_script_2.py
+[9.666s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//tools/isaac_launch_script_old.py
+[9.688s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//tools/run_isaac_manually.sh
+[9.703s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//tools/wheelbot_script.py
+[9.724s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//tools/wheelbot_ur_script.py
+[9.745s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_worlds/.thumbs/256x256/cilinder_garden.usda.png
+[9.760s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_worlds/.thumbs/256x256/cylinder_garden.usda.png
+[9.779s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_worlds/.thumbs/256x256/cylinder_garden2.usda.png
+[9.798s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_worlds/.thumbs/256x256/ekumen_hq.usda.png
+[9.816s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_worlds/.thumbs/256x256/empty_world.usd.png
+[9.835s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_worlds/.thumbs/256x256/my_world.usda.png
+[9.852s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_worlds/.thumbs/256x256/plain_world.usda.png
+[9.873s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_worlds/cilinder_garden.usda
+[9.892s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_worlds/cylinder_garden.usda
+[9.911s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_worlds/cylinder_garden2.usda
+[9.928s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_worlds/empty_world.usd
+[9.940s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_worlds/my_world.usda
+[9.956s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_worlds/office.usda
+[9.974s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_worlds/plain_world.usda
+[9.989s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_worlds/textures/Tiles054_1K-JPG_Color.jpg
+[10.010s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_worlds/textures/Tiles054_1K-JPG_Roughness.jpg
+[10.024s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_worlds/textures/macro_flour_diff_4k.jpg
+[10.044s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_worlds/textures/macro_flour_nor_gl_4k.exr
+[10.058s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_worlds/textures/macro_flour_rough_4k.exr
+[10.068s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_worlds/textures/wood_floor_diff_4k.jpg
+[10.078s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_worlds/textures/wood_floor_nor_gl_4k.exr
+[10.089s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_worlds/textures/wood_floor_rough_4k.exr
+[10.103s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/.thumbs/256x256/RPLIDAR.usd.png
+[10.123s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/.thumbs/256x256/andino.usda.png
+[10.140s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/.thumbs/256x256/andino_isaac.usda.png
+[10.162s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/.thumbs/256x256/just_andino.usda.png
+[10.173s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/.thumbs/256x256/swerveBOT.usda.png
+[10.182s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/.thumbs/256x256/swerveBOT2.usda.png
+[10.192s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/.thumbs/256x256/swerveBOT_2.usda.png
+[10.203s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/.thumbs/256x256/swerveBOT_3.usda.png
+[10.213s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/.thumbs/256x256/swerveBOT_910.usda.png
+[10.223s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/.thumbs/256x256/swerveBOT_910_UR10.usda.png
+[10.233s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/.thumbs/256x256/swerveBOT_910_UR10_ROS.usda.png
+[10.253s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/.thumbs/256x256/swerveBOT_910x1350.usda.png
+[10.273s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/.thumbs/256x256/swerveBOT_UR10.usda.png
+[10.292s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/.thumbs/256x256/swerveBOT_with_art.usd.png
+[10.311s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/.thumbs/256x256/wheelbot.usd.png
+[10.330s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/.thumbs/256x256/wheelbot.usda.png
+[10.349s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/RPLIDAR.usd
+[10.368s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-140/.thumbs/256x256/.2f140_instanceable.usd.last_generated
+[10.386s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-140/.thumbs/256x256/.Robotiq_2F_140_base.usd.last_generated
+[10.404s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-140/.thumbs/256x256/.Robotiq_2F_140_config.usd.last_generated
+[10.422s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-140/.thumbs/256x256/.Robotiq_2F_140_controller.usd.last_generated
+[10.440s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-140/.thumbs/256x256/.Robotiq_2F_140_physics_edit.usd.last_generated
+[10.458s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-140/.thumbs/256x256/Robotiq_2F_140_physics_edit.usd.png
+[10.476s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-140/.thumbs/2f140_instanceable.thumb.usd
+[10.496s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-140/.thumbs/Robotiq_2F_140_base.thumb.usd
+[10.514s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-140/.thumbs/Robotiq_2F_140_config.thumb.usd
+[10.533s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-140/.thumbs/Robotiq_2F_140_controller.thumb.usd
+[10.555s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-140/.thumbs/Robotiq_2F_140_physics_edit.thumb.usd
+[10.573s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-140/2f140_instanceable.usd
+[10.593s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-140/Collected_2f140_instanceable/2f140_instanceable.usd
+[10.615s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-140/Collected_2f140_instanceable/Props/instanceable_meshes.usd
+[10.636s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-140/Props/instanceable_meshes.usd
+[10.657s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-140/Robotiq_2F_140_base.usd
+[10.681s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-140/Robotiq_2F_140_config.usd
+[10.698s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-140/Robotiq_2F_140_controller.usd
+[10.716s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-140/Robotiq_2F_140_physics_edit.usd
+[10.736s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-140/materials/materials.usd
+[10.757s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-140/parts/Finger1_JFT.usd
+[10.780s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-140/parts/Finger2_JFP.usd
+[10.799s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-140/parts/Finger3_JFH.usd
+[10.821s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-140/parts/Finger4_JFL.usd
+[10.840s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-140/parts/Fingertip_JFD.usd
+[10.862s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-140/parts/_F_Body_JFX.usd
+[10.882s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-85/.thumbs/256x256/.Robotiq_2F_85_base.usd.last_generated
+[10.901s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-85/.thumbs/256x256/.Robotiq_2F_85_config.usd.last_generated
+[10.921s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-85/.thumbs/256x256/.Robotiq_2F_85_controller.usd.last_generated
+[10.943s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-85/.thumbs/256x256/.Robotiq_2F_85_edit.usd.last_generated
+[10.963s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-85/.thumbs/256x256/.Robotiq_2F_85_flattened.usd.last_generated
+[10.984s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-85/.thumbs/256x256/Robotiq_2F_85_edit.usd.png
+[11.003s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-85/.thumbs/Robotiq_2F_85_base.thumb.usd
+[11.022s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-85/.thumbs/Robotiq_2F_85_config.thumb.usd
+[11.045s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-85/.thumbs/Robotiq_2F_85_controller.thumb.usd
+[11.061s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-85/.thumbs/Robotiq_2F_85_edit.thumb.usd
+[11.085s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-85/.thumbs/Robotiq_2F_85_flattened.thumb.usd
+[11.106s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-85/Robotiq_2F_85_base.usd
+[11.125s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-85/Robotiq_2F_85_config.usd
+[11.141s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-85/Robotiq_2F_85_controller.usd
+[11.153s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-85/Robotiq_2F_85_edit.usd
+[11.164s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-85/Robotiq_2F_85_flattened.usd
+[11.174s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-85/materials/materials.usd
+[11.185s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-85/parts/Defeatured_2F_85_PAD_OPEN_Finger1step_JFT.usd
+[11.196s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-85/parts/Defeatured_2F_85_PAD_OPEN_basestep_JFX.usd
+[11.206s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-85/parts/Defeatured_2F_85_PAD_OPEN_finger2step_JFP.usd
+[11.219s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-85/parts/Defeatured_2F_85_PAD_OPEN_finger3step_JFL.usd
+[11.228s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-85/parts/Defeatured_2F_85_PAD_OPEN_finger4step_JFH.usd
+[11.237s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/2F-85/parts/Defeatured_2F_85_PAD_OPEN_fingertipsstep_JFD.usd
+[11.251s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/Hand-E/.thumbs/256x256/.Robotiq_Hand_E_base.usd.last_generated
+[11.261s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/Hand-E/.thumbs/256x256/.Robotiq_Hand_E_config.usd.last_generated
+[11.279s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/Hand-E/.thumbs/256x256/.Robotiq_Hand_E_edit.usd.last_generated
+[11.297s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/Hand-E/.thumbs/256x256/Robotiq_Hand_E_edit.usd.png
+[11.316s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/Hand-E/.thumbs/Robotiq_Hand_E_base.thumb.usd
+[11.335s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/Hand-E/.thumbs/Robotiq_Hand_E_config.thumb.usd
+[11.353s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/Hand-E/.thumbs/Robotiq_Hand_E_edit.thumb.usd
+[11.375s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/Hand-E/Robotiq_Hand_E_base.usd
+[11.391s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/Hand-E/Robotiq_Hand_E_config.usd
+[11.411s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/Hand-E/Robotiq_Hand_E_edit.usd
+[11.432s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/Hand-E/materials/materials.usd
+[11.449s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/Hand-E/parts/D_A03_ASM_DOIGTS_PARALLELES_1ROBOTIQ_HAND_E_DEFEATURE_JFP.usd
+[11.468s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/Hand-E/parts/D_A03_ASM_DOIGTS_PARALLELES_1ROBOTIQ_HAND_E_DEFEATURE_JFT.usd
+[11.484s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/Hand-E/parts/D_A03_ASM_DOIGTS_PARALLELES_1ROBOTIQ_HAND_E_DEFEATURE_JFX.usd
+[11.504s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/Hand-E/parts/D_A03_ASM_DOIGTS_PARALLELES_1ROBOTIQ_HAND_E_DEFEATURE_JFb.usd
+[11.524s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/Hand-E/parts/D_A03_ASM_DOIGTS_PARALLELES_1ROBOTIQ_HAND_E_DEFEATURE_JFf.usd
+[11.539s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/Hand-E/parts/D_A03_ASM_DOIGTS_PARALLELES_1ROBOTIQ_HAND_E_DEFEATURE_JFj.usd
+[11.560s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/Hand-E/parts/Group1ROBOTIQ_HAND_E_DEFEATURE_KFXB.usd
+[11.582s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/Hand-E/parts/Group2ROBOTIQ_HAND_E_DEFEATURE_KFTB.usd
+[11.601s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/Hand-E/parts/Group3ROBOTIQ_HAND_E_DEFEATURE_JF2F.usd
+[11.623s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/Hand-E/parts/Group3ROBOTIQ_HAND_E_DEFEATURE_JF7.usd
+[11.642s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/Hand-E/parts/Group3ROBOTIQ_HAND_E_DEFEATURE_KFDB.usd
+[11.660s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/Hand-E/parts/Group3ROBOTIQ_HAND_E_DEFEATURE_KFHB.usd
+[11.686s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/Hand-E/parts/Group3ROBOTIQ_HAND_E_DEFEATURE_KFLB.usd
+[11.708s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/Hand-E/parts/Group3ROBOTIQ_HAND_E_DEFEATURE_KFPB.usd
+[11.724s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/Hand-E/parts/socket_head_cap_screw_iso_robotiq_24ROBOTIQ_HAND_E_DEFEATURE_JFr.usd
+[11.743s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/Hand-E/parts/socket_head_cap_screw_iso_robotiq_25ROBOTIQ_HAND_E_DEFEATURE_JF3.usd
+[11.760s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/Hand-E/parts/socket_head_cap_screw_iso_robotiq_6ROBOTIQ_HAND_E_DEFEATURE_JFn.usd
+[11.780s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/Hand-E/parts/socket_head_cap_screw_iso_robotiq_7ROBOTIQ_HAND_E_DEFEATURE_JFL.usd
+[11.797s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/Hand-E/parts/toothed_lock_washer_metric_robotiq_10ROBOTIQ_HAND_E_DEFEATURE_JFH.usd
+[11.809s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/Hand-E/parts/toothed_lock_washer_metric_robotiq_11ROBOTIQ_HAND_E_DEFEATURE_JFv.usd
+[11.825s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/Hand-E/parts/toothed_lock_washer_metric_robotiq_12ROBOTIQ_HAND_E_DEFEATURE_JFD.usd
+[11.845s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/Hand-E/parts/toothed_lock_washer_metric_robotiq_13ROBOTIQ_HAND_E_DEFEATURE_JFz.usd
+[11.862s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/Robotiq/LICENSE
+[11.884s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/UR10/.thumbs/256x256/.ur10.usd.last_generated
+[11.906s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/UR10/.thumbs/256x256/.ur10_long_suction.usd.last_generated
+[11.925s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/UR10/.thumbs/256x256/.ur10_short_suction.usd.last_generated
+[11.938s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/UR10/.thumbs/256x256/.ur10e_robotiq2f-140.usd.last_generated
+[11.954s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/UR10/.thumbs/256x256/bkp_ur10.usd.png
+[11.971s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/UR10/.thumbs/256x256/ur10.usd.png
+[11.990s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/UR10/.thumbs/256x256/ur10_long_suction.usd.png
+[12.008s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/UR10/.thumbs/256x256/ur10_short_suction.usd.png
+[12.027s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/UR10/.thumbs/256x256/ur10e.usd.png
+[12.048s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/UR10/.thumbs/256x256/ur10e_ROS.usd.png
+[12.065s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/UR10/.thumbs/256x256/ur10e_robotiq2f-140.usd.png
+[12.086s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/UR10/.thumbs/256x256/ur10e_robotiq2f-140_ROS.usd.png
+[12.107s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/UR10/.thumbs/ur10.thumb.usd
+[12.126s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/UR10/.thumbs/ur10_long_suction.thumb.usd
+[12.143s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/UR10/.thumbs/ur10_short_suction.thumb.usd
+[12.159s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/UR10/.thumbs/ur10e_robotiq2f-140.thumb.usd
+[12.179s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/UR10/Props/Materials/material_library.usd
+[12.197s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/UR10/Props/long_gripper.usd
+[12.223s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/UR10/Props/short_gripper.usd
+[12.228s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/UR10/Props/ur10_base.usd
+[12.246s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/UR10/Props/ur10_elbow.usd
+[12.263s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/UR10/Props/ur10_forearm.usd
+[12.275s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/UR10/Props/ur10_shoulder.usd
+[12.285s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/UR10/Props/ur10_tool.usd
+[12.295s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/UR10/Props/ur10_upper_arm.usd
+[12.305s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/UR10/Props/ur10_wrist_1.usd
+[12.315s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/UR10/Props/ur10_wrist_2.usd
+[12.331s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/UR10/Props/ur10_wrist_3.usd
+[12.351s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/UR10/ur10.usd
+[12.367s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/UR10/ur10_long_suction.usd
+[12.384s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/UR10/ur10_short_suction.usd
+[12.412s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/UR10/ur10e.usd
+[12.436s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/UR10/ur10e_ROS.usd
+[12.456s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/UR10/ur10e_robotiq2f-140.usd
+[12.479s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/UR10/ur10e_robotiq2f-140_ROS.usd
+[12.499s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/swerveBOT.usda
+[12.522s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/swerveBOT2.usda
+[12.543s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/swerveBOT_910.usda
+[12.566s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/swerveBOT_910_UR10.usda
+[12.581s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/swerveBOT_910_UR10_ROS.usda
+[12.595s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim//isaac_description/swerveBOT_910x1350.usda
+[12.613s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/lib/isaac_sim/test_wheel_command
+[12.631s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/ament_index/resource_index/package_run_dependencies/isaac_sim
+[12.642s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/ament_index/resource_index/parent_prefix_path/isaac_sim
+[12.657s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim/environment/ament_prefix_path.sh
+[12.676s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim/environment/ament_prefix_path.dsv
+[12.699s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim/environment/path.sh
+[12.719s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim/environment/path.dsv
+[12.732s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim/local_setup.bash
+[12.746s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim/local_setup.sh
+[12.757s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim/local_setup.zsh
+[12.769s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim/local_setup.dsv
+[12.780s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim/package.dsv
+[12.792s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/ament_index/resource_index/packages/isaac_sim
+[12.803s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim/cmake/isaac_simConfig.cmake
+[12.815s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim/cmake/isaac_simConfig-version.cmake
+[12.826s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/isaac_sim/share/isaac_sim/package.xml
+[12.840s] Invoked command in '/home/george/ROS2/ros2_hoverboard/build/isaac_sim' returned '0': CMAKE_PREFIX_PATH=/home/george/ROS2/ros2_hoverboard/install/description:/home/george/ROS2/ros2_hoverboard/install/ros_components_description:/home/george/ROS2/ros2_hoverboard/install/bringup:/home/george/ROS2/ros2_hoverboard/install/mm_moveit_config:/home/george/ROS2/ros2_hoverboard/install/ur_description:/home/george/ROS2/ros2_hoverboard/install/bringup_mobile:/home/george/ROS2/ros2_hoverboard/install/twist_mux:/home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control:/home/george/ROS2/ros2_hoverboard/install/swerve_controller:/home/george/ROS2/ros2_hoverboard/install/rplidar_ros2:/home/george/ROS2/ros2_hoverboard/install/nav2:/home/george/ROS2/ros2_hoverboard/install/isaac_sim:/home/george/ROS2/ros2_hoverboard/install/description_mobile:/home/george/ROS2/ws_rmw_zenoh/install/rmw_zenoh_cpp:/home/george/ROS2/ws_rmw_zenoh/install/zenoh_cpp_vendor:/opt/ros/humble /usr/bin/cmake --install /home/george/ROS2/ros2_hoverboard/build/isaac_sim

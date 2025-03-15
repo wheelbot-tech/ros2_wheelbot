@@ -1,0 +1,127 @@
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+-- Override CMake install command with custom implementation using symlinks instead of copying resources
+-- Found ament_lint_auto: 0.12.11 (/opt/ros/humble/share/ament_lint_auto/cmake)
+-- Added test 'flake8' to check Python code syntax and style conventions
+-- Added test 'lint_cmake' to check CMake code style
+-- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+-- Added test 'xmllint' to check XML markup files
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/george/ROS2/ros2_hoverboard/build/description_mobile
+-- Install configuration: ""
+-- Execute custom install script
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/ros2_control/4ws.ros2_control.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/ros2_control/ackermann_2bot.ros2_control.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/ros2_control/ackermannbot.ros2_control.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/ros2_control/diffbot.ros2_control.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/ros2_control/drive_module.ros2_control.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/ros2_control/swerve.ros2_control.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/ros2_control/tricycle.ros2_control.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/ros2_control/tricyclebot.ros2_control.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/launch/__pycache__/view_robot_ackermann.launch.cpython-310.pyc
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/launch/__pycache__/view_robot_ackermann_2BOT.launch.cpython-310.pyc
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/launch/__pycache__/view_robot_swerve.launch.cpython-310.pyc
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/launch/view_robot_ackermann.launch.py
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/launch/view_robot_ackermann_2BOT.launch.py
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/launch/view_robot_swerve.launch.py
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/launch/view_robot_tricycle.launch.py
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/rviz/amr_view.rviz
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/rviz/carlikebot.rviz
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/rviz/display.rviz
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/rviz/drive_module.rviz
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/rviz/drive_module_view.rviz
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/rviz/view.rviz
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/mech/base.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/mech/caster_wheel.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/mech/chassis.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/mech/diff_drive_module.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/mech/drive_module.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/mech/mecanum_wheel.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/mech/rear_wheels.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/mech/rear_wheels_mimic.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/mech/tricycle_chassis.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/mech/virtual_ackermann_2_module.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/mech/virtual_ackermann_module.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/mech/virtual_bicycle_module.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/mech/virtual_swerve_module.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/mech/wheel.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/properties/drive_module_properties.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/properties/my_diffbot_properties.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/properties/properties_2wd.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/properties/properties_4wd.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/properties/properties_ackermannBOT.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/properties/properties_ackermann_2BOT.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/properties/properties_mecanum.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/properties/properties_swerveBOT.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/properties/properties_swerveBOT_910.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/properties/properties_swerveBOT_910x1350.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/properties/properties_tricycleBOT.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/robots/2wd.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/robots/4wd.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/robots/4ws4wd.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/robots/ackermannBOT.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/robots/ackermann_2BOT.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/robots/mecanum.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/robots/square.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/robots/swerveBOT.urdf
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/robots/swerveBOT.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/robots/swerveBOT/.thumbs/256x256/swerveBOT.usda.png
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/robots/swerveBOT/.thumbs/256x256/wheelBOT.usd.png
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/robots/swerveBOT/meshes/CollisionMesh.obj
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/robots/swerveBOT/swerveBOT.usd
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/robots/swerveBOT/swerveBOT.usda
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/robots/swerveBOT/wheelBOT.urdf
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/robots/swerveBOT_2.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/robots/swerveBOT_910.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/robots/swerveBOT_910_macro.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/robots/swerveBOT_910x.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/robots/swerveBOT_910x1350.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/robots/test_tricycle_drive.xacro.urdf
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/robots/tricycle.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/robots/tricycleBOT.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/sensors/d435i_realsense2_camera.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/sensors/depth_sensor.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/sensors/generic_laser.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/sensors/imu.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/sensors/imu_gazebo.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/urdf/sensors/laser.urdf.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/meshes/base_link.stl
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/meshes/body_link.stl
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/meshes/caster_wheel_left.stl
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/meshes/caster_wheel_left_1.stl
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/meshes/caster_wheel_right.stl
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/meshes/diff_bot_body.stl
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/meshes/front_wheel_body.stl
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/meshes/front_wheel_steering.stl
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/meshes/front_wheel_traction.stl
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/meshes/left_wheel.stl
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/meshes/materials.xacro
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/meshes/right_wheel.stl
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/ament_index/resource_index/package_run_dependencies/description_mobile
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/ament_index/resource_index/parent_prefix_path/description_mobile
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/environment/ament_prefix_path.sh
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/environment/ament_prefix_path.dsv
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/environment/path.sh
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/environment/path.dsv
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/local_setup.bash
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/local_setup.sh
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/local_setup.zsh
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/local_setup.dsv
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/package.dsv
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/ament_index/resource_index/packages/description_mobile
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/cmake/description_mobileConfig.cmake
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/cmake/description_mobileConfig-version.cmake
+-- Symlinking: /home/george/ROS2/ros2_hoverboard/install/description_mobile/share/description_mobile/package.xml

@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<robot name="d435i_realsense2_camera" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:arg name="use_nominal_extrinsics" default="true" />
+  <xacro:include filename="$(find realsense2_description)/urdf/_d435i.urdf.xacro"/>
+
+ 
+  <xacro:macro name="depth_sensor_realsense" params="*origin">
+    <xacro:sensor_d435i parent="base_link" use_nominal_extrinsics="true">
+        <xacro:insert_block name="origin" />
+    </xacro:sensor_d435i>
+  </xacro:macro>
+  
+</robot>

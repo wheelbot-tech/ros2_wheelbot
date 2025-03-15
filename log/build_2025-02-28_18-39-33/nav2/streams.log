@@ -1,0 +1,71 @@
+[0.058s] Invoking command in '/home/george/ROS2/ros2_hoverboard/build/nav2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /home/george/ROS2/ros2_hoverboard/src/mobile_robot/navigation_ws/nav2 -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/george/ROS2/ros2_hoverboard/install/nav2
+[0.089s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.256s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[0.260s] -- Found navigation2: 1.1.18 (/opt/ros/humble/share/navigation2/cmake)
+[0.260s] -- Found nav2_map_server: 1.1.18 (/opt/ros/humble/share/nav2_map_server/cmake)
+[0.313s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.320s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.330s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.341s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.363s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.580s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[0.586s] -- Found rmw_cyclonedds_cpp: 1.3.4 (/opt/ros/humble/share/rmw_cyclonedds_cpp/cmake)
+[0.616s] -- Using RMW implementation 'rmw_cyclonedds_cpp' as default
+[0.781s] -- Found eigen3_cmake_module: 0.1.1 (/opt/ros/humble/share/eigen3_cmake_module/cmake)
+[0.784s] -- Ensuring Eigen3 include directory is part of orocos-kdl CMake target
+[0.876s] -- Found nav2_amcl: 1.1.18 (/opt/ros/humble/share/nav2_amcl/cmake)
+[0.947s] -- Found nav2_controller: 1.1.18 (/opt/ros/humble/share/nav2_controller/cmake)
+[1.121s] -- Found nav2_planner: 1.1.18 (/opt/ros/humble/share/nav2_planner/cmake)
+[1.147s] -- Found nav2_behaviors: 1.1.18 (/opt/ros/humble/share/nav2_behaviors/cmake)
+[1.207s] -- Found nav2_bt_navigator: 1.1.18 (/opt/ros/humble/share/nav2_bt_navigator/cmake)
+[1.245s] -- Found nav2_waypoint_follower: 1.1.18 (/opt/ros/humble/share/nav2_waypoint_follower/cmake)
+[1.283s] -- Found nav2_lifecycle_manager: 1.1.18 (/opt/ros/humble/share/nav2_lifecycle_manager/cmake)
+[1.488s] -- Configuring done
+[1.500s] -- Generating done
+[1.508s] -- Build files have been written to: /home/george/ROS2/ros2_hoverboard/build/nav2
+[1.529s] Invoked command in '/home/george/ROS2/ros2_hoverboard/build/nav2' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /home/george/ROS2/ros2_hoverboard/src/mobile_robot/navigation_ws/nav2 -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/george/ROS2/ros2_hoverboard/install/nav2
+[1.532s] Invoking command in '/home/george/ROS2/ros2_hoverboard/build/nav2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/george/ROS2/ros2_hoverboard/build/nav2 -- -j6 -l6
+[1.610s] Invoked command in '/home/george/ROS2/ros2_hoverboard/build/nav2' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/george/ROS2/ros2_hoverboard/build/nav2 -- -j6 -l6
+[1.616s] Invoking command in '/home/george/ROS2/ros2_hoverboard/build/nav2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/george/ROS2/ros2_hoverboard/build/nav2
+[1.632s] -- Install configuration: ""
+[1.632s] -- Execute custom install script
+[1.636s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/nav2/share/nav2/launch/localization_amcl.launch.py
+[1.636s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/nav2/share/nav2/launch/localization_neo.launch.py
+[1.636s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/nav2/share/nav2/launch/mapping.launch.py
+[1.636s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/nav2/share/nav2/launch/navigation.launch.py
+[1.636s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/nav2/share/nav2/launch/navigation_wheelbot_sim.launch.py
+[1.636s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/nav2/share/nav2/launch/rviz_launch.py
+[1.637s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/nav2/share/nav2/config/lattice_primitives/output_0085.json
+[1.637s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/nav2/share/nav2/config/lattice_primitives/output_01.json
+[1.638s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/nav2/share/nav2/config/lattice_primitives/output_05.json
+[1.638s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/nav2/share/nav2/config/lattice_primitives/output_05diff.json
+[1.639s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/nav2/share/nav2/config/lattice_primitives/trajectory.png/0.0.png
+[1.639s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/nav2/share/nav2/config/lattice_primitives/trajectory.png/26.56505117707799.png
+[1.639s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/nav2/share/nav2/config/lattice_primitives/trajectory.png/45.0.png
+[1.639s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/nav2/share/nav2/config/lattice_primitives/trajectory.png/63.43494882292201.png
+[1.643s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/nav2/share/nav2/config/lattice_primitives/trajectory.png/90.0.png
+[1.643s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/nav2/share/nav2/config/lattice_primitives/trajectory.png/all_trajectories.png
+[1.643s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/nav2/share/nav2/config/mapping.yaml
+[1.643s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/nav2/share/nav2/config/navigation_sim.yaml
+[1.643s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/nav2/share/nav2/rviz/multi_robot.rviz
+[1.644s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/nav2/share/nav2/rviz/single_robot.rviz
+[1.644s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/nav2/share/nav2/maps/cylinder_garden2_map.pgm
+[1.645s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/nav2/share/nav2/maps/cylinder_garden2_map.yaml
+[1.646s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/nav2/share/nav2/behavior_tree/navigate_through_poses_w_replanning_and_recovery.xml
+[1.646s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/nav2/share/nav2/behavior_tree/navigate_to_pose_w_replanning_and_recovery.xml
+[1.646s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/nav2/share/ament_index/resource_index/package_run_dependencies/nav2
+[1.646s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/nav2/share/ament_index/resource_index/parent_prefix_path/nav2
+[1.646s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/nav2/share/nav2/environment/ament_prefix_path.sh
+[1.646s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/nav2/share/nav2/environment/ament_prefix_path.dsv
+[1.648s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/nav2/share/nav2/environment/path.sh
+[1.650s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/nav2/share/nav2/environment/path.dsv
+[1.650s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/nav2/share/nav2/local_setup.bash
+[1.650s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/nav2/share/nav2/local_setup.sh
+[1.650s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/nav2/share/nav2/local_setup.zsh
+[1.650s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/nav2/share/nav2/local_setup.dsv
+[1.650s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/nav2/share/nav2/package.dsv
+[1.650s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/nav2/share/ament_index/resource_index/packages/nav2
+[1.650s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/nav2/share/nav2/cmake/nav2Config.cmake
+[1.651s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/nav2/share/nav2/cmake/nav2Config-version.cmake
+[1.651s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/nav2/share/nav2/package.xml
+[1.665s] Invoked command in '/home/george/ROS2/ros2_hoverboard/build/nav2' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/george/ROS2/ros2_hoverboard/build/nav2

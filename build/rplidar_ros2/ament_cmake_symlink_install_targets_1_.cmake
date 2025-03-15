@@ -1,0 +1,1 @@
+ament_cmake_symlink_install_targets("TARGET_FILES" "/home/george/ROS2/ros2_hoverboard/build/rplidar_ros2/librplidar_composition_node.so" "TARGETS" "rplidar_composition_node" "ARCHIVE_DESTINATION" "lib" "LIBRARY_DESTINATION" "lib" "RUNTIME_DESTINATION" "bin")

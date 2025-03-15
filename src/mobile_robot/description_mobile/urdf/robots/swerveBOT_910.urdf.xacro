@@ -1,0 +1,49 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="amr" >
+  <!-- robot name parameter -->
+  <xacro:arg name="name" default="amr"/>
+
+  <!-- import main macro -->
+  <xacro:include filename="$(find description_mobile)/urdf/robots/swerveBOT_910_macro.xacro"/>
+
+  <!-- parameters -->
+  <xacro:arg name="namespace" default="" /> 
+  <xacro:arg name="prefix" default="" />     
+  <xacro:arg name="position_Z" default="${str(2*wheel_radius + base_height/2 + rulment_axial_height)}" />
+  <xacro:arg name="hw_interface_plugin" default="topic_based_ros2_control/TopicBasedSystem"/>
+
+
+  <xacro:mobile_robot 
+    namespace="$(arg namespace)"
+    prefix="$(arg prefix)"
+    position_Z="$(arg position_Z)"
+    hw_interface_plugin="$(arg hw_interface_plugin)"
+  />
+
+  <!-- <xacro:camera.intel_realsense_d435
+      namespace="$(arg namespace)"
+      device_namespace="front_camera"
+      parent_link="chassis_link"
+      xyz="${str(base_length/2)} 0 -0.037"
+      rpy="0.0 0.0 0.0" 
+  /> -->
+
+  <xacro:lidar.slamtec_rplidar
+      namespace="$(arg namespace)"
+      device_namespace="front_lidar"
+      model="a2m8"
+      parent_link="chassis_link"
+      xyz="${str(base_length/2 - 0.045)} -${str(base_width/2 - 0.045)} -0.075"
+      rpy="0.0 0.0 -0.785398" 
+  />
+
+  <xacro:lidar.slamtec_rplidar
+      namespace="$(arg namespace)"
+      device_namespace="back_lidar"
+      model="a2m8"
+      parent_link="chassis_link"
+      xyz="-${str(base_length/2 - 0.045)} ${str(base_width/2 - 0.045)} -0.062"
+      rpy="0.0 0.0 2.356194" 
+  />
+
+</robot>

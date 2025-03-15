@@ -1,0 +1,71 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="tricycle" >
+
+<!-- robot name parameter -->
+<xacro:arg name="name" default="tricycle"/>
+
+<!-- import main macro -->
+<xacro:include filename="$(find description)/meshes/materials.xacro" />
+<xacro:include filename="$(find description)/urdf/properties/properties_tricycleBOT.urdf.xacro"/>
+
+<xacro:include filename="$(find description)/urdf/mech/chassis.urdf.xacro"/>
+<xacro:include filename="$(find description)/urdf/mech/drive_module.urdf.xacro"/>
+<xacro:include filename="$(find description)/urdf/mech/diff_drive_module.urdf.xacro"/>
+<xacro:include filename="$(find description)/urdf/mech/virtual_bicycle_module.urdf.xacro"/>
+<xacro:include filename="$(find description)/urdf/mech/rear_wheels_mimic.urdf.xacro"/>
+
+<xacro:include filename="$(find description)/ros2_control/tricyclebot.ros2_control.xacro" />
+<xacro:include filename="$(find description)/ros2_control/drive_module.ros2_control.xacro" />
+
+<!-- parameters -->
+<xacro:arg name="prefix" default="" />
+
+<xacro:arg name="position_Z" default="${str(wheel_radius + base_height/2 + rulment_axial_height)}" />
+
+<link name="base_link"/>
+
+<xacro:chassis 
+  prefix="$(arg prefix)"
+  parent="base_link"
+  pos_z="${str(2*wheel_radius + base_height/2 + rulment_axial_height)}"
+/>
+
+<xacro:virtual_bicycle_module
+  prefix="$(arg prefix)"
+  parent="chassis_link"
+  pos_z="$(arg position_Z)"
+/>
+
+<xacro:rear_wheels_mimic 
+  prefix="$(arg prefix)"
+  parent="chassis_link"
+  pos_x="${str(base_width/2 - wheel_radius)}"
+  pos_y="${str(wheelbase/2)}"
+  pos_z="$(arg position_Z)"
+/>
+
+<!--
+<xacro:drive_module
+  prefix="$(arg prefix)"
+  parent="chassis_link"
+  drive_pos="front_center_"
+>
+  <origin xyz="${base_width/2} 0 -${base_height/2 + rulment_axial_height/2}" rpy="0 0 0"/>
+</xacro:drive_module>
+-->
+
+<xacro:diff_drive_module
+  prefix="$(arg prefix)"
+  parent="chassis_link"
+  drive_pos="FC_"
+>
+  <origin xyz="${base_width/2} 0 -${base_height/2 + rulment_axial_height/2}" rpy="0 0 0"/>
+</xacro:diff_drive_module>
+
+<!-- ros2_control -->
+<xacro:tricyclebot_ros2_control
+  name="tricycleBOT"
+  prefix="$(arg prefix)"
+/>
+
+</robot>

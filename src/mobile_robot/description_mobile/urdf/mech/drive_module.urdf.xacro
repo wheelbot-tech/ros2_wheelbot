@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+  
+    
+    <xacro:macro name="drive_module" params="
+        prefix parent *origin 
+        drive_pos "
+    >
+    <link name="${prefix}${drive_pos}steering_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder length="${rulment_axial_height}" radius="${rulment_axial_diametru}"/>
+        </geometry>
+        <material name="Rubber"/>
+      </visual>
+    </link>
+
+
+    <joint name="${prefix}${drive_pos}steering_joint" type="revolute">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="${prefix}${drive_pos}steering_link"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="-${PI/2}" upper="${PI/2}" effort="100.0" velocity="0.0"/>
+      <dynamics damping="0.2"/>
+      <mimic joint="${prefix}virtual_steering_wheel_joint" multiplier="1.0" offset="0.0"/>
+    </joint>
+
+    <!--
+    <link name="${prefix}${drive_pos}drive_body_link">
+      <inertial>
+        <origin xyz="-0.011297131898843654 0.00450813567248528 -0.06378639625983296" rpy="0 0 0"/>
+        <mass value="0.7561417205433802"/>
+        <inertia ixx="0.008542" iyy="0.010316" izz="0.014896" ixy="-3.6e-05" iyz="0.000135" ixz="-0.000123"/>
+      </inertial>
+      <visual>
+        <origin xyz="-0.235 0.0 -0.18" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="file://$(find description)/meshes/front_wheel_body.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <material name="PETG_orange"/>
+      </visual>
+      <collision>
+        <origin xyz="-0.235 0.0 -0.18" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="file://$(find description)/meshes/front_wheel_body.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+      </collision>
+    </link>
+    <joint name="${prefix}${drive_pos}drive_body_joint" type="fixed">
+      <origin xyz="0.0 -0.0 -0.017" rpy="0 0 0"/>
+      <parent link="${prefix}${drive_pos}steering_link"/>
+      <child link="${prefix}${drive_pos}drive_body_link"/>
+      <axis xyz="0 0 -1"/>
+    </joint>
+    -->
+
+    <link name="${prefix}${drive_pos}wheel_drive">
+      <collision>
+        <origin xyz="0 0 0" rpy="${PI/2} 0 0"/>
+        <geometry>
+          <cylinder length="${wheel_drive_len}" radius="${wheel_radius}"/>
+        </geometry>
+      </collision>
+
+      <visual>
+        <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
+        <geometry>
+          <cylinder length="${wheel_drive_len}" radius="${wheel_radius}"/>
+        </geometry>
+        <material name="PETG_orange"/>
+      </visual>
+
+      <inertial>
+        <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
+        <mass value="${wheel_mass}"/>
+        <inertia
+          ixx="0.000270" ixy="0.0" ixz="0.0"
+          iyy="0.000270" iyz="0.0"
+          izz="0.000426"/>
+      </inertial>
+    </link>
+
+    <joint name="${prefix}${drive_pos}wheel_drive_joint" type="continuous">
+      <origin xyz="0 0 -${rulment_axial_height/2 + wheel_radius}" rpy="0 0 ${PI/2}"/>  
+      <parent link="${prefix}${drive_pos}steering_link"/>
+      <child link="${prefix}${drive_pos}wheel_drive"/>
+      <axis xyz="1 0 0"/>
+      <limit effort="100.0" velocity="100.0"/>
+      <dynamics damping="0.2"/>
+      <mimic joint="${prefix}virtual_traction_wheel_joint" multiplier="1.0" offset="0.0"/>
+    </joint>
+
+    
+  </xacro:macro>
+
+</robot>

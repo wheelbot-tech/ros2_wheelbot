@@ -1,0 +1,1 @@
+/home/george/ROS2/ros2_hoverboard/src/mobile_robot/description_mobile/launch/view_robot_ackermann_2BOT.launch.py

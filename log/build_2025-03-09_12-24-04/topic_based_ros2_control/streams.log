@@ -1,0 +1,34 @@
+[0.043s] Invoking command in '/home/george/ROS2/ros2_hoverboard/build/topic_based_ros2_control': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/george/ROS2/ros2_hoverboard/build/topic_based_ros2_control -- -j6 -l6
+[0.139s] [ 25%] Built target gtest_main
+[0.155s] [ 50%] Built target gtest
+[0.168s] [ 75%] Built target topic_based_ros2_control
+[0.213s] [100%] Built target topic_based_system_test
+[0.279s] Invoked command in '/home/george/ROS2/ros2_hoverboard/build/topic_based_ros2_control' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/george/ROS2/ros2_hoverboard/build/topic_based_ros2_control -- -j6 -l6
+[0.279s] Invoking command in '/home/george/ROS2/ros2_hoverboard/build/topic_based_ros2_control': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/george/ROS2/ros2_hoverboard/build/topic_based_ros2_control
+[0.300s] -- Install configuration: ""
+[0.300s] -- Execute custom install script
+[0.301s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control//topic_based_ros2_control_plugin_description.xml
+[0.301s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control/environment/library_path.sh
+[0.301s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control/environment/library_path.dsv
+[0.301s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/ament_index/resource_index/package_run_dependencies/topic_based_ros2_control
+[0.303s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/ament_index/resource_index/parent_prefix_path/topic_based_ros2_control
+[0.303s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control/environment/ament_prefix_path.sh
+[0.303s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control/environment/ament_prefix_path.dsv
+[0.303s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control/environment/path.sh
+[0.304s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control/environment/path.dsv
+[0.305s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control/local_setup.bash
+[0.305s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control/local_setup.sh
+[0.305s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control/local_setup.zsh
+[0.305s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control/local_setup.dsv
+[0.305s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control/package.dsv
+[0.311s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/ament_index/resource_index/packages/topic_based_ros2_control
+[0.311s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/ament_index/resource_index/hardware_interface__pluginlib__plugin/topic_based_ros2_control
+[0.312s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control/cmake/ament_cmake_export_targets-extras.cmake
+[0.312s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control/cmake/ament_cmake_export_dependencies-extras.cmake
+[0.312s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control/cmake/topic_based_ros2_controlConfig.cmake
+[0.312s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control/cmake/topic_based_ros2_controlConfig-version.cmake
+[0.312s] -- Up-to-date symlink: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control/package.xml
+[0.312s] -- Up-to-date: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/lib/libtopic_based_ros2_control.so
+[0.312s] -- Up-to-date: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control/cmake/topic_based_ros2_controlTargetsExport.cmake
+[0.312s] -- Up-to-date: /home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control/share/topic_based_ros2_control/cmake/topic_based_ros2_controlTargetsExport-noconfig.cmake
+[0.358s] Invoked command in '/home/george/ROS2/ros2_hoverboard/build/topic_based_ros2_control' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/george/ROS2/ros2_hoverboard/build/topic_based_ros2_control

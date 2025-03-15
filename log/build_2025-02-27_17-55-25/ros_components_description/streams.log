@@ -1,0 +1,100 @@
+[0.024s] Invoking command in '/home/george/ROS2/ros2_hoverboard/build/ros_components_description': CMAKE_PREFIX_PATH=/home/george/ROS2/ros2_hoverboard/install/ur_description:/home/george/ROS2/ros2_hoverboard/install/ros_components_description:/home/george/ROS2/ros2_hoverboard/install/bringup:/home/george/ROS2/ros2_hoverboard/install/mm_moveit_config:/home/george/ROS2/ros2_hoverboard/install/bringup_mobile:/home/george/ROS2/ros2_hoverboard/install/twist_mux:/home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control:/home/george/ROS2/ros2_hoverboard/install/swerve_controller:/home/george/ROS2/ros2_hoverboard/install/rplidar_ros2:/home/george/ROS2/ros2_hoverboard/install/nav2:/home/george/ROS2/ros2_hoverboard/install/isaac_sim:/home/george/ROS2/ros2_hoverboard/install/description_mobile:/home/george/ROS2/ros2_hoverboard/install/description:/home/george/ROS2/ws_rmw_zenoh/install/rmw_zenoh_cpp:/home/george/ROS2/ws_rmw_zenoh/install/zenoh_cpp_vendor:/opt/ros/humble /usr/bin/cmake /home/george/ROS2/ros2_hoverboard/src/sensors/ros_components_description -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/george/ROS2/ros2_hoverboard/install/ros_components_description
+[2.258s] -- The C compiler identification is GNU 11.4.0
+[2.258s] -- The CXX compiler identification is GNU 11.4.0
+[2.258s] -- Detecting C compiler ABI info
+[2.258s] -- Detecting C compiler ABI info - done
+[2.258s] -- Check for working C compiler: /usr/bin/cc - skipped
+[2.258s] -- Detecting C compile features
+[2.258s] -- Detecting C compile features - done
+[2.258s] -- Detecting CXX compiler ABI info
+[2.258s] -- Detecting CXX compiler ABI info - done
+[2.258s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[2.259s] -- Detecting CXX compile features
+[2.259s] -- Detecting CXX compile features - done
+[2.259s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[2.259s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[2.259s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[2.259s] -- Found ament_cmake_pytest: 1.3.11 (/opt/ros/humble/share/ament_cmake_pytest/cmake)
+[2.306s] -- Configuring done
+[2.313s] -- Generating done
+[2.323s] -- Build files have been written to: /home/george/ROS2/ros2_hoverboard/build/ros_components_description
+[2.334s] Invoked command in '/home/george/ROS2/ros2_hoverboard/build/ros_components_description' returned '0': CMAKE_PREFIX_PATH=/home/george/ROS2/ros2_hoverboard/install/ur_description:/home/george/ROS2/ros2_hoverboard/install/ros_components_description:/home/george/ROS2/ros2_hoverboard/install/bringup:/home/george/ROS2/ros2_hoverboard/install/mm_moveit_config:/home/george/ROS2/ros2_hoverboard/install/bringup_mobile:/home/george/ROS2/ros2_hoverboard/install/twist_mux:/home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control:/home/george/ROS2/ros2_hoverboard/install/swerve_controller:/home/george/ROS2/ros2_hoverboard/install/rplidar_ros2:/home/george/ROS2/ros2_hoverboard/install/nav2:/home/george/ROS2/ros2_hoverboard/install/isaac_sim:/home/george/ROS2/ros2_hoverboard/install/description_mobile:/home/george/ROS2/ros2_hoverboard/install/description:/home/george/ROS2/ws_rmw_zenoh/install/rmw_zenoh_cpp:/home/george/ROS2/ws_rmw_zenoh/install/zenoh_cpp_vendor:/opt/ros/humble /usr/bin/cmake /home/george/ROS2/ros2_hoverboard/src/sensors/ros_components_description -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/george/ROS2/ros2_hoverboard/install/ros_components_description
+[2.335s] Invoking command in '/home/george/ROS2/ros2_hoverboard/build/ros_components_description': CMAKE_PREFIX_PATH=/home/george/ROS2/ros2_hoverboard/install/ur_description:/home/george/ROS2/ros2_hoverboard/install/ros_components_description:/home/george/ROS2/ros2_hoverboard/install/bringup:/home/george/ROS2/ros2_hoverboard/install/mm_moveit_config:/home/george/ROS2/ros2_hoverboard/install/bringup_mobile:/home/george/ROS2/ros2_hoverboard/install/twist_mux:/home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control:/home/george/ROS2/ros2_hoverboard/install/swerve_controller:/home/george/ROS2/ros2_hoverboard/install/rplidar_ros2:/home/george/ROS2/ros2_hoverboard/install/nav2:/home/george/ROS2/ros2_hoverboard/install/isaac_sim:/home/george/ROS2/ros2_hoverboard/install/description_mobile:/home/george/ROS2/ros2_hoverboard/install/description:/home/george/ROS2/ws_rmw_zenoh/install/rmw_zenoh_cpp:/home/george/ROS2/ws_rmw_zenoh/install/zenoh_cpp_vendor:/opt/ros/humble /usr/bin/cmake --build /home/george/ROS2/ros2_hoverboard/build/ros_components_description -- -j6 -l6
+[2.686s] Invoked command in '/home/george/ROS2/ros2_hoverboard/build/ros_components_description' returned '0': CMAKE_PREFIX_PATH=/home/george/ROS2/ros2_hoverboard/install/ur_description:/home/george/ROS2/ros2_hoverboard/install/ros_components_description:/home/george/ROS2/ros2_hoverboard/install/bringup:/home/george/ROS2/ros2_hoverboard/install/mm_moveit_config:/home/george/ROS2/ros2_hoverboard/install/bringup_mobile:/home/george/ROS2/ros2_hoverboard/install/twist_mux:/home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control:/home/george/ROS2/ros2_hoverboard/install/swerve_controller:/home/george/ROS2/ros2_hoverboard/install/rplidar_ros2:/home/george/ROS2/ros2_hoverboard/install/nav2:/home/george/ROS2/ros2_hoverboard/install/isaac_sim:/home/george/ROS2/ros2_hoverboard/install/description_mobile:/home/george/ROS2/ros2_hoverboard/install/description:/home/george/ROS2/ws_rmw_zenoh/install/rmw_zenoh_cpp:/home/george/ROS2/ws_rmw_zenoh/install/zenoh_cpp_vendor:/opt/ros/humble /usr/bin/cmake --build /home/george/ROS2/ros2_hoverboard/build/ros_components_description -- -j6 -l6
+[2.687s] Invoking command in '/home/george/ROS2/ros2_hoverboard/build/ros_components_description': CMAKE_PREFIX_PATH=/home/george/ROS2/ros2_hoverboard/install/ur_description:/home/george/ROS2/ros2_hoverboard/install/ros_components_description:/home/george/ROS2/ros2_hoverboard/install/bringup:/home/george/ROS2/ros2_hoverboard/install/mm_moveit_config:/home/george/ROS2/ros2_hoverboard/install/bringup_mobile:/home/george/ROS2/ros2_hoverboard/install/twist_mux:/home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control:/home/george/ROS2/ros2_hoverboard/install/swerve_controller:/home/george/ROS2/ros2_hoverboard/install/rplidar_ros2:/home/george/ROS2/ros2_hoverboard/install/nav2:/home/george/ROS2/ros2_hoverboard/install/isaac_sim:/home/george/ROS2/ros2_hoverboard/install/description_mobile:/home/george/ROS2/ros2_hoverboard/install/description:/home/george/ROS2/ws_rmw_zenoh/install/rmw_zenoh_cpp:/home/george/ROS2/ws_rmw_zenoh/install/zenoh_cpp_vendor:/opt/ros/humble /usr/bin/cmake --install /home/george/ROS2/ros2_hoverboard/build/ros_components_description
+[2.695s] -- Install configuration: ""
+[2.697s] -- Execute custom install script
+[2.697s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/meshes/intel_realsense_d435.dae
+[2.712s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/meshes/orbbec_astra.dae
+[2.725s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/meshes/ouster_os01.dae
+[2.744s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/meshes/slamtec_rplidar_a2m8.dae
+[2.777s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/meshes/slamtec_rplidar_ax.dae
+[2.800s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/meshes/slamtec_rplidar_s1.dae
+[2.823s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/meshes/slamtec_rplidar_s2.dae
+[2.845s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/meshes/slamtec_rplidar_s3.dae
+[2.871s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/meshes/teltonika_003R-00253.dae
+[2.893s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/meshes/teltonika_003R-00253_collision.stl
+[2.914s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/meshes/velodyne_puck.dae
+[2.938s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/meshes/wibotic_receiver.stl
+[2.960s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/meshes/wibotic_station.stl
+[2.983s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/meshes/zed.stl
+[3.005s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/meshes/zed2.stl
+[3.017s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/meshes/zed2i.stl
+[3.032s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/meshes/zedm.stl
+[3.050s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/meshes/zedx.stl
+[3.069s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/meshes/zedxm.stl
+[3.080s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/urdf/components.urdf.xacro
+[3.098s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/urdf/intel_realsense_d435.urdf.xacro
+[3.112s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/urdf/kinova.urdf.xacro
+[3.127s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/urdf/orbbec_astra.urdf.xacro
+[3.140s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/urdf/ouster.urdf.xacro
+[3.152s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/urdf/robotiq.urdf.xacro
+[3.165s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/urdf/slamtec_rplidar.urdf.xacro
+[3.177s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/urdf/stereolabs_zed.urdf.xacro
+[3.196s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/urdf/teltonika_003R-00253.urdf.xacro
+[3.218s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/urdf/ur.urdf.xacro
+[3.245s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/urdf/velodyne_puck.urdf.xacro
+[3.268s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/urdf/wibotic_receiver.urdf.xacro
+[3.283s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/urdf/wibotic_station.urdf.xacro
+[3.304s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/launch/gz_components.launch.py
+[3.313s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/launch/gz_kinova_6dof.launch.py
+[3.327s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/launch/gz_kinova_7dof.launch.py
+[3.341s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/launch/gz_orbbec_astra.launch.py
+[3.358s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/launch/gz_ouster_os.launch.py
+[3.373s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/launch/gz_robotiq.launch.py
+[3.383s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/launch/gz_slamtec_rplidar.launch.py
+[3.393s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/launch/gz_stereolabs_zed.launch.py
+[3.402s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/launch/gz_teltonika.launch.py
+[3.411s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/launch/gz_ur.launch.py
+[3.421s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/launch/gz_velodyne.launch.py
+[3.430s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/launch/gz_wibotic_station.launch.py
+[3.440s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/config/gz_kinova_remappings.yaml
+[3.450s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/config/gz_orbbec_astra_remappings.yaml
+[3.461s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/config/gz_ouster_os_remappings.yaml
+[3.474s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/config/gz_slamtec_rplidar_remappings.yaml
+[3.486s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/config/gz_stereolabs_zed_remappings.yaml
+[3.497s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/config/gz_teltonika_remappings.yaml
+[3.506s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/config/gz_velodyne_remappings.yaml
+[3.515s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/config/kinova_6dof_controllers.yaml
+[3.526s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/config/kinova_7dof_controllers.yaml
+[3.539s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/config/robotiq_controllers.yaml
+[3.549s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/config/ur_controllers.yaml
+[3.560s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/test/component.urdf.xacro
+[3.569s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/test/test_components_xacro.py
+[3.582s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/environment/ros_components_description.sh
+[3.592s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ament_index/resource_index/package_run_dependencies/ros_components_description
+[3.602s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ament_index/resource_index/parent_prefix_path/ros_components_description
+[3.612s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/environment/ament_prefix_path.sh
+[3.625s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/environment/ament_prefix_path.dsv
+[3.640s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/environment/path.sh
+[3.652s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/environment/path.dsv
+[3.661s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/local_setup.bash
+[3.673s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/local_setup.sh
+[3.684s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/local_setup.zsh
+[3.695s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/local_setup.dsv
+[3.706s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/package.dsv
+[3.724s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ament_index/resource_index/packages/ros_components_description
+[3.744s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/cmake/ros_components_descriptionConfig.cmake
+[3.754s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/cmake/ros_components_descriptionConfig-version.cmake
+[3.764s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ros_components_description/share/ros_components_description/package.xml
+[3.779s] Invoked command in '/home/george/ROS2/ros2_hoverboard/build/ros_components_description' returned '0': CMAKE_PREFIX_PATH=/home/george/ROS2/ros2_hoverboard/install/ur_description:/home/george/ROS2/ros2_hoverboard/install/ros_components_description:/home/george/ROS2/ros2_hoverboard/install/bringup:/home/george/ROS2/ros2_hoverboard/install/mm_moveit_config:/home/george/ROS2/ros2_hoverboard/install/bringup_mobile:/home/george/ROS2/ros2_hoverboard/install/twist_mux:/home/george/ROS2/ros2_hoverboard/install/topic_based_ros2_control:/home/george/ROS2/ros2_hoverboard/install/swerve_controller:/home/george/ROS2/ros2_hoverboard/install/rplidar_ros2:/home/george/ROS2/ros2_hoverboard/install/nav2:/home/george/ROS2/ros2_hoverboard/install/isaac_sim:/home/george/ROS2/ros2_hoverboard/install/description_mobile:/home/george/ROS2/ros2_hoverboard/install/description:/home/george/ROS2/ws_rmw_zenoh/install/rmw_zenoh_cpp:/home/george/ROS2/ws_rmw_zenoh/install/zenoh_cpp_vendor:/opt/ros/humble /usr/bin/cmake --install /home/george/ROS2/ros2_hoverboard/build/ros_components_description

@@ -1,0 +1,1 @@
+ament_cmake_symlink_install_targets("TARGET_FILES" "/home/george/ROS2/ros2_hoverboard/build/twist_mux/twist_mux" "/home/george/ROS2/ros2_hoverboard/build/twist_mux/twist_marker" "TARGETS" "twist_mux" "twist_marker" "ARCHIVE_DESTINATION" "lib" "LIBRARY_DESTINATION" "lib" "RUNTIME_DESTINATION" "lib/twist_mux")

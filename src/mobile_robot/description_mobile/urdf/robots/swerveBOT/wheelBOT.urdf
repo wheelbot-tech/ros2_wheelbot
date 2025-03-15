@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot name="wheelBOT">
+  <joint name="FL_chassis_2_joint_01" type="fixed">
+    <origin xyz="0. 0. -0.0985" rpy="0. 0. 0."/>
+    <parent link="FL_steering_link"/>
+    <child link="FL_chassis_2_link"/>
+  </joint>
+  <joint name="FL_drive_left_joint_01" type="continuous">
+    <origin xyz="0. 0.115 0. " rpy="0. 0. 1.5707964"/>
+    <parent link="FL_chassis_2_link"/>
+    <child link="FL_wheel_drive_left"/>
+    <axis xyz="1. 0. 0."/>
+  </joint>
+  <joint name="FL_drive_right_joint_01" type="continuous">
+    <origin xyz="0. -0.115 0. " rpy="0. 0. 1.5707964"/>
+    <parent link="FL_chassis_2_link"/>
+    <child link="FL_wheel_drive_right"/>
+    <axis xyz="1. 0. 0."/>
+  </joint>
+  <joint name="FL_steering_joint_01" type="revolute">
+    <origin xyz="0.235 0.215 -0.036" rpy="0. 0. 0."/>
+    <parent link="chassis_link"/>
+    <child link="FL_steering_link"/>
+    <axis xyz="0. 0. 1."/>
+    <limit lower="-0.9999999" upper="0.9999999" effort="100." velocity="5939047335254987724700441203225657344."/>
+  </joint>
+  <joint name="FR_chassis_2_joint_01" type="fixed">
+    <origin xyz="0. 0. -0.0985" rpy="0. 0. 0."/>
+    <parent link="FR_steering_link"/>
+    <child link="FR_chassis_2_link"/>
+  </joint>
+  <joint name="FR_drive_left_joint_01" type="continuous">
+    <origin xyz="0. 0.115 0. " rpy="0. 0. 1.5707964"/>
+    <parent link="FR_chassis_2_link"/>
+    <child link="FR_wheel_drive_left"/>
+    <axis xyz="1. 0. 0."/>
+  </joint>
+  <joint name="FR_drive_right_joint_01" type="continuous">
+    <origin xyz="0. -0.115 0. " rpy="0. 0. 1.5707964"/>
+    <parent link="FR_chassis_2_link"/>
+    <child link="FR_wheel_drive_right"/>
+    <axis xyz="1. 0. 0."/>
+  </joint>
+  <joint name="FR_steering_joint_01" type="revolute">
+    <origin xyz="0.235 -0.215 -0.036" rpy="0. 0. 0."/>
+    <parent link="chassis_link"/>
+    <child link="FR_steering_link"/>
+    <axis xyz="0. 0. 1."/>
+    <limit lower="-0.9999999" upper="0.9999999" effort="100." velocity="5939047335254987724700441203225657344."/>
+  </joint>
+  <joint name="RL_chassis_2_joint_01" type="fixed">
+    <origin xyz="0. 0. -0.0985" rpy="0. 0. 0."/>
+    <parent link="RL_steering_link"/>
+    <child link="RL_chassis_2_link"/>
+  </joint>
+  <joint name="RL_drive_left_joint_01" type="continuous">
+    <origin xyz="0. 0.115 0. " rpy="0. 0. 1.5707964"/>
+    <parent link="RL_chassis_2_link"/>
+    <child link="RL_wheel_drive_left"/>
+    <axis xyz="1. 0. 0."/>
+  </joint>
+  <joint name="RL_drive_right_joint_01" type="continuous">
+    <origin xyz="0. -0.115 0. " rpy="0. 0. 1.5707964"/>
+    <parent link="RL_chassis_2_link"/>
+    <child link="RL_wheel_drive_right"/>
+    <axis xyz="1. 0. 0."/>
+  </joint>
+  <joint name="RL_steering_joint_01" type="revolute">
+    <origin xyz="-0.235 0.215 -0.036" rpy="0. 0. 0."/>
+    <parent link="chassis_link"/>
+    <child link="RL_steering_link"/>
+    <axis xyz="0. 0. 1."/>
+    <limit lower="-0.9999999" upper="0.9999999" effort="100." velocity="5939047335254987724700441203225657344."/>
+  </joint>
+  <joint name="RR_chassis_2_joint_01" type="fixed">
+    <origin xyz="0. 0. -0.0985" rpy="0. 0. 0."/>
+    <parent link="RR_steering_link"/>
+    <child link="RR_chassis_2_link"/>
+  </joint>
+  <joint name="RR_drive_left_joint_01" type="continuous">
+    <origin xyz="0. 0.115 0. " rpy="0. 0. 1.5707964"/>
+    <parent link="RR_chassis_2_link"/>
+    <child link="RR_wheel_drive_left"/>
+    <axis xyz="1. 0. 0."/>
+  </joint>
+  <joint name="RR_drive_right_joint_01" type="continuous">
+    <origin xyz="0. -0.115 0. " rpy="0. 0. 1.5707964"/>
+    <parent link="RR_chassis_2_link"/>
+    <child link="RR_wheel_drive_right"/>
+    <axis xyz="1. 0. 0."/>
+  </joint>
+  <joint name="RR_steering_joint_01" type="revolute">
+    <origin xyz="-0.235 -0.215 -0.036" rpy="0. 0. 0."/>
+    <parent link="chassis_link"/>
+    <child link="RR_steering_link"/>
+    <axis xyz="0. 0. 1."/>
+    <limit lower="-0.9999999" upper="0.9999999" effort="100." velocity="5939047335254987724700441203225657344."/>
+  </joint>
+  <joint name="chassis_joint" type="fixed">
+    <origin xyz="-0.2 -0.1 0.217" rpy="0. 0. 0."/>
+    <parent link="World"/>
+    <child link="chassis_link"/>
+  </joint>
+  <link name="FL_chassis_2_link">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="5."/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <box size="0.09 0.16 0.09"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <box size="0.09 0.16 0.09"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="FL_steering_link">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="0.000001"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <cylinder radius="0.064" length="0.032"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="FL_wheel_drive_left">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="0.3"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="1.5707964 -0. 1.5707964"/>
+      <geometry>
+        <cylinder radius="0.0825" length="0.045"/>
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="1.5707964 0. 0. "/>
+      <geometry>
+        <cylinder radius="0.0825" length="0.045"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0. 0. 0." rpy="1.5707964 0. 0. "/>
+      <geometry>
+        <cylinder radius="0.0825" length="0.045"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="FL_wheel_drive_right">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="0.3"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="1.5707964 -0. 1.5707964"/>
+      <geometry>
+        <cylinder radius="0.0825" length="0.045"/>
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="1.5707964 0. 0. "/>
+      <geometry>
+        <cylinder radius="0.0825" length="0.045"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0. 0. 0." rpy="1.5707964 0. 0. "/>
+      <geometry>
+        <cylinder radius="0.0825" length="0.045"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="FR_chassis_2_link">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="5."/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <box size="0.09 0.16 0.09"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <box size="0.09 0.16 0.09"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="FR_steering_link">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="0.000001"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <cylinder radius="0.064" length="0.032"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="FR_wheel_drive_left">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="0.3"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="1.5707964 -0. 1.5707964"/>
+      <geometry>
+        <cylinder radius="0.0825" length="0.045"/>
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="1.5707964 0. 0. "/>
+      <geometry>
+        <cylinder radius="0.0825" length="0.045"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0. 0. 0." rpy="1.5707964 0. 0. "/>
+      <geometry>
+        <cylinder radius="0.0825" length="0.045"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="FR_wheel_drive_right">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="0.3"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="1.5707964 -0. 1.5707964"/>
+      <geometry>
+        <cylinder radius="0.0825" length="0.045"/>
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="1.5707964 0. 0. "/>
+      <geometry>
+        <cylinder radius="0.0825" length="0.045"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0. 0. 0." rpy="1.5707964 0. 0. "/>
+      <geometry>
+        <cylinder radius="0.0825" length="0.045"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="RL_chassis_2_link">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="5."/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <box size="0.09 0.16 0.09"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <box size="0.09 0.16 0.09"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="RL_steering_link">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="0.000001"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <cylinder radius="0.064" length="0.032"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="RL_wheel_drive_left">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="0.3"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="1.5707964 -0. 1.5707964"/>
+      <geometry>
+        <cylinder radius="0.0825" length="0.045"/>
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="1.5707964 0. 0. "/>
+      <geometry>
+        <cylinder radius="0.0825" length="0.045"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0. 0. 0." rpy="1.5707964 0. 0. "/>
+      <geometry>
+        <cylinder radius="0.0825" length="0.045"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="RL_wheel_drive_right">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="0.3"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="1.5707964 -0. 1.5707964"/>
+      <geometry>
+        <cylinder radius="0.0825" length="0.045"/>
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="1.5707964 0. 0. "/>
+      <geometry>
+        <cylinder radius="0.0825" length="0.045"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0. 0. 0." rpy="1.5707964 0. 0. "/>
+      <geometry>
+        <cylinder radius="0.0825" length="0.045"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="RR_chassis_2_link">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="5."/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <box size="0.09 0.16 0.09"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <box size="0.09 0.16 0.09"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="RR_steering_link">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="0.000001"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <cylinder radius="0.064" length="0.032"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="RR_wheel_drive_left">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="0.3"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="1.5707964 -0. 1.5707964"/>
+      <geometry>
+        <cylinder radius="0.0825" length="0.045"/>
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="1.5707964 0. 0. "/>
+      <geometry>
+        <cylinder radius="0.0825" length="0.045"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0. 0. 0." rpy="1.5707964 0. 0. "/>
+      <geometry>
+        <cylinder radius="0.0825" length="0.045"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="RR_wheel_drive_right">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="0.3"/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="1.5707964 -0. 1.5707964"/>
+      <geometry>
+        <cylinder radius="0.0825" length="0.045"/>
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="1.5707964 0. 0. "/>
+      <geometry>
+        <cylinder radius="0.0825" length="0.045"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0. 0. 0." rpy="1.5707964 0. 0. "/>
+      <geometry>
+        <cylinder radius="0.0825" length="0.045"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="World">
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <mesh filename="meshes/CollisionMesh.obj" scale="1. 1. 1."/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="chassis_link">
+    <inertial>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <mass value="5."/>
+      <inertia ixx="0." ixy="0." ixz="0." iyy="0." iyz="0." izz="0."/>
+    </inertial>
+    <visual>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <box size="0.51 0.51 0.04"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0. 0. 0." rpy="0. 0. 0."/>
+      <geometry>
+        <box size="0.51 0.51 0.04"/>
+      </geometry>
+    </collision>
+  </link>
+</robot>

@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<robot name="tricycle" xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+<material name="Aluminium">
+  <color rgba="0.700 0.700 0.700 1.000"/>
+</material>
+
+<material name="PETG_orange">
+  <color rgba="0.9 0.165 0.000 1.000"/>
+</material>
+
+<material name="Rubber">
+  <color rgba="0 0 0 1.000"/>
+</material>
+
+<material name="invisible">
+  <color rgba="0.0 0.0 0.0 0.0"/>
+</material>
+
+<material name="transparent">
+  <color rgba="0.0 0.0 0.0 0.25"/>
+</material>
+
+</robot>

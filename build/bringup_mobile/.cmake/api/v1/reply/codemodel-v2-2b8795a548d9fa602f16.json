@@ -1,0 +1,151 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-bd104f5950b16003d942.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "bringup_mobile",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "bringup_mobile_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-bringup_mobile_uninstall-519bee0b9eb199662a9b.json",
+					"name" : "bringup_mobile_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "jointstate_aggregator_2::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-jointstate_aggregator_2-a5c2a34a2a2a25351a98.json",
+					"name" : "jointstate_aggregator_2",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "jointstate_aggregator_2_ackermann::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-jointstate_aggregator_2_ackermann-7939a4d7830b340dcfce.json",
+					"name" : "jointstate_aggregator_2_ackermann",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "jointstate_aggregator_2_swerve::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-jointstate_aggregator_2_swerve-736718b03c99494ecd93.json",
+					"name" : "jointstate_aggregator_2_swerve",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "jointstate_aggregator_4::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-jointstate_aggregator_4-41baed392e56c1c36e4e.json",
+					"name" : "jointstate_aggregator_4",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "jointstate_sim_aggregator_2::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-jointstate_sim_aggregator_2-1be632e22d807b45e829.json",
+					"name" : "jointstate_sim_aggregator_2",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "jointstate_sim_aggregator_4::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-jointstate_sim_aggregator_4-9ad786fd389b3309bdcb.json",
+					"name" : "jointstate_sim_aggregator_4",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "jointstate_to_twist_2::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-jointstate_to_twist_2-7109d6fbc99c922bbf43.json",
+					"name" : "jointstate_to_twist_2",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "jointstate_to_twist_2_ackermann::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-jointstate_to_twist_2_ackermann-e857e4cb806576171381.json",
+					"name" : "jointstate_to_twist_2_ackermann",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "jointstate_to_twist_4::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-jointstate_to_twist_4-f9c11e1c148cb2359916.json",
+					"name" : "jointstate_to_twist_4",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-102600d2d067654bb956.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/george/ROS2/ros2_hoverboard/build/bringup_mobile",
+		"source" : "/home/george/ROS2/ros2_hoverboard/src/mobile_robot/bringup_mobile"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

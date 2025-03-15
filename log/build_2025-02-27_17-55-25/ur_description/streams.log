@@ -1,0 +1,200 @@
+[0.030s] Invoking command in '/home/george/ROS2/ros2_hoverboard/build/ur_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /home/george/ROS2/ros2_hoverboard/src/manipulator/ur_description -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/george/ROS2/ros2_hoverboard/install/ur_description
+[0.099s] -- The C compiler identification is GNU 11.4.0
+[0.169s] -- The CXX compiler identification is GNU 11.4.0
+[0.177s] -- Detecting C compiler ABI info
+[0.255s] -- Detecting C compiler ABI info - done
+[0.263s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.263s] -- Detecting C compile features
+[0.264s] -- Detecting C compile features - done
+[0.267s] -- Detecting CXX compiler ABI info
+[0.353s] -- Detecting CXX compiler ABI info - done
+[0.367s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.367s] -- Detecting CXX compile features
+[0.368s] -- Detecting CXX compile features - done
+[0.370s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.803s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[0.871s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[0.906s] -- Found ament_cmake_pytest: 1.3.11 (/opt/ros/humble/share/ament_cmake_pytest/cmake)
+[1.998s] -- Configuring done
+[2.002s] -- Generating done
+[2.008s] -- Build files have been written to: /home/george/ROS2/ros2_hoverboard/build/ur_description
+[2.016s] Invoked command in '/home/george/ROS2/ros2_hoverboard/build/ur_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /home/george/ROS2/ros2_hoverboard/src/manipulator/ur_description -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/george/ROS2/ros2_hoverboard/install/ur_description
+[2.019s] Invoking command in '/home/george/ROS2/ros2_hoverboard/build/ur_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/george/ROS2/ros2_hoverboard/build/ur_description -- -j6 -l6
+[2.174s] Invoked command in '/home/george/ROS2/ros2_hoverboard/build/ur_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/george/ROS2/ros2_hoverboard/build/ur_description -- -j6 -l6
+[2.175s] Invoking command in '/home/george/ROS2/ros2_hoverboard/build/ur_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/george/ROS2/ros2_hoverboard/build/ur_description
+[2.188s] -- Install configuration: ""
+[2.189s] -- Execute custom install script
+[2.193s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/config/initial_positions.yaml
+[2.213s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/config/ur10/default_kinematics.yaml
+[2.235s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/config/ur10/joint_limits.yaml
+[2.251s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/config/ur10/physical_parameters.yaml
+[2.269s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/config/ur10/visual_parameters.yaml
+[2.289s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/config/ur10e/default_kinematics.yaml
+[2.311s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/config/ur10e/joint_limits.yaml
+[2.329s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/config/ur10e/physical_parameters.yaml
+[2.349s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/config/ur10e/visual_parameters.yaml
+[2.368s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/config/ur16e/default_kinematics.yaml
+[2.387s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/config/ur16e/joint_limits.yaml
+[2.406s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/config/ur16e/physical_parameters.yaml
+[2.426s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/config/ur16e/visual_parameters.yaml
+[2.435s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/config/ur20/default_kinematics.yaml
+[2.445s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/config/ur20/joint_limits.yaml
+[2.464s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/config/ur20/physical_parameters.yaml
+[2.482s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/config/ur20/visual_parameters.yaml
+[2.503s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/config/ur3/default_kinematics.yaml
+[2.527s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/config/ur3/joint_limits.yaml
+[2.552s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/config/ur3/physical_parameters.yaml
+[2.582s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/config/ur3/visual_parameters.yaml
+[2.601s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/config/ur30/default_kinematics.yaml
+[2.620s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/config/ur30/joint_limits.yaml
+[2.644s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/config/ur30/physical_parameters.yaml
+[2.655s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/config/ur30/visual_parameters.yaml
+[2.673s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/config/ur3e/default_kinematics.yaml
+[2.689s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/config/ur3e/joint_limits.yaml
+[2.712s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/config/ur3e/physical_parameters.yaml
+[2.726s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/config/ur3e/visual_parameters.yaml
+[2.735s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/config/ur5/default_kinematics.yaml
+[2.746s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/config/ur5/joint_limits.yaml
+[2.755s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/config/ur5/physical_parameters.yaml
+[2.766s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/config/ur5/visual_parameters.yaml
+[2.777s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/config/ur5e/default_kinematics.yaml
+[2.788s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/config/ur5e/joint_limits.yaml
+[2.806s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/config/ur5e/physical_parameters.yaml
+[2.818s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/config/ur5e/visual_parameters.yaml
+[2.836s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/launch/view_ur.launch.py
+[2.857s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur10/collision/base.stl
+[2.873s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur10/collision/forearm.stl
+[2.882s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur10/collision/shoulder.stl
+[2.892s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur10/collision/upperarm.stl
+[2.904s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur10/collision/wrist1.stl
+[2.915s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur10/collision/wrist2.stl
+[2.925s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur10/collision/wrist3.stl
+[2.936s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur10/visual/base.dae
+[2.946s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur10/visual/forearm.dae
+[2.956s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur10/visual/shoulder.dae
+[2.966s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur10/visual/upperarm.dae
+[2.976s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur10/visual/wrist1.dae
+[2.988s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur10/visual/wrist2.dae
+[3.007s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur10/visual/wrist3.dae
+[3.029s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur10e/collision/base.stl
+[3.055s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur10e/collision/forearm.stl
+[3.076s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur10e/collision/shoulder.stl
+[3.108s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur10e/collision/upperarm.stl
+[3.127s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur10e/collision/wrist1.stl
+[3.167s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur10e/collision/wrist2.stl
+[3.198s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur10e/collision/wrist3.stl
+[3.222s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur10e/visual/base.dae
+[3.244s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur10e/visual/forearm.dae
+[3.264s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur10e/visual/shoulder.dae
+[3.282s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur10e/visual/upperarm.dae
+[3.305s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur10e/visual/wrist1.dae
+[3.322s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur10e/visual/wrist2.dae
+[3.341s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur10e/visual/wrist3.dae
+[3.359s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur16e/collision/forearm.stl
+[3.379s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur16e/collision/upperarm.stl
+[3.400s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur16e/visual/forearm.dae
+[3.420s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur16e/visual/upperarm.dae
+[3.440s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur20/LICENSE.txt
+[3.458s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur20/collision/base.stl
+[3.479s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur20/collision/forearm.stl
+[3.495s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur20/collision/shoulder.stl
+[3.513s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur20/collision/upperarm.stl
+[3.535s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur20/collision/wrist1.stl
+[3.555s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur20/collision/wrist2.stl
+[3.577s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur20/collision/wrist3.stl
+[3.595s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur20/visual/UR20_DIFF_8bit_2K.png
+[3.614s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur20/visual/base.dae
+[3.632s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur20/visual/forearm.dae
+[3.651s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur20/visual/shoulder.dae
+[3.673s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur20/visual/upperarm.dae
+[3.688s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur20/visual/wrist1.dae
+[3.709s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur20/visual/wrist2.dae
+[3.736s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur20/visual/wrist3.dae
+[3.754s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur3/collision/base.stl
+[3.777s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur3/collision/forearm.stl
+[3.795s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur3/collision/shoulder.stl
+[3.811s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur3/collision/upperarm.stl
+[3.835s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur3/collision/wrist1.stl
+[3.854s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur3/collision/wrist2.stl
+[3.878s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur3/collision/wrist3.stl
+[3.895s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur3/visual/base.dae
+[3.914s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur3/visual/forearm.dae
+[3.935s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur3/visual/shoulder.dae
+[3.954s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur3/visual/upperarm.dae
+[3.971s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur3/visual/wrist1.dae
+[3.991s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur3/visual/wrist2.dae
+[4.007s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur3/visual/wrist3.dae
+[4.029s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur30/LICENSE.txt
+[4.048s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur30/collision/forearm.stl
+[4.072s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur30/collision/upperarm.stl
+[4.096s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur30/visual/UR30_DIFF_8bit_2K.png
+[4.121s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur30/visual/forearm.dae
+[4.141s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur30/visual/upperarm.dae
+[4.162s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur3e/collision/base.stl
+[4.184s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur3e/collision/forearm.stl
+[4.200s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur3e/collision/shoulder.stl
+[4.221s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur3e/collision/upperarm.stl
+[4.243s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur3e/collision/wrist1.stl
+[4.259s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur3e/collision/wrist2.stl
+[4.272s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur3e/collision/wrist3.stl
+[4.282s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur3e/visual/base.dae
+[4.291s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur3e/visual/forearm.dae
+[4.301s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur3e/visual/shoulder.dae
+[4.311s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur3e/visual/upperarm.dae
+[4.321s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur3e/visual/wrist1.dae
+[4.332s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur3e/visual/wrist2.dae
+[4.342s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur3e/visual/wrist3.dae
+[4.351s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur5/collision/base.stl
+[4.361s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur5/collision/forearm.stl
+[4.371s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur5/collision/shoulder.stl
+[4.381s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur5/collision/upperarm.stl
+[4.406s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur5/collision/wrist1.stl
+[4.422s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur5/collision/wrist2.stl
+[4.441s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur5/collision/wrist3.stl
+[4.456s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur5/visual/base.dae
+[4.477s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur5/visual/forearm.dae
+[4.493s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur5/visual/shoulder.dae
+[4.503s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur5/visual/upperarm.dae
+[4.512s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur5/visual/wrist1.dae
+[4.522s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur5/visual/wrist2.dae
+[4.535s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur5/visual/wrist3.dae
+[4.546s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur5e/collision/base.stl
+[4.557s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur5e/collision/forearm.stl
+[4.566s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur5e/collision/shoulder.stl
+[4.576s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur5e/collision/upperarm.stl
+[4.586s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur5e/collision/wrist1.stl
+[4.596s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur5e/collision/wrist2.stl
+[4.605s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur5e/collision/wrist3.stl
+[4.614s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur5e/visual/base.dae
+[4.625s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur5e/visual/forearm.dae
+[4.638s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur5e/visual/shoulder.dae
+[4.649s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur5e/visual/upperarm.dae
+[4.660s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur5e/visual/wrist1.dae
+[4.673s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur5e/visual/wrist2.dae
+[4.688s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/meshes/ur5e/visual/wrist3.dae
+[4.707s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/rviz/view_robot.rviz
+[4.723s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/urdf/inc/ur_common.xacro
+[4.742s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/urdf/inc/ur_transmissions.xacro
+[4.764s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/urdf/ur.ros2_control.xacro
+[4.777s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/urdf/ur.urdf.xacro
+[4.796s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/urdf/ur_macro.xacro
+[4.813s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/urdf/ur_sim.ros2_control.xacro
+[4.831s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/urdf/ur_sim_macro.xacro
+[4.850s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/test/test_ur_urdf_xacro.py
+[4.868s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/test/test_view_ur_launch.py
+[4.886s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ament_index/resource_index/package_run_dependencies/ur_description
+[4.904s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ament_index/resource_index/parent_prefix_path/ur_description
+[4.923s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/environment/ament_prefix_path.sh
+[4.934s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/environment/ament_prefix_path.dsv
+[4.943s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/environment/path.sh
+[4.954s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/environment/path.dsv
+[4.977s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/local_setup.bash
+[4.994s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/local_setup.sh
+[5.015s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/local_setup.zsh
+[5.029s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/local_setup.dsv
+[5.046s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/package.dsv
+[5.066s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ament_index/resource_index/packages/ur_description
+[5.090s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/cmake/ur_descriptionConfig.cmake
+[5.102s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/cmake/ur_descriptionConfig-version.cmake
+[5.112s] -- Symlinking: /home/george/ROS2/ros2_hoverboard/install/ur_description/share/ur_description/package.xml
+[5.149s] Invoked command in '/home/george/ROS2/ros2_hoverboard/build/ur_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/george/ROS2/ros2_hoverboard/build/ur_description

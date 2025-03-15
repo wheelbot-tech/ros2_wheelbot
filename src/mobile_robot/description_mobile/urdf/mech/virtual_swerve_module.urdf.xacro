@@ -1,0 +1,181 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+  
+    
+    <xacro:macro name="virtual_swerve_module" params="
+        prefix parent
+        pos_x pos_y pos_z"
+    >
+    
+  <!-- virtual rear  left steering -->
+    <link name="${prefix}virtual_rear_left_steering_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+           <cylinder length="${rulment_axial_height}" radius="${rulment_axial_diametru}"/>
+        </geometry>
+        <material name="invisible"/>
+      </visual>
+    </link>
+
+    <joint name="${prefix}virtual_rear_left_steering_joint" type="revolute">
+      <parent link="${prefix}${parent}"/>
+      <child link="${prefix}virtual_rear_left_steering_link"/>
+      <origin xyz="-${pos_x} ${pos_y} -${pos_z}" rpy="0 0 0"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="-1.0" upper="1.0" effort="100.0" velocity="0.0"/>
+      <dynamics damping="0.2"/>
+    </joint>
+
+
+    <!-- virtual rear right steering -->
+    <link name="${prefix}virtual_rear_right_steering_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder length="${rulment_axial_height}" radius="${rulment_axial_diametru}"/>
+        </geometry>
+        <material name="invisible"/>
+      </visual>
+    </link>
+
+    <joint name="${prefix}virtual_rear_right_steering_joint" type="revolute">
+      <parent link="${prefix}${parent}"/>
+      <child link="${prefix}virtual_rear_right_steering_link"/>
+      <origin xyz="-${pos_x} -${pos_y} -${pos_z}" rpy="0 0 0"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="-1.0" upper="1.0" effort="100.0" velocity="0.0"/>
+      <dynamics damping="0.2"/>
+      <!-- <mimic joint="${prefix}virtual_front_right_steering_joint" multiplier="1.0" offset="0.0"/> -->
+    </joint>
+
+
+   <!-- virtual front left steering -->
+    <link name="${prefix}virtual_front_left_steering_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder length="${rulment_axial_height}" radius="${rulment_axial_diametru}"/>
+        </geometry>
+        <material name="invisible"/>
+      </visual>
+    </link>
+
+    <joint name="${prefix}virtual_front_left_steering_joint" type="revolute">
+      <parent link="${prefix}${parent}"/>
+      <child link="${prefix}virtual_front_left_steering_link"/>
+      <origin xyz="${pos_x} ${pos_y} -${pos_z}" rpy="0 0 0"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="-1.0" upper="1.0" effort="100.0" velocity="0.0"/>
+      <dynamics damping="0.2"/>
+      <!-- <mimic joint="${prefix}virtual_rear_left_steering_joint" multiplier="1.0" offset="0.0"/> -->
+    </joint>
+
+
+   <!-- virtual front right steering -->
+    <link name="${prefix}virtual_front_right_steering_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder length="0.01" radius="${wheel_radius}"/>
+        </geometry>
+        <material name="invisible"/>
+      </visual>
+    </link>
+
+    <joint name="${prefix}virtual_front_right_steering_joint" type="revolute">
+      <parent link="${prefix}${parent}"/>
+      <child link="${prefix}virtual_front_right_steering_link"/>
+      <origin xyz="${pos_x} -${pos_y} -${pos_z}" rpy="0 0 0"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="-1.0" upper="1.0" effort="100.0" velocity="0.0"/>
+      <dynamics damping="0.2"/>
+    </joint>
+
+
+
+
+  <!-- virtual rear  left wheel -->
+    <link name="${prefix}virtual_rear_left_wheel_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
+        <geometry>
+          <cylinder length="0.01" radius="${wheel_radius}"/>
+        </geometry>
+        <material name="invisible"/>
+      </visual>
+    </link>
+
+
+    <joint name="${prefix}virtual_rear_left_wheel_joint" type="continuous">
+      <parent link="${prefix}virtual_rear_left_steering_link" />
+      <child link="${prefix}virtual_rear_left_wheel_link" />
+      <origin xyz="0 0 -${rulment_axial_height/2 + wheel_radius}" rpy="0 0 0"/>
+      <axis xyz="1 0 0"/>
+      <limit effort="100.0" velocity="100.0"/>
+      <dynamics damping="0.2"/>
+    </joint>
+
+    <!-- virtual rear right wheel -->
+    <link name="${prefix}virtual_rear_right_wheel_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
+        <geometry>
+          <cylinder length="0.01" radius="${wheel_radius}"/>
+        </geometry>
+        <material name="invisible"/>
+      </visual>
+    </link>
+
+    <joint name="${prefix}virtual_rear_right_wheel_joint" type="continuous">
+      <parent link="${prefix}virtual_rear_right_steering_link"/>
+      <child link="${prefix}virtual_rear_right_wheel_link"/>
+      <origin xyz="0 0 -${rulment_axial_height/2 + wheel_radius}" rpy="0 0 0"/>
+      <axis xyz="1 0 0"/>
+      <limit effort="100.0" velocity="100.0"/>
+      <dynamics damping="0.2"/>
+      <!--<mimic joint="${prefix}virtual_front_right_wheel_joint" multiplier="1.0" offset="0.0"/> -->
+    </joint>
+
+   <!-- virtual front left wheel -->
+    <link name="${prefix}virtual_front_left_wheel_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
+        <geometry>
+          <cylinder length="0.01" radius="${wheel_radius}"/>
+        </geometry>
+        <material name="invisible"/>
+      </visual>
+    </link>
+
+    <joint name="${prefix}virtual_front_left_wheel_joint" type="continuous">
+      <parent link="${prefix}virtual_front_left_steering_link" />
+      <child link="${prefix}virtual_front_left_wheel_link" />
+      <origin xyz="0 0 -${rulment_axial_height/2 + wheel_radius}" rpy="0 0 0"/>
+      <axis xyz="1 0 0"/>
+      <limit effort="100.0" velocity="100.0"/>
+      <dynamics damping="0.2"/>
+      <!-- <mimic joint="${prefix}virtual_rear_left_wheel_joint" multiplier="1.0" offset="0.0"/> -->
+    </joint>
+
+   <!-- virtual front right wheel -->
+    <link name="${prefix}virtual_front_right_wheel">
+      <visual>
+        <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
+        <geometry>
+          <cylinder length="0.01" radius="${wheel_radius}"/>
+        </geometry>
+        <material name="invisible"/>
+      </visual>
+    </link>
+
+    <joint name="${prefix}virtual_front_right_wheel_joint" type="continuous">
+      <parent link="${prefix}virtual_front_right_steering_link"/>
+      <child link="${prefix}virtual_front_right_wheel"/>
+      <origin xyz="0 0 -${rulment_axial_height/2 + wheel_radius}" rpy="0 0 0"/>
+      <axis xyz="1 0 0"/>
+      <limit effort="100.0" velocity="100.0"/>
+      <dynamics damping="0.2"/>
+    </joint>
+  </xacro:macro>
+</robot>

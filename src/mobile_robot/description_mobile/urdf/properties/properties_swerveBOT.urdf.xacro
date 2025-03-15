@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:property name="PI" value="3.1415926535897931"/>
+  <xacro:property name="base_length" value="0.510" />
+  <xacro:property name="base_width" value="0.510" />
+  <xacro:property name="base_height" value="0.04" />
+  <xacro:property name="base_mass" value="5" />
+
+  <xacro:property name="wheel_radius" value="0.0825" />
+  <xacro:property name="wheel_len" value="0.045" />
+  <xacro:property name="wheel_drive_len" value="0.230" />
+  <xacro:property name="wheel_mass" value="0.3" />
+
+  <xacro:property name="rulment_axial_diametru" value="0.064" />
+  <xacro:property name="rulment_axial_height" value="0.032" />
+
+  <!-- Constants for robot dimensions -->
+   <xacro:property name="wheelbase" value="0.430" />
+   <xacro:property name="wheel_track"  value="0.430" />
+
+
+</robot>
