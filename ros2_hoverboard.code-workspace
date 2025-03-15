@@ -6,13 +6,13 @@
 	],
 	"settings": {
 		"python.autoComplete.extraPaths": [
-			"/home/george/ROS2/ros2_hoverboard/install/teleop_twist_keyboard/lib/python3.10/site-packages",
+			"/home/george/ROS2/ros2_wheelbot/install/teleop_twist_keyboard/lib/python3.10/site-packages",
 			"/opt/ros/humble/local/lib/python3.10/dist-packages",
 			"/opt/ros/humble/lib/python3.10/site-packages",
 			"/opt/ros/humble/local/lib/python3.10/dist-packages"
 		],
 		"python.analysis.extraPaths": [
-			"/home/george/ROS2/ros2_hoverboard/install/teleop_twist_keyboard/lib/python3.10/site-packages",
+			"/home/george/ROS2/ros2_wheelbot/install/teleop_twist_keyboard/lib/python3.10/site-packages",
 			"/opt/ros/humble/local/lib/python3.10/dist-packages",
 			"/opt/ros/humble/lib/python3.10/site-packages",
 			"/opt/ros/humble/local/lib/python3.10/dist-packages"

@@ -6,10 +6,10 @@
         "limitSymbolsToIncludedHeaders": false
       },
       "includePath": [
-        "/home/george/ROS2/ros2_hoverboard/install/diff_drive_controller/include/**",
+        "/home/george/ROS2/ros2_wheelbot/install/diff_drive_controller/include/**",
         "/opt/ros/humble/include/**",
-        "/home/george/ROS2/ros2_hoverboard/src/diff_drive_controller/include/**",
-        "/home/george/ROS2/ros2_hoverboard/src/topic_based_ros2_control/include/**",
+        "/home/george/ROS2/ros2_wheelbot/src/diff_drive_controller/include/**",
+        "/home/george/ROS2/ros2_wheelbot/src/topic_based_ros2_control/include/**",
         "/usr/include/**"
       ],
       "name": "ROS",

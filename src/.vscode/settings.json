@@ -1,10 +1,10 @@
 {
     "python.autoComplete.extraPaths": [
-        "/home/george/ROS2/ros2_hoverboard/install/teleop_twist_keyboard/lib/python3.10/site-packages",
+        "/home/george/ROS2/ros2_wheelbot/install/teleop_twist_keyboard/lib/python3.10/site-packages",
         "/opt/ros/iron/lib/python3.10/site-packages"
     ],
     "python.analysis.extraPaths": [
-        "/home/george/ROS2/ros2_hoverboard/install/teleop_twist_keyboard/lib/python3.10/site-packages",
+        "/home/george/ROS2/ros2_wheelbot/install/teleop_twist_keyboard/lib/python3.10/site-packages",
         "/opt/ros/iron/lib/python3.10/site-packages"
     ],
     "files.associations": {

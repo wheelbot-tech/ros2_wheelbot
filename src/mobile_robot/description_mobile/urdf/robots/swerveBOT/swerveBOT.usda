@@ -64,10 +64,10 @@
         }
     }
     defaultPrim = "wheelbot"
-    doc = """Generated from Composed Stage of root layer /home/george/ROS2/ros2_hoverboard/src/description/urdf/robots/swerveBOT/swerveBOT.usd
+    doc = """Generated from Composed Stage of root layer /home/george/ROS2/ros2_wheelbot/src/description/urdf/robots/swerveBOT/swerveBOT.usd
 
 
-Generated from Composed Stage of root layer /home/george/ROS2/ros2_hoverboard/src/description/urdf/robots/swerveBOT/swerveBOT.usd
+Generated from Composed Stage of root layer /home/george/ROS2/ros2_wheelbot/src/description/urdf/robots/swerveBOT/swerveBOT.usd
 """
     metersPerUnit = 1
     upAxis = "Z"
