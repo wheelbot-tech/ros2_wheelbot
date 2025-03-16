@@ -10,7 +10,7 @@
 	url = htps://github.com/GeorgeNegret/topic_based_ros2_control
 [submodule "src/mobile_robot/teleop_ws/twist_mux"]
 	path = src/mobile_robot/teleop_ws/twist_mux
-	url = https://github.com/GeorgeNegret/twist_mux.git
+	url = https://github.com/GeorgeNegret/twist_mux
 	branch = humble
 [submodule "rplidar_ros"]
 	path = rplidar_ros
