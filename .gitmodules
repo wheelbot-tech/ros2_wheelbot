@@ -12,3 +12,7 @@
 	path = src/mobile_robot/teleop_ws/twist_mux
 	url = https://github.com/GeorgeNegret/twist_mux.git
 	branch = humble
+[submodule "rplidar_ros"]
+	path = rplidar_ros
+	url = https://github.com/GeorgeNegret/rplidar_ros
+	branch = ros2
