@@ -2,3 +2,6 @@
 	path = src/manipulator/ur_description
 	url = https://github.com/GeorgeNegret/Universal_Robots_ROS2_Description.git
 	branch = humble
+[submodule "topic_based_ros2_control"]
+	path = topic_based_ros2_control
+	url = https://github.com/GeorgeNegret/topic_based_ros2_control
