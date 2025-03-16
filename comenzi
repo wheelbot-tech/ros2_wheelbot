@@ -3,7 +3,7 @@ ros2 launch bringup swerveBOT_launch.py
 ros2 run teleop_twist_keyboard teleop_twist_keyboard  --ros-args  --remap cmd_vel:=swerve_controller/cmd_vel  -p stamped:=True 
 RUST_LOG=debug Z_PAYLOAD_LOG=1 zenoh-bridge-ros2dds
 
-ros2 launch isaac_sim wheelbot_ur_isaac.launch.py
+ros2 launch isaac_sim_bringup wheelbot_ur_isaac.launch.py
 ros2 launch bringup mobile_manipulator_sim.launch.py
 ros2 launch nav2 navigation_wheelbot_sim.launch.py
 ros2 launch nav2 rviz_launch.py
