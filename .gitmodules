@@ -8,3 +8,7 @@
 [submodule "src/topic_based_ros2_control"]
 	path = src/topic_based_ros2_control
 	url = htps://github.com/GeorgeNegret/topic_based_ros2_control
+[submodule "src/mobile_robot/teleop_ws/twist_mux"]
+	path = src/mobile_robot/teleop_ws/twist_mux
+	url = https://github.com/GeorgeNegret/twist_mux.git
+	branch = humble
