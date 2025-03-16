@@ -16,3 +16,7 @@
 	path = rplidar_ros
 	url = src/sensors/https://github.com/GeorgeNegret/rplidar_ros
 	branch = ros2
+[submodule "src/sensors/rplidar_ros"]
+	path = src/sensors/rplidar_ros
+	url = https://github.com/GeorgeNegret/rplidar_ros
+	branch = ros2
