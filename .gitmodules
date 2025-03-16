@@ -5,3 +5,6 @@
 [submodule "topic_based_ros2_control"]
 	path = topic_based_ros2_control
 	url = https://github.com/GeorgeNegret/topic_based_ros2_control
+[submodule "src/topic_based_ros2_control"]
+	path = src/topic_based_ros2_control
+	url = htps://github.com/GeorgeNegret/topic_based_ros2_control
