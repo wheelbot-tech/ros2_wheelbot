@@ -3,7 +3,7 @@
 milestones:
   - title: "TRL4"
     due_on: "2026-02-28"
-    description: "Validare laborator/prototipuri alfa. Criterii conform Planului de Monitorizare."
+    description: "Validare laborator/prototipuri alfa."
   - title: "TRL5"
     due_on: "2026-09-30"
     description: "Prototip integrat fidel; integrare pe scenarii extinse."
@@ -12,7 +12,7 @@ milestones:
     description: "Beta în mediu relevant; teste teren; KPI operaționali."
   - title: "TRL8"
     due_on: "2027-08-31"
-    description: "Produs pilot; documentație completă; ORR/acceptanță."
+    description: "Produs pilot; documentație completă; "
   - title: "Publicare achiziții CDI"
     due_on: "2025-11-30"
     description: "Publicarea anunțului achizițiilor principale (CDI)."
