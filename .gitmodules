@@ -2,9 +2,6 @@
 	path = src/manipulator/ur_description
 	url = https://github.com/wheelbot-tech/Universal_Robots_ROS2_Description.git
 	branch = humble
-[submodule "topic_based_ros2_control"]
-	path = topic_based_ros2_control
-	url = https://github.com/wheelbot-tech/topic_based_ros2_control
 [submodule "src/topic_based_ros2_control"]
 	path = src/topic_based_ros2_control
 	url = htps://github.com/wheelbot-tech/topic_based_ros2_control
@@ -12,10 +9,6 @@
 	path = src/mobile_robot/teleop_ws/twist_mux
 	url = https://github.com/wheelbot-tech/twist_mux
 	branch = humble
-[submodule "rplidar_ros"]
-	path = rplidar_ros
-	url = src/sensors/https://github.com/wheelbot-tech/rplidar_ros
-	branch = ros2
 [submodule "src/sensors/rplidar_ros"]
 	path = src/sensors/rplidar_ros
 	url = https://github.com/wheelbot-tech/rplidar_ros
