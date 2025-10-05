@@ -4,7 +4,8 @@
 	branch = humble
 [submodule "src/topic_based_ros2_control"]
 	path = src/topic_based_ros2_control
-	url = htps://github.com/wheelbot-tech/topic_based_ros2_control
+	url = https://github.com/wheelbot-tech/topic_based_ros2_control
+	branch = wheelbot-fix
 [submodule "src/mobile_robot/teleop_ws/twist_mux"]
 	path = src/mobile_robot/teleop_ws/twist_mux
 	url = https://github.com/wheelbot-tech/twist_mux
