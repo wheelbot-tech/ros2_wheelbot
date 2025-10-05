@@ -1,0 +1,21 @@
+# Listă de milestone-uri standard pentru ros2_wheelbot
+# Poți ajusta liber numele, data și descrierea.
+milestones:
+  - title: "TRL4"
+    due_on: "2026-02-28"
+    description: "Validare laborator/prototipuri alfa. Criterii conform Planului de Monitorizare."
+  - title: "TRL5"
+    due_on: "2026-09-30"
+    description: "Prototip integrat fidel; integrare pe scenarii extinse."
+  - title: "TRL6"
+    due_on: "2027-04-30"
+    description: "Beta în mediu relevant; teste teren; KPI operaționali."
+  - title: "TRL8"
+    due_on: "2027-08-31"
+    description: "Produs pilot; documentație completă; ORR/acceptanță."
+  - title: "Publicare achiziții CDI"
+    due_on: "2025-11-30"
+    description: "Publicarea anunțului achizițiilor principale (CDI)."
+  - title: "Recepție echipamente"
+    due_on: "2027-08-30"
+    description: "Recepția echipamentelor principale; PV de recepție."

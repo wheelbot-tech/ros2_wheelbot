@@ -1,0 +1,66 @@
+name: Sync milestones
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - ".github/milestones.yml"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Load milestones.yml and sync
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = '.github/milestones.yml';
+            const yaml = require('js-yaml');
+            const content = fs.readFileSync(path, 'utf8');
+            const data = yaml.load(content);
+            const ownerRepo = process.env.GITHUB_REPOSITORY; // e.g., wheelbot-tech/ros2_wheelbot
+            const [owner, repo] = ownerRepo.split('/');
+
+            async function listAllMilestones(state='all') {
+              const res = await github.request('GET /repos/{owner}/{repo}/milestones', {
+                owner, repo, state
+              });
+              return res.data;
+            }
+
+            async function createOrUpdateMilestone(ms) {
+              const all = await listAllMilestones('all');
+              const existing = all.find(x => x.title === ms.title);
+              const due = ms.due_on ? new Date(ms.due_on + 'T00:00:00Z').toISOString() : undefined;
+              if (!existing) {
+                core.info(`Creating milestone: ${ms.title}`);
+                await github.request('POST /repos/{owner}/{repo}/milestones', {
+                  owner, repo,
+                  title: ms.title,
+                  description: ms.description || '',
+                  due_on: due
+                });
+              } else {
+                core.info(`Updating milestone: ${ms.title}`);
+                await github.request('PATCH /repos/{owner}/{repo}/milestones/{milestone_number}', {
+                  owner, repo,
+                  milestone_number: existing.number,
+                  title: ms.title,
+                  description: ms.description || existing.description || '',
+                  due_on: due
+                });
+              }
+            }
+
+            for (const m of data.milestones || []) {
+              await createOrUpdateMilestone(m);
+            }
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
