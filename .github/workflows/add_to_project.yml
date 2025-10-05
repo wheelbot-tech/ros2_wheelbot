@@ -1,0 +1,43 @@
+name: Add Issues & PRs to Personal WheelBot Project
+
+on:
+  issues:
+    types: [opened, labeled]
+  pull_request:
+    types: [opened, labeled, ready_for_review]
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+  projects: write
+
+jobs:
+  add-to-project:
+    name: Add new items to WheelBot Project
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Add to personal project (wheelbot-tech user project)
+        uses: actions/add-to-project@v0.5.0
+        with:
+          # 🔗 URL-ul proiectului personal
+          project-url: https://github.com/users/wheelbot-tech/projects/2
+
+          # Folosim tokenul implicit GitHub Actions (nu e nevoie de PAT)
+          github-token: ${{ github.token }}
+
+          # Adaugă doar dacă au etichetele relevante
+          labeled: >
+            workstream/software-ros2,
+            workstream/networking-zenoh,
+            workstream/control-drive,
+            workstream/perception-sensing,
+            workstream/mech-cad,
+            workstream/safety-ce,
+            workstream/procurement-bom,
+            workstream/docs,
+            type/gate,
+            type/feature,
+            type/task,
+            type/bug
