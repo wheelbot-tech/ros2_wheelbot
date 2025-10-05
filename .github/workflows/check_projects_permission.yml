@@ -1,0 +1,21 @@
+name: Check Projects permission support
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+  projects: write
+
+jobs:
+  info:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print server URL
+        run: echo "GITHUB_SERVER_URL=$GITHUB_SERVER_URL"
+      - name: Print runner environment (token info)
+        run: |
+          echo "GITHUB_REPOSITORY=$GITHUB_REPOSITORY"
+          echo "GITHUB_ACTOR=$GITHUB_ACTOR"
