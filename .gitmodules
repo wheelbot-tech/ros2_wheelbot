@@ -8,7 +8,7 @@
 [submodule "src/mobile_robot/teleop_ws/twist_mux"]
 	path = src/mobile_robot/teleop_ws/twist_mux
 	url = https://github.com/wheelbot-tech/twist_mux
-	branch = humble
+	branch = rolling
 [submodule "src/sensors/rplidar_ros"]
 	path = src/sensors/rplidar_ros
 	url = https://github.com/wheelbot-tech/rplidar_ros
