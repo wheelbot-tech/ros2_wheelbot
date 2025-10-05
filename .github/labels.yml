@@ -1,0 +1,57 @@
+- name: workstream/software-ros2
+  color: 1f77b4
+- name: workstream/networking-zenoh
+  color: 17becf
+- name: workstream/control-drive
+  color: ff7f0e
+- name: workstream/perception-sensing
+  color: 2ca02c
+- name: workstream/mech-cad
+  color: 9467bd
+- name: workstream/safety-ce
+  color: d62728
+- name: workstream/procurement-bom
+  color: 8c564b
+- name: workstream/docs
+  color: 7f7f7f
+
+- name: variant/rd
+  color: 1b9e77
+- name: variant/industrial
+  color: d95f02
+
+- name: trl/3
+  color: bdbdbd
+- name: trl/4
+  color: 969696
+- name: trl/5
+  color: 737373
+- name: trl/6
+  color: 525252
+- name: trl/7
+  color: 252525
+- name: trl/8
+  color: 000000
+
+- name: priority/p0
+  color: e41a1c
+- name: priority/p1
+  color: f781bf
+- name: priority/p2
+  color: a6cee3
+
+- name: type/feature
+  color: 33a02c
+- name: type/bug
+  color: e31a1c
+- name: type/task
+  color: 1f78b4
+- name: type/gate
+  color: fdae61
+
+- name: blocked
+  color: 000000
+- name: help-wanted
+  color: b2df8a
+- name: good-first-issue
+  color: cab2d6
