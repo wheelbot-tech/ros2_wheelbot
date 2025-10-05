@@ -13,9 +13,4 @@ milestones:
   - title: "TRL8"
     due_on: "2027-08-31"
     description: "Produs pilot; documentație completă; "
-  - title: "Publicare achiziții CDI"
-    due_on: "2025-11-30"
-    description: "Publicarea anunțului achizițiilor principale (CDI)."
-  - title: "Recepție echipamente"
-    due_on: "2027-08-30"
-    description: "Recepția echipamentelor principale; PV de recepție."
+
