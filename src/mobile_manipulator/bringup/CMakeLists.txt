@@ -34,7 +34,7 @@ find_package(bringup_mobile REQUIRED)
 find_package(description_mobile REQUIRED)
 find_package(mm_moveit_config REQUIRED)
 find_package(description REQUIRED)
-find_package(swerve_controller REQUIRED)
+find_package(swerve_drive_controller REQUIRED)
 find_package(joint_trajectory_controller REQUIRED)
 
 install(

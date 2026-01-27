@@ -32,7 +32,8 @@ find_package(ackermann_steering_controller REQUIRED)
 find_package(bicycle_steering_controller REQUIRED)
 find_package(ackermann_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
-find_package(swerve_controller REQUIRED)
+find_package(steering_controllers_library REQUIRED)
+find_package(swerve_drive_controller REQUIRED)
 
 install(
   DIRECTORY config launch scripts

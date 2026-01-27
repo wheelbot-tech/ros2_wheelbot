@@ -26,7 +26,7 @@
   <depend>description_mobile</depend>
   <depend>description</depend>
   <depend>mm_moveit_config</depend>
-  <depend>swerve_controller</depend>
+  <depend>swerve_drive_controller</depend>
   <depend>joint_trajectory_controller</depend>
 
 
