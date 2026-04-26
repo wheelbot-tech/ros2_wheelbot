@@ -5,7 +5,9 @@
 #include <string>
 #include <cmath>
 #include <algorithm> 
+#include <array>
 #include <rclcpp/rclcpp.hpp>
+#include <geometry_msgs/msg/twist.hpp>
 #include <geometry_msgs/msg/twist_stamped.hpp>
 #include <sensor_msgs/msg/joint_state.hpp>
 
@@ -14,82 +16,123 @@
 class JointStateToTwist : public rclcpp::Node
 {
 public:
-JointStateToTwist(const std::string& prefix, double wheel_radius, double wheel_drive_len, 
+JointStateToTwist(const std::string& prefix, const std::string& use_stamped,
+                    double wheel_radius, double wheel_drive_len, 
                     const std::string& drive_1_pos, const std::string& drive_2_pos, 
-                    const std::string& drive_3_pos, const std::string& drive_4_pos ): 
-    Node("jointstate_to_twist"), 
-    prefix_(prefix), 
+                    const std::string& drive_3_pos, const std::string& drive_4_pos): 
+    Node("jointstate_to_twist_2"), 
+    prefix_(prefix), use_stamped_(use_stamped),
     wheel_radius_(wheel_radius), wheel_drive_len_(wheel_drive_len), 
     drive_1_pos_(drive_1_pos), drive_2_pos_(drive_2_pos), 
-    drive_3_pos_(drive_3_pos), drive_4_pos_(drive_4_pos)
+    drive_3_pos_(drive_3_pos), drive_4_pos_(drive_4_pos),
+    encoder_position{0.0, 0.0, 0.0, 0.0},  // Initialize encoder positions to 0
+    states_received_(false)
 
     {           
         // Obține namespace-ul din parametri
         std::string namespace_prefix = this->get_namespace();
-        std::string amr_state_topic = namespace_prefix + "/amr_joint_states";
-        std::string amr_cmds_topic = namespace_prefix + "/amr_joint_commands";
-
-        auto default_qos = rclcpp::QoS(rclcpp::SystemDefaultsQoS());
-        //auto best_effort_qos = rclcpp::QoS(rclcpp::SensorDataQoS());
-
+        if (namespace_prefix == "/" ) {
+            namespace_prefix = ""; }
+        else    {
+            namespace_prefix = namespace_prefix  + "/";
+        }
+        std::string amr_state_topic = namespace_prefix + "amr_joint_states";
+        std::string amr_cmds_topic = namespace_prefix + "amr_joint_commands";
+ 
+        auto reliable_qos = rclcpp::QoS(rclcpp::KeepLast(1)).reliable();
+        auto best_effort_qos = rclcpp::QoS(rclcpp::SensorDataQoS());
+        
         full_joint_name_0_ = prefix_ + "virtual_front_right_steering_joint";
-        full_topic_name_0_ = namespace_prefix + "/" + drive_1_pos_ + "drive_controller/cmd_vel";
+        full_topic_name_0_ = namespace_prefix + drive_1_pos_ + "drive_controller/cmd_vel";
         //printf("Full Joint Name after assignment: %s\n", full_joint_name_.c_str());
         //printf("Full Topic Name after assignment: %s\n", full_topic_name_0_.c_str());
-        cmd_vel_pub_0_ = this->create_publisher<geometry_msgs::msg::TwistStamped>(full_topic_name_0_, default_qos);
-
         full_joint_name_1_ = prefix_ + "virtual_front_left_steering_joint";
-        full_topic_name_1_ = namespace_prefix + "/" + drive_2_pos_ + "drive_controller/cmd_vel";
-        //cmd_vel_pub_1_ = this->create_publisher<geometry_msgs::msg::TwistStamped>(full_topic_name_1_, default_qos);
-
+        full_topic_name_1_ = namespace_prefix +  drive_2_pos_ + "drive_controller/cmd_vel";
         full_joint_name_2_ = prefix_ + "virtual_rear_right_steering_joint";
-        full_topic_name_2_ = namespace_prefix + "/" + drive_3_pos_ + "drive_controller/cmd_vel";
-        //cmd_vel_pub_2_ = this->create_publisher<geometry_msgs::msg::TwistStamped>(full_topic_name_2_, default_qos);
-
+        full_topic_name_2_ = namespace_prefix + drive_3_pos_ + "drive_controller/cmd_vel";
         full_joint_name_3_ = prefix_ + "virtual_rear_left_steering_joint";
-        full_topic_name_3_ = namespace_prefix + "/" + drive_4_pos_ + "drive_controller/cmd_vel";
-        cmd_vel_pub_3_ = this->create_publisher<geometry_msgs::msg::TwistStamped>(full_topic_name_3_, default_qos);
+        full_topic_name_3_ = namespace_prefix  + drive_4_pos_ + "drive_controller/cmd_vel";
+
+
+        cmd_vel_pub_0_stamped_ = this->create_publisher<geometry_msgs::msg::TwistStamped>(full_topic_name_0_, best_effort_qos);
+        cmd_vel_pub_3_stamped_ = this->create_publisher<geometry_msgs::msg::TwistStamped>(full_topic_name_3_, best_effort_qos);
+
         
         subscription_amr_states_ = this->create_subscription<sensor_msgs::msg::JointState>(
-            amr_state_topic, default_qos, std::bind(&JointStateToTwist::amr_state_callback, this, std::placeholders::_1));
+            amr_state_topic, reliable_qos, std::bind(&JointStateToTwist::amr_state_callback, this, std::placeholders::_1));
         
         subscription_amr_cmds_ = this->create_subscription<sensor_msgs::msg::JointState>(
-            amr_cmds_topic, default_qos, std::bind(&JointStateToTwist::amr_cmds_callback, this, std::placeholders::_1));
+            amr_cmds_topic, reliable_qos, std::bind(&JointStateToTwist::amr_cmds_callback, this, std::placeholders::_1));
         
     }
 
 private:
-    void amr_state_callback(const sensor_msgs::msg::JointState::SharedPtr msg_state) {
-
+   void amr_state_callback(const sensor_msgs::msg::JointState::SharedPtr msg_state) {
+        // Find joint indices by name and extract steering positions
+        bool found_any = false;
         for (size_t i = 0; i < msg_state->name.size(); ++i) {
-            if (msg_state->name[i] == full_joint_name_0_ ) {
-                encoder_position[0] = msg_state->position[0]; // front_right
-            } else if (msg_state->name[i] == full_joint_name_1_) {
-                encoder_position[1] = msg_state->position[2]; // front_left
-            } else if (msg_state->name[i] == full_joint_name_2_) {
-                encoder_position[2] = msg_state->position[4];  // rear_right
-            } else if (msg_state->name[i] == full_joint_name_3_) {
-                encoder_position[3] = msg_state->position[6]; // rear_left
-                //RCLCPP_INFO(this->get_logger(), "joint name_3: %s", full_joint_name_3_.c_str());
+            if (msg_state->name[i] == full_joint_name_0_ && i < msg_state->position.size()) {
+                encoder_position[0] = msg_state->position[i]; // front_right steering
+                found_any = true;
+            } else if (msg_state->name[i] == full_joint_name_1_ && i < msg_state->position.size()) {
+                encoder_position[1] = msg_state->position[i]; // front_left steering
+                found_any = true;
+            } else if (msg_state->name[i] == full_joint_name_2_ && i < msg_state->position.size()) {
+                encoder_position[2] = msg_state->position[i];  // rear_right steering
+                found_any = true;
+            } else if (msg_state->name[i] == full_joint_name_3_ && i < msg_state->position.size()) {
+                encoder_position[3] = msg_state->position[i]; // rear_left steering
+                found_any = true;
             } 
         }
-
+        if (!found_any && !states_received_) {
+            RCLCPP_WARN_THROTTLE(this->get_logger(), *this->get_clock(), 2000,
+                "No matching joints found! Looking for: %s, %s, %s, %s",
+                full_joint_name_0_.c_str(), full_joint_name_1_.c_str(),
+                full_joint_name_2_.c_str(), full_joint_name_3_.c_str());
+        }
+        if (found_any) {
+            states_received_ = true;
+        }
     }
         
     void amr_cmds_callback(const sensor_msgs::msg::JointState::SharedPtr msg_cmd) {
+        // Don't process commands until we have received state data
+        if (!states_received_) {
+            RCLCPP_WARN_THROTTLE(this->get_logger(), *this->get_clock(), 1000,
+                "Waiting for state data before processing commands");
+            return;
+        }
+        
         double linear_velocity[4] = {0.0, 0.0, 0.0, 0.0};
         double error_position[4] = {0.0, 0.0, 0.0, 0.0};
         double target_position[4] = {0.0, 0.0, 0.0, 0.0};
         double scale[4] = {0.0, 0.0, 0.0, 0.0};
-        geometry_msgs::msg::TwistStamped twist_msg_0;
-        geometry_msgs::msg::TwistStamped twist_msg_1;
-        geometry_msgs::msg::TwistStamped twist_msg_2;
-        geometry_msgs::msg::TwistStamped twist_msg_3;
 
-        for (int i = 0; i < 4; ++i)  {
-            target_position[i] = msg_cmd->position[i]; 
-            error_position[i] = encoder_position[i] - target_position[i];  
-            //RCLCPP_INFO(this->get_logger(), "Error-position(%d):  %f", i, error_position[i]);   
+        // Message structure is: steering0, wheel0, steering1, wheel1, steering2, wheel2, steering3, wheel3
+        // So steering positions are at even indices (0,2,4,6) and wheel velocities at odd indices (1,3,5,7)
+        // Ensure we have enough data (8 elements for 4 steering + 4 wheels)
+        if (msg_cmd->position.size() < 8 || msg_cmd->velocity.size() < 8) {
+            RCLCPP_WARN_THROTTLE(this->get_logger(), *this->get_clock(), 1000,
+                "Insufficient data: position.size()=%zu, velocity.size()=%zu (need 8 each)",
+                msg_cmd->position.size(), msg_cmd->velocity.size());
+            return;
+        }
+
+        // Extract steering target positions from indices (0, 6)
+        // and wheel velocities from indices (1, 7) - only FR and RL modules
+        int module_indices[2] = {0, 3};  // FR = 0, RL = 3
+        int steering_indices[2] = {0, 6};
+        int wheel_indices[2] = {1, 7};
+        
+        for (int j = 0; j < 2; ++j)  {
+            int i = module_indices[j];
+            int steering_idx = steering_indices[j];
+            
+            target_position[i] = msg_cmd->position[steering_idx];
+            
+            error_position[i] = target_position[i] - encoder_position[i];  
+                  
             // Normalize error_position to be within [-π, π]
             error_position[i] = fmod(error_position[i], 2 * M_PI); // First, ensure it's within [0, 2π) or (-2π, 0]
             if (error_position[i] < -M_PI) {
@@ -119,41 +162,87 @@ private:
             }
         }
         
-        //double scale_min = *std::min_element(std::begin(scale), std::end(scale));
+        // Calculate scale_min only for FR (0) and RL (3) modules
         double scale_min = std::min(scale[0], scale[3]);
-        for (int i = 0; i < 4; ++i) 
+        
+        // Extract wheel velocities from indices (1, 7) - only FR and RL modules
+        for (int j = 0; j < 2; ++j) 
             {
-                linear_velocity[i] = msg_cmd->velocity[i] * wheel_radius_ * scale_min;  // m/s
+                int i = module_indices[j];  // 0, 3
+                int wheel_idx = wheel_indices[j];  // 1, 7
+                linear_velocity[i] = msg_cmd->velocity[wheel_idx] * wheel_radius_ * scale_min;  // m/s
+                // Check for NaN in velocity values
+                if (!std::isfinite(linear_velocity[i])) {
+                    RCLCPP_WARN_THROTTLE(this->get_logger(), *this->get_clock(), 1000,
+                        "NaN detected in linear_velocity[%d]: velocity[%d]=%f, wheel_radius=%f, scale_min=%f",
+                        i, wheel_idx, msg_cmd->velocity[wheel_idx], wheel_radius_, scale_min);
+                    linear_velocity[i] = 0.0;
+                }
             }
-        double angular_velocity = 0.8 ;  
+        // P-controller gain for steering
+        double angular_velocity_gain = 1.5;
+        // Maximum angular velocity limit (rad/s) - prevents excessive rotation speed
+        double max_angular_velocity = 1.5;
+        // Dead-band threshold - stop when error is small enough
+        double dead_band_threshold = 0.03;  // ~1.7 degrees
 
-        twist_msg_0.twist.linear.x = linear_velocity[0];        
-        twist_msg_0.twist.angular.z = angular_velocity * error_position[0] / wheel_drive_len_ ;
-        twist_msg_0.header.stamp = this->get_clock()->now();
-
-        //twist_msg_1.twist.linear.x = linear_velocity[1] ;            
-        //twist_msg_1.twist.angular.z = angular_velocity * error_position[1] / wheel_drive_len_ ;
-        //twist_msg_1.header.stamp = this->get_clock()->now();
-
-        //twist_msg_2.twist.linear.x = linear_velocity[2];        
-        //twist_msg_2.twist.angular.z = angular_velocity * error_position[2] / wheel_drive_len_ ;
-        //twist_msg_2.header.stamp = this->get_clock()->now();
+        // Initialize all fields to 0 to avoid NaN in unset fields
+        geometry_msgs::msg::TwistStamped twist_msg_stamped_0;
+        geometry_msgs::msg::TwistStamped twist_msg_stamped_3;
         
-        twist_msg_3.twist.linear.x = linear_velocity[3] ;            
-        twist_msg_3.twist.angular.z = angular_velocity * error_position[3] / wheel_drive_len_ ;
-        twist_msg_3.header.stamp = this->get_clock()->now();
+        // Explicitly zero all twist fields
+        twist_msg_stamped_0.twist.linear.x = 0.0;
+        twist_msg_stamped_0.twist.linear.y = 0.0;
+        twist_msg_stamped_0.twist.linear.z = 0.0;
+        twist_msg_stamped_0.twist.angular.x = 0.0;
+        twist_msg_stamped_0.twist.angular.y = 0.0;
+        twist_msg_stamped_0.twist.angular.z = 0.0;
         
-        cmd_vel_pub_0_->publish(twist_msg_0);
-        //cmd_vel_pub_1_->publish(twist_msg_1);
-        //cmd_vel_pub_2_->publish(twist_msg_2);
-        cmd_vel_pub_3_->publish(twist_msg_3);
+        twist_msg_stamped_3.twist.linear.x = 0.0;
+        twist_msg_stamped_3.twist.linear.y = 0.0;
+        twist_msg_stamped_3.twist.linear.z = 0.0;
+        twist_msg_stamped_3.twist.angular.x = 0.0;
+        twist_msg_stamped_3.twist.angular.y = 0.0;
+        twist_msg_stamped_3.twist.angular.z = 0.0;
 
-        //RCLCPP_INFO(this->get_logger(), "Linear Velocity[1]: %f", linear_velocity[1]);
+        // Now set the actual values
+        twist_msg_stamped_0.twist.linear.x = linear_velocity[0];
+        double angular_z_0 = 0.0;
+        if (fabs(error_position[0]) > dead_band_threshold) {
+            angular_z_0 = angular_velocity_gain * error_position[0] / wheel_drive_len_;
+            // Clamp to maximum angular velocity
+            angular_z_0 = std::clamp(angular_z_0, -max_angular_velocity, max_angular_velocity);
+        }
+        twist_msg_stamped_0.twist.angular.z = std::isfinite(angular_z_0) ? angular_z_0 : 0.0;
+
+        twist_msg_stamped_3.twist.linear.x = linear_velocity[3];
+        double angular_z_3 = 0.0;
+        if (fabs(error_position[3]) > dead_band_threshold) {
+            angular_z_3 = -angular_velocity_gain * error_position[3] / wheel_drive_len_;
+            // Clamp to maximum angular velocity
+            angular_z_3 = std::clamp(angular_z_3, -max_angular_velocity, max_angular_velocity);
+        }
+        twist_msg_stamped_3.twist.angular.z = std::isfinite(angular_z_3) ? angular_z_3 : 0.0;
+
+        twist_msg_stamped_0.header.stamp = this->get_clock()->now();
+        twist_msg_stamped_3.header.stamp = this->get_clock()->now();    
+
+        cmd_vel_pub_0_stamped_->publish(twist_msg_stamped_0);
+        cmd_vel_pub_3_stamped_->publish(twist_msg_stamped_3);
+
+       // RCLCPP_INFO_THROTTLE(this->get_logger(), *this->get_clock(), 2000,
+       //     "cmd_vel: FR(X=%.3f, Z=%.3f Error=%.3f, )",
+       //    twist_msg_stamped_0.twist.linear.x, twist_msg_stamped_0.twist.angular.z, error_position[0]);
+       // RCLCPP_INFO_THROTTLE(this->get_logger(), *this->get_clock(), 2000,
+       //     "cmd_vel: RL(X=%.3f, Z=%.3f Error=%.3f, )",
+       //     twist_msg_stamped_3.twist.linear.x, twist_msg_stamped_3.twist.angular.z, error_position[3]);
+        
     }
     std::string namespace_prefix;
     std::string amr_state_topic;
     std::string amr_cmds_topic;
     std::string prefix_; 
+    std::string use_stamped_;
     double wheel_radius_;
     double wheel_drive_len_;
     std::string drive_1_pos_;
@@ -161,6 +250,7 @@ private:
     std::string drive_3_pos_;
     std::string drive_4_pos_;
     double encoder_position[4];
+    bool states_received_;
     std::string full_joint_name_0_;
     std::string full_topic_name_0_;
     std::string full_joint_name_1_;
@@ -172,20 +262,19 @@ private:
 
     rclcpp::Subscription<sensor_msgs::msg::JointState>::SharedPtr subscription_amr_states_;
     rclcpp::Subscription<sensor_msgs::msg::JointState>::SharedPtr subscription_amr_cmds_;
-    rclcpp::Publisher<geometry_msgs::msg::TwistStamped>::SharedPtr cmd_vel_pub_0_;
-    //rclcpp::Publisher<geometry_msgs::msg::TwistStamped>::SharedPtr cmd_vel_pub_1_;
-    //rclcpp::Publisher<geometry_msgs::msg::TwistStamped>::SharedPtr cmd_vel_pub_2_;
-    rclcpp::Publisher<geometry_msgs::msg::TwistStamped>::SharedPtr cmd_vel_pub_3_;
+    rclcpp::Publisher<geometry_msgs::msg::TwistStamped>::SharedPtr cmd_vel_pub_0_stamped_;
+    rclcpp::Publisher<geometry_msgs::msg::TwistStamped>::SharedPtr cmd_vel_pub_3_stamped_;
+
 };
 
 int main(int argc, char * argv[])
 {
     rclcpp::init(argc, argv);
-    if (argc < 8) {
-        std::cerr << "Usage: jointstate_to_twist <prefix> <wheel_radius> <wheel_drive_len> <drive_1_pos> <drive_2_pos> <drive_3_pos> <drive_4_pos>" << std::endl;
+    if (argc < 9) {
+        std::cerr << "Usage: jointstate_to_twist <prefix> <use_stamped> <wheel_radius> <wheel_drive_len> <drive_1_pos> <drive_2_pos> <drive_3_pos> <drive_4_pos>" << std::endl;
         return 1;
     }
-    auto node = std::make_shared<JointStateToTwist>(argv[1], std::stod(argv[2]), std::stod(argv[3]), argv[4], argv[5], argv[6], argv[7] );
+    auto node = std::make_shared<JointStateToTwist>(argv[1], argv[2], std::stod(argv[3]), std::stod(argv[4]), argv[5], argv[6], argv[7], argv[8]);
     rclcpp::spin(node);
     rclcpp::shutdown();
     return 0;

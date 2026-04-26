@@ -15,10 +15,10 @@ def generate_launch_description():
     joy_teleop_config = launch.substitutions.LaunchConfiguration('joy_teleop_config')
 
     return launch.LaunchDescription([
-        launch.actions.DeclareLaunchArgument('use_sim_time', default_value='true'),
+        launch.actions.DeclareLaunchArgument('use_sim_time', default_value='false'),
+        launch.actions.DeclareLaunchArgument('use_stamped', default_value='true'),
         launch.actions.DeclareLaunchArgument('joy_dev', default_value='/dev/input/js0'),
         launch.actions.DeclareLaunchArgument('joy_config', default_value='F710_sim.yaml'),
-        launch.actions.DeclareLaunchArgument('use_stamped', default_value='false'),
         launch.actions.DeclareLaunchArgument('joy_teleop_config', 
             default_value=[PathJoinSubstitution([FindPackageShare("bringup_mobile"), 'config', LaunchConfiguration('joy_config')])]
         ),

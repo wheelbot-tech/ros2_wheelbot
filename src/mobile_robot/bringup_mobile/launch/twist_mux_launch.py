@@ -96,10 +96,6 @@ def generate_launch_description():
 
     return LaunchDescription([
         DeclareLaunchArgument(
-            'use_stamped',
-            default_value='false',
-            description='Use TwistStamped cmd_vel Options: true/false'),
-        DeclareLaunchArgument(
             'config_locks',
             default_value=default_config_locks,
             description='Default locks config file'),
@@ -125,8 +121,10 @@ def generate_launch_description():
             description='cmd vel output topic'),
         DeclareLaunchArgument(
             'use_sim_time',
-            default_value='true',
-            description='Use simulation time'),
+            default_value='false',
+            description='Use sim time if true'),
+
+        # Nodes
         
         twist_mux_node,
         twist_unstamped_mux_node,

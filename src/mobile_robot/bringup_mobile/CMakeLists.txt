@@ -28,8 +28,6 @@ find_package(twist_mux REQUIRED)
 find_package(diff_drive_controller REQUIRED)
 find_package(joint_trajectory_controller REQUIRED)
 find_package(topic_based_ros2_control REQUIRED)
-find_package(ackermann_steering_controller REQUIRED)
-find_package(bicycle_steering_controller REQUIRED)
 find_package(ackermann_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(steering_controllers_library REQUIRED)
@@ -42,11 +40,13 @@ install(
 
 add_executable(jointstate_to_twist_2 src/jointstate_to_twist_2.cpp)
 ament_target_dependencies(jointstate_to_twist_2 rclcpp geometry_msgs sensor_msgs)
+
 add_executable(jointstate_sim_aggregator_2 src/jointstate_sim_aggregator_2.cpp)
 ament_target_dependencies(jointstate_sim_aggregator_2 rclcpp sensor_msgs)
 
 add_executable(jointstate_to_twist_4 src/jointstate_to_twist_4.cpp)
 ament_target_dependencies(jointstate_to_twist_4 rclcpp geometry_msgs sensor_msgs)
+
 add_executable(jointstate_sim_aggregator_4 src/jointstate_sim_aggregator_4.cpp)
 ament_target_dependencies(jointstate_sim_aggregator_4 rclcpp sensor_msgs)
 

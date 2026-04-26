@@ -106,8 +106,8 @@ def generate_launch_description():
     robot_description = {"robot_description": robot_description_content}
 
     bringup_path = FindPackageShare("bringup_mobile")
-    robot_controllers = PathJoinSubstitution([bringup_path, "config", "swerveBOT_controllers_stamped.yaml"]) 
-    robot_controllers_unstamped = PathJoinSubstitution([bringup_path, "config", "swerveBOT_controllers.yaml"])
+    robot_controllers = PathJoinSubstitution([bringup_path, "config", "swerveBOT_controllers.yaml"]) 
+    
     scan_filter_config = PathJoinSubstitution([bringup_path, "config", "angular_filter_scan.yaml"])
     # the steering controller libraries by default publish odometry on a separate topic than /tf
 
@@ -119,14 +119,7 @@ def generate_launch_description():
         output="both",
         condition=IfCondition(use_stamped)
      )
-    control_unstamped_node = Node(
-        package="controller_manager",
-        executable="ros2_control_node",
-        #namespace=namespace,
-        parameters=[robot_description, robot_controllers_unstamped, {'use_sim_time': use_sim_time}],
-        output="both",
-        condition=UnlessCondition(use_stamped)
-     )
+
     # control_node_require = RegisterEventHandler(
     #     event_handler=OnProcessExit(
     #         target_action=control_node,
@@ -224,9 +217,9 @@ def generate_launch_description():
     )
     jointstate_aggregator_node = Node(
         package='bringup_mobile',
-        executable='jointstate_sim_aggregator_4',
+        executable='jointstate_aggregator_4',
         namespace=namespace,
-        name='jointstate_sim_aggregator_4',
+        name='jointstate_aggregator_4',
         output="screen",
     )
     delay_jointstate_aggregator_node_after_spawners = RegisterEventHandler(
@@ -296,8 +289,6 @@ def generate_launch_description():
     nodes = [
         robot_state_pub_node,
         control_node,
-        control_unstamped_node,
-        #control_node_require,
         joint_state_broadcaster_spawner,
         delay_swerve_controller_spawner_after_joint_state_broadcaster_spawner,
         delay_FR_drive_controller_spawner_after_swerve_controller_spawner,

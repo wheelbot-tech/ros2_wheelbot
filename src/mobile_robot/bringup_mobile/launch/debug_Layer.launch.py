@@ -69,7 +69,7 @@ def generate_launch_description():
             description='Use sim time if true'),
         DeclareLaunchArgument(
             'namespace',
-            default_value='robot1',
+            default_value='',
             description='The namespace of nodes and links'),
         DeclareLaunchArgument(
             'enable_rviz',

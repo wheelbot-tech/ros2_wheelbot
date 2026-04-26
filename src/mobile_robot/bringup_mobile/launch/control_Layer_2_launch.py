@@ -21,7 +21,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             'namespace',
-            default_value='robot1',
+            default_value='',
             description='The namespace of nodes and links')
     )
     declared_arguments.append(
@@ -84,7 +84,7 @@ def generate_launch_description():
         [
             PathJoinSubstitution([FindExecutable(name="xacro")]),
             " ",
-            PathJoinSubstitution([FindPackageShare("description"), "urdf/robots", "swerveBOT_2.urdf.xacro"]),
+            PathJoinSubstitution([FindPackageShare("description_mobile"), "urdf/robots", "swerve_2BOT_510.urdf.xacro"]),
             " ",
             "hw_interface_plugin:=", 
             hardware_plugin,
@@ -98,60 +98,50 @@ def generate_launch_description():
     )
     robot_description = {"robot_description": robot_description_content}
    
+   
+    robot_controllers = PathJoinSubstitution([FindPackageShare("bringup_mobile"), "config", "swerve_2BOT_controllers.yaml"])
 
-    robot_controllers = PathJoinSubstitution([FindPackageShare("bringup"), "config", "swerveBOT_2_controllers.yaml"])
-
-    # the steering controller libraries by default publish odometry on a separate topic than /tf
-
-    control_node = Node(
-        package="controller_manager",
-        executable="ros2_control_node",
-        namespace=namespace,
-        parameters=[robot_description, robot_controllers, {'use_sim_time': use_sim_time}],
-        output="both",
-     )
-    control_node_require = RegisterEventHandler(
-        event_handler=OnProcessExit(
-            target_action=control_node,
-            on_exit=[
-                LogInfo(msg="Listener exited; tearing down entire system."),
-                EmitEvent(event=Shutdown())
-            ],
-        )
-    )
     robot_state_pub_node = Node(
         package="robot_state_publisher",
         executable="robot_state_publisher",
-        namespace=namespace,
+        #namespace=namespace,
         output="both",
         parameters=[robot_description,
                     {'use_sim_time': use_sim_time},
-                    {'frame_prefix': [namespace, '/']}],
+                    #{'frame_prefix': [namespace, '/']}
+                    ],
     )
+    control_node = Node(
+        package="controller_manager",
+        executable="ros2_control_node",
+        #namespace=namespace,
+        parameters=[robot_description, robot_controllers, {'use_sim_time': use_sim_time}],
+        output="both",
+     )
 
     joint_state_broadcaster_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        namespace=namespace,
-        arguments=["joint_state_broadcaster", "--controller-manager", ['/', namespace, "/controller_manager"]],
+        #namespace=namespace,
+        arguments=["joint_state_broadcaster"],
     )
     swerve_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        namespace=namespace,
-        arguments=["swerve_controller", "--controller-manager", ['/', namespace, "/controller_manager"]],
+        #namespace=namespace,
+        arguments=["swerve_controller"],
     )
     FR_drive_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        namespace=namespace,
-        arguments=["FR_drive_controller", "--controller-manager", ['/', namespace, "/controller_manager"]],
+        #namespace=namespace,
+        arguments=["FR_drive_controller"],
     )
     RL_drive_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        namespace=namespace,
-        arguments=["RL_drive_controller", "--controller-manager", ['/', namespace, "/controller_manager"]],
+        #namespace=namespace,
+        arguments=["RL_drive_controller"],
     )
 
     # Delay start of robot_controller after `joint_state_broadcaster`
@@ -174,10 +164,10 @@ def generate_launch_description():
         )
     )
     jointstate_aggregator_node = Node(
-        package='bringup',
-        executable='jointstate_sim_aggregator_2',
-        namespace=namespace,
-        name='jointstate_sim_aggregator_2',
+        package='bringup_mobile',
+        executable='jointstate_aggregator_2',
+        #namespace=namespace,
+        name='jointstate_aggregator_2',
         output="screen",
     )
     delay_jointstate_aggregator_node_after_RL_drive_controller_spawner = RegisterEventHandler(
@@ -187,9 +177,9 @@ def generate_launch_description():
         )
     )
     convertor_node = Node(
-        package="bringup",
+        package="bringup_mobile",
         executable="jointstate_to_twist_2",
-        namespace=namespace,
+        #namespace=namespace,
         name="jointstate_to_twist_2",
         output="screen",
         parameters=[{
@@ -203,6 +193,7 @@ def generate_launch_description():
             }],
         arguments=[
             LaunchConfiguration('prefix'),
+            LaunchConfiguration('use_stamped'),
             LaunchConfiguration('wheel_radius'),
             LaunchConfiguration('wheel_drive_len'),
             LaunchConfiguration('drive_1_pos'),
@@ -222,7 +213,6 @@ def generate_launch_description():
     nodes = [
         robot_state_pub_node,
         control_node,
-        control_node_require,
         joint_state_broadcaster_spawner,
         delay_swerve_controller_spawner_after_joint_state_broadcaster_spawner,
         delay_FR_drive_controller_spawner_after_swerve_controller_spawner,
