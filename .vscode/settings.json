@@ -1,16 +1,9 @@
 {
     "cmake.sourceDirectory": "/home/george/ROS2/ros2_wheelbot/src/bringup",
     "python.autoComplete.extraPaths": [
-        "/home/george/ROS2/ros2_wheelbot/install/teleop_twist_keyboard/lib/python3.10/site-packages",
-        "/opt/ros/humble/local/lib/python3.10/dist-packages",
-        "/opt/ros/humble/lib/python3.10/site-packages",
-        "/opt/ros/humble/local/lib/python3.10/dist-packages"
+
     ],
     "python.analysis.extraPaths": [
-        "/home/george/ROS2/ros2_wheelbot/install/teleop_twist_keyboard/lib/python3.10/site-packages",
-        "/opt/ros/humble/local/lib/python3.10/dist-packages",
-        "/opt/ros/humble/lib/python3.10/site-packages",
-        "/opt/ros/humble/local/lib/python3.10/dist-packages"
     ],
     "C_Cpp.errorSquiggles": "disabled",
     "files.associations": {
@@ -89,5 +82,6 @@
     },
     "files.exclude": {
         "**/.git": false
-    }
+    },
+    "idf.currentSetup": "/home/george/.espressif/v6.0-beta2/esp-idf",
 }
