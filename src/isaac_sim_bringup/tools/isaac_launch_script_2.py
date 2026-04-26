@@ -51,7 +51,7 @@ enable_extension("omni.isaac.ros2_bridge")
 import carb
 carb.settings.get_settings().set("persistent/app/omniverse/gamepadCameraControl", False)
 
-NAMESPACE = f"{os.environ.get('ROS_NAMESPACE')}" if 'ROS_NAMESPACE' in os.environ else 'robot1'
+NAMESPACE = f"{os.environ.get('ROS_NAMESPACE')}" if 'ROS_NAMESPACE' in os.environ else ''
 
 simulation_app.update()
 

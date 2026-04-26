@@ -6,9 +6,9 @@
 	path = src/topic_based_ros2_control
 	url = https://github.com/wheelbot-tech/topic_based_ros2_control
 	branch = wheelbot-fix
-[submodule "src/mobile_robot/teleop_ws/twist_mux"]
-	path = src/mobile_robot/teleop_ws/twist_mux
-	url = https://github.com/wheelbot-tech/twist_mux
+[submodule "src/teleop_ws/twist_mux"]
+	path = src/teleop_ws/twist_mux
+	url = https://github.com/aentinger/twist_mux.git
 	branch = rolling
 [submodule "src/sensors/rplidar_ros"]
 	path = src/sensors/rplidar_ros
@@ -18,3 +18,6 @@
 	path = src/sensors/ros_components_description
 	url = https://github.com/wheelbot-tech/ros_components_description
 	branch = ros2
+[submodule "src/husarion_components_description"]
+	path = src/husarion_components_description
+	url = https://github.com/wheelbot-tech/husarion_components_description.git
