@@ -4,7 +4,7 @@
 
     <!-- import main macro -->
     <xacro:include filename="$(find description_mobile)/meshes/materials.xacro" />
-    <xacro:include filename="$(find description_mobile)/urdf/properties/properties_swerveBOT_910.urdf.xacro"/>
+    <xacro:include filename="$(find description_mobile)/urdf/properties/properties_swerveBOT_510.urdf.xacro"/>
 
     <xacro:include filename="$(find description_mobile)/urdf/mech/chassis.urdf.xacro"/>
     <xacro:include filename="$(find description_mobile)/urdf/mech/diff_drive_module.urdf.xacro"/>
@@ -12,7 +12,7 @@
     <xacro:include filename="$(find description_mobile)/urdf/mech/rear_wheels.urdf.xacro"/>
 
 
-    <xacro:include filename="$(find description_mobile)/ros2_control/swerve.ros2_control.xacro" />
+    <xacro:include filename="$(find description_mobile)/ros2_control/swerve_2BOT.ros2_control.xacro" />
     <xacro:include filename="$(find description_mobile)/ros2_control/drive_module.ros2_control.xacro" />
 
     <xacro:macro name="mobile_robot" params= "
@@ -38,16 +38,6 @@
             pos_z="$(arg position_Z)"
         />
 
-        <xacro:diff_drive_module
-            namespace="$(arg namespace)"
-            prefix="$(arg prefix)"
-            name="diffBOT_FL"
-            parent="chassis_link"
-            drive_pos="FL_"
-            steering_pos="virtual_front_left"
-        >
-        <origin xyz="${wheelbase/2} ${wheel_track/2} -${base_height/2 + rulment_axial_height/2}" rpy="0 0 0"/>
-        </xacro:diff_drive_module>
 
         <xacro:diff_drive_module  
             namespace="$(arg namespace)"
@@ -68,19 +58,9 @@
             drive_pos="RL_"
             steering_pos="virtual_rear_left"
         >
-        <origin xyz="-${wheelbase/2} ${wheel_track/2} -${base_height/2 + rulment_axial_height/2}" rpy="0 0 0"/>
+        <origin xyz="-${wheelbase/2} ${wheel_track/2} -${base_height/2 + rulment_axial_height/2}" rpy="0 0 3.14"/>
         </xacro:diff_drive_module>
 
-        <xacro:diff_drive_module  
-            namespace="$(arg namespace)"
-            prefix="$(arg prefix)"
-            name="diffBOT_RR"
-            parent="chassis_link"
-            drive_pos="RR_"
-            steering_pos="virtual_rear_right"
-        >
-        <origin xyz="-${wheelbase/2} -${wheel_track/2} -${base_height/2 + rulment_axial_height/2}" rpy="0 0 0"/>
-        </xacro:diff_drive_module>
 
         <!-- ros2_control -->
         <xacro:swerve_ros2_control

@@ -4,7 +4,7 @@
 
     <!-- import main macro -->
     <xacro:include filename="$(find description_mobile)/meshes/materials.xacro" />
-    <xacro:include filename="$(find description_mobile)/urdf/properties/properties_swerveBOT_910.urdf.xacro"/>
+    <xacro:include filename="$(find description_mobile)/urdf/properties/properties_swerveBOT_510.urdf.xacro"/>
 
     <xacro:include filename="$(find description_mobile)/urdf/mech/chassis.urdf.xacro"/>
     <xacro:include filename="$(find description_mobile)/urdf/mech/diff_drive_module.urdf.xacro"/>
@@ -68,7 +68,7 @@
             drive_pos="RL_"
             steering_pos="virtual_rear_left"
         >
-        <origin xyz="-${wheelbase/2} ${wheel_track/2} -${base_height/2 + rulment_axial_height/2}" rpy="0 0 0"/>
+        <origin xyz="-${wheelbase/2} ${wheel_track/2} -${base_height/2 + rulment_axial_height/2}" rpy="0 0 3.14"/>
         </xacro:diff_drive_module>
 
         <xacro:diff_drive_module  
@@ -79,7 +79,7 @@
             drive_pos="RR_"
             steering_pos="virtual_rear_right"
         >
-        <origin xyz="-${wheelbase/2} -${wheel_track/2} -${base_height/2 + rulment_axial_height/2}" rpy="0 0 0"/>
+        <origin xyz="-${wheelbase/2} -${wheel_track/2} -${base_height/2 + rulment_axial_height/2}" rpy="0 0 3.14"/>
         </xacro:diff_drive_module>
 
         <!-- ros2_control -->

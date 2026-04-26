@@ -4,7 +4,7 @@
   <xacro:arg name="name" default="amr"/>
 
   <!-- import main macro -->
-  <xacro:include filename="$(find description_mobile)/urdf/robots/swerveBOT_910_macro.xacro"/>
+  <xacro:include filename="$(find description_mobile)/urdf/robots/swerve_2BOT_510_macro.xacro"/>
 
   <!-- parameters -->
   <xacro:arg name="namespace" default="" /> 
@@ -31,14 +31,14 @@
       parent_link="chassis_link"
       xyz="${str(base_length/2)} 0 -0.037"
       rpy="0.0 0.0 0.0" 
-  /> -->
+  />
 
   <xacro:lidar.slamtec_rplidar
       parent_link="chassis_link"
       robot_namespace="$(arg namespace)"
       component_name="front_lidar"
       model="a2m8"
-      xyz="${str(base_length/2 - 0.045)} -${str(base_width/2 - 0.045)} -0.075"
+      xyz="${str(base_length/2 - 0.0)} -${str(base_width/2 - 0.0)} -0.0"
       rpy="0.0 0.0 -0.785398" 
   />
 
@@ -47,8 +47,8 @@
       robot_namespace="$(arg namespace)"
       component_name="back_lidar"
       model="a2m8"
-      xyz="-${str(base_length/2 - 0.045)} ${str(base_width/2 - 0.045)} -0.062"
+      xyz="-${str(base_length/2 - 0.0)} ${str(base_width/2 - 0.0)} -0.0"
       rpy="0.0 0.0 2.356194" 
   />
-
+  -->
 </robot>
