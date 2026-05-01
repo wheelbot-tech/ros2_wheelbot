@@ -21,3 +21,7 @@
 [submodule "src/husarion_components_description"]
 	path = src/husarion_components_description
 	url = https://github.com/wheelbot-tech/husarion_components_description.git
+[submodule "src/wheelbot_ros2_controllers"]
+	path = src/wheelbot_ros2_controllers
+	url = https://github.com/wheelbot-tech/ros2_controllers_by_nitin2606.git
+	branch = feature/swerve-drive-controller
