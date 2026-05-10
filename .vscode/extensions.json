@@ -1,0 +1,11 @@
+{
+    "recommendations": [
+        "ms-vscode.cpptools",
+        "ms-iot.vscode-ros",
+        "twxs.cmake",
+        "ms-vscode.cmake-tools",
+        "redhat.vscode-xml",
+        "ms-python.python",
+        "njpwerner.autodocstring"
+    ]
+}

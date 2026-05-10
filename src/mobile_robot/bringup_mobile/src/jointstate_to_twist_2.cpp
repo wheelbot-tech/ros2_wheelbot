@@ -6,6 +6,7 @@
 #include <cmath>
 #include <algorithm> 
 #include <array>
+#include <angles/angles.h>
 #include <rclcpp/rclcpp.hpp>
 #include <geometry_msgs/msg/twist.hpp>
 #include <geometry_msgs/msg/twist_stamped.hpp>
@@ -131,60 +132,38 @@ private:
             
             target_position[i] = msg_cmd->position[steering_idx];
             
-            error_position[i] = target_position[i] - encoder_position[i];  
-                  
-            // Normalize error_position to be within [-π, π]
-            error_position[i] = fmod(error_position[i], 2 * M_PI); // First, ensure it's within [0, 2π) or (-2π, 0]
-            if (error_position[i] < -M_PI) {
-                error_position[i] += 2 * M_PI;                  // If error is in (-2π, -π], map it to (0, π)
-            } else if (error_position[i] > M_PI) {
-                error_position[i] -= 2 * M_PI;                  // If error is in (π, 2π), map it to (-π, 0)
-            }
+            // Compute the signed shortest angular error from current encoder to target.
+            error_position[i] = angles::shortest_angular_distance(encoder_position[i], target_position[i]);
             if (fabs(error_position[i]) > M_PI_2) {
                 // For large errors, provide a maximum bounded angular velocity
                 error_position[i] = (error_position[i] > 0) ? M_PI_2 : -M_PI_2;
-            } 
+            }
             // Reduce wheel speed until the target angle has been reached
             double k = 2.0;    // 1 , 2
             double beta = 3.0; // 2 , 3
             double alpha_delta = fabs(error_position[i]);
-            if (alpha_delta < 0.2 ) {  
-                scale[i] = 1;  
-            }
-            else if (alpha_delta > 1.0 )   {
-                scale[i] = 0.01;  
-            }
-            else {
-                //scale = cos(alpha_delta);   
+            if (alpha_delta < 0.2) {
+                scale[i] = 1.0;
+            } else if (alpha_delta > 1.0) {
+                scale[i] = 0.01;
+            } else {
+                //scale = cos(alpha_delta);
                 scale[i] = 1 - std::pow(k * alpha_delta, beta);
                 // Ensure the scale factor never goes below 0
                 scale[i] = std::max(scale[i], 0.0);
             }
         }
         
-        // Calculate scale_min only for FR (0) and RL (3) modules
-        double scale_min = std::min(scale[0], scale[3]);
-        
-        // Extract wheel velocities from indices (1, 7) - only FR and RL modules
+        // Apply scaling per-module, not the minimum across both modules.
+        // Each wheel should slow down based on its own steering error.
         for (int j = 0; j < 2; ++j) 
             {
                 int i = module_indices[j];  // 0, 3
                 int wheel_idx = wheel_indices[j];  // 1, 7
-                linear_velocity[i] = msg_cmd->velocity[wheel_idx] * wheel_radius_ * scale_min;  // m/s
-                // Check for NaN in velocity values
-                if (!std::isfinite(linear_velocity[i])) {
-                    RCLCPP_WARN_THROTTLE(this->get_logger(), *this->get_clock(), 1000,
-                        "NaN detected in linear_velocity[%d]: velocity[%d]=%f, wheel_radius=%f, scale_min=%f",
-                        i, wheel_idx, msg_cmd->velocity[wheel_idx], wheel_radius_, scale_min);
-                    linear_velocity[i] = 0.0;
-                }
+                linear_velocity[i] = msg_cmd->velocity[wheel_idx] * wheel_radius_ * scale[i];  // m/s
             }
-        // P-controller gain for steering
-        double angular_velocity_gain = 1.5;
-        // Maximum angular velocity limit (rad/s) - prevents excessive rotation speed
-        double max_angular_velocity = 1.5;
-        // Dead-band threshold - stop when error is small enough
-        double dead_band_threshold = 0.03;  // ~1.7 degrees
+
+        double angular_velocity = 0.4 ;  
 
         // Initialize all fields to 0 to avoid NaN in unset fields
         geometry_msgs::msg::TwistStamped twist_msg_stamped_0;
@@ -207,22 +186,10 @@ private:
 
         // Now set the actual values
         twist_msg_stamped_0.twist.linear.x = linear_velocity[0];
-        double angular_z_0 = 0.0;
-        if (fabs(error_position[0]) > dead_band_threshold) {
-            angular_z_0 = angular_velocity_gain * error_position[0] / wheel_drive_len_;
-            // Clamp to maximum angular velocity
-            angular_z_0 = std::clamp(angular_z_0, -max_angular_velocity, max_angular_velocity);
-        }
-        twist_msg_stamped_0.twist.angular.z = std::isfinite(angular_z_0) ? angular_z_0 : 0.0;
+        twist_msg_stamped_0.twist.angular.z = angular_velocity * error_position[0] / wheel_drive_len_ ;
 
         twist_msg_stamped_3.twist.linear.x = linear_velocity[3];
-        double angular_z_3 = 0.0;
-        if (fabs(error_position[3]) > dead_band_threshold) {
-            angular_z_3 = -angular_velocity_gain * error_position[3] / wheel_drive_len_;
-            // Clamp to maximum angular velocity
-            angular_z_3 = std::clamp(angular_z_3, -max_angular_velocity, max_angular_velocity);
-        }
-        twist_msg_stamped_3.twist.angular.z = std::isfinite(angular_z_3) ? angular_z_3 : 0.0;
+        twist_msg_stamped_3.twist.angular.z = angular_velocity * error_position[3] / wheel_drive_len_ ;
 
         twist_msg_stamped_0.header.stamp = this->get_clock()->now();
         twist_msg_stamped_3.header.stamp = this->get_clock()->now();    

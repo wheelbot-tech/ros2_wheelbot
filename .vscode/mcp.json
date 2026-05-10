@@ -3,6 +3,10 @@
     "zenoh": {
       "type": "http",
       "url": "http://localhost:8808/mcp"
+    },
+    "ros-mcp-server": {
+      "type": "http",
+      "url": "http://localhost:8808/mcp"
     }
   }
 }

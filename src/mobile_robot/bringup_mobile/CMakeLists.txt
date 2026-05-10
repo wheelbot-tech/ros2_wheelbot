@@ -32,6 +32,7 @@ find_package(ackermann_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(steering_controllers_library REQUIRED)
 find_package(swerve_drive_controller REQUIRED)
+find_package(angles REQUIRED)
 
 install(
   DIRECTORY config launch scripts
@@ -39,7 +40,7 @@ install(
 )
 
 add_executable(jointstate_to_twist_2 src/jointstate_to_twist_2.cpp)
-ament_target_dependencies(jointstate_to_twist_2 rclcpp geometry_msgs sensor_msgs)
+ament_target_dependencies(jointstate_to_twist_2 rclcpp geometry_msgs sensor_msgs angles)
 
 add_executable(jointstate_sim_aggregator_2 src/jointstate_sim_aggregator_2.cpp)
 ament_target_dependencies(jointstate_sim_aggregator_2 rclcpp sensor_msgs)

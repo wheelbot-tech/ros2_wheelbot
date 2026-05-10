@@ -2,7 +2,7 @@
 
 ## Despre proiect
 
-Stack ROS2 Jazzy pentru controlul unui AMR omnidirectional WheelBot (vezi wheelbot.tech).
+Stack ROS2 JKILTED pentru controlul unui AMR omnidirectional WheelBot (vezi wheelbot.tech).
 Robotul are **4 virtual joints** (4 wheel + 4 steering) la colturi, controlate prin `topic_based_ros2_control`, si **2 module fizice differential-drive** (fiecare = 1 ESP32 cu 2 motoare ODrive).
 
 ## Comenzi esentiale
@@ -99,9 +99,6 @@ Configuratii in `bringup_mobile/config/`:
 ## Problema cunoscuta — swerve steering la zero
 
 `swerve_drive_controller` trimite initial steering joints la zero.
-Modulul FR nu reuseste sa ajunga la zero (nu executa corect comanda de steering).
-Investigheaza corelarea topicurilor `/amr_joint_commands` ↔ `/FR_amr_joint_states` ↔ `/FR_drive_joint_commands`.
-Fisiere MCAP pentru debug: `DEBUG/rosbag2_2026_02_04-*/`
 
 ## Simulare Isaac Sim
 
@@ -116,3 +113,5 @@ ros2 launch nav2 navigation_wheelbot_sim.launch.py
 - Python 3.10+, C++17
 - Zenoh ≥ 1.0 / rmw_zenoh
 - Workspace: `/home/george/ROS2/ros2_wheelbot`
+
+[jointstate_aggregator_2 arhitectura](project_jointstate_aggregator.md) — `/amr_joint_states` (aggregat de jointstate_aggregator_2) e topic-ul citit de jointstate_to_twist_2, nu cel per-modul.

@@ -18,7 +18,6 @@ install(DIRECTORY launch
   rviz
   maps
   behavior_tree
-  foxglove_layouts
   DESTINATION share/${PROJECT_NAME})
 
 ament_package()
