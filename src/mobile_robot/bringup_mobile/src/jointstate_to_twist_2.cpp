@@ -154,16 +154,17 @@ private:
             }
         }
         
-        // Apply scaling per-module, not the minimum across both modules.
-        // Each wheel should slow down based on its own steering error.
+        // Apply the minimum scale to both active modules so the module that
+        // reaches the steering target first does not start before the other one.
+        const double scale_min = std::min(scale[0], scale[3]);
         for (int j = 0; j < 2; ++j) 
             {
                 int i = module_indices[j];  // 0, 3
                 int wheel_idx = wheel_indices[j];  // 1, 7
-                linear_velocity[i] = msg_cmd->velocity[wheel_idx] * wheel_radius_ * scale[i];  // m/s
+                linear_velocity[i] = msg_cmd->velocity[wheel_idx] * wheel_radius_ * scale_min;  // m/s
             }
 
-        double angular_velocity = 0.4 ;  
+        double angular_velocity = 0.2 ;  
 
         // Initialize all fields to 0 to avoid NaN in unset fields
         geometry_msgs::msg::TwistStamped twist_msg_stamped_0;

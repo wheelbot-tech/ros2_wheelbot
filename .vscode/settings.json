@@ -1,5 +1,5 @@
 {
-  "cmake.sourceDirectory": "/home/george/ROS2/ros2_wheelbot/src/bringup",
+  "cmake.sourceDirectory": "/home/george/ROS2/ros2_wheelbot/src/husarion_components_description",
   "python.autoComplete.extraPaths": [],
   "python.analysis.extraPaths": [],
   "C_Cpp.errorSquiggles": "disabled",
