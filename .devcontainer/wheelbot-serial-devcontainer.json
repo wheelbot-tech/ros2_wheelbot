@@ -1,0 +1,14 @@
+{
+  "name": "ros2-wheelbot-serial",
+  "image": "ros:kilted-ros-base",
+  "workspaceFolder": "/home/george/ROS2/ros2_wheelbot",
+  "runArgs": [
+    "--device=/dev/ttyACM0",
+    "--device=/dev/ttyUSB0",
+    "--group-add=dialout"
+  ],
+  "containerEnv": {
+    "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp"
+  },
+  "postCreateCommand": "rosdep update || true"
+}

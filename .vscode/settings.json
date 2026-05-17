@@ -1,7 +1,21 @@
 {
   "cmake.sourceDirectory": "/home/george/ROS2/ros2_wheelbot/src/husarion_components_description",
-  "python.autoComplete.extraPaths": [],
-  "python.analysis.extraPaths": [],
+  "python.autoComplete.extraPaths": [
+    "/home/george/ROS2/ros2_wheelbot/install/mm_moveit_config/lib/python3.12/site-packages",
+    "/home/george/ROS2/ros2_wheelbot/build/rqt_joint_trajectory_controller",
+    "/home/george/ROS2/ros2_wheelbot/install/rqt_joint_trajectory_controller/lib/python3.12/site-packages",
+    "/home/george/ROS2/ros2_wheelbot/build/ros2_controllers_test_nodes",
+    "/home/george/ROS2/ros2_wheelbot/install/ros2_controllers_test_nodes/lib/python3.12/site-packages",
+    "/opt/ros/kilted/lib/python3.12/site-packages"
+  ],
+  "python.analysis.extraPaths": [
+    "/home/george/ROS2/ros2_wheelbot/install/mm_moveit_config/lib/python3.12/site-packages",
+    "/home/george/ROS2/ros2_wheelbot/build/rqt_joint_trajectory_controller",
+    "/home/george/ROS2/ros2_wheelbot/install/rqt_joint_trajectory_controller/lib/python3.12/site-packages",
+    "/home/george/ROS2/ros2_wheelbot/build/ros2_controllers_test_nodes",
+    "/home/george/ROS2/ros2_wheelbot/install/ros2_controllers_test_nodes/lib/python3.12/site-packages",
+    "/opt/ros/kilted/lib/python3.12/site-packages"
+  ],
   "C_Cpp.errorSquiggles": "disabled",
   "files.associations": {
     "cctype": "cpp",
@@ -82,5 +96,6 @@
   },
   "idf.currentSetup": "/home/george/.espressif/v6.0-beta2/esp-idf",
   "editor.tabSize": 2,
-  "editor.insertSpaces": true
+  "editor.insertSpaces": true,
+  "ROS2.distro": "kilted"
 }
