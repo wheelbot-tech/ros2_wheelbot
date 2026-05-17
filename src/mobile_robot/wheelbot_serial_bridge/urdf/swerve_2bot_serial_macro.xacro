@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="amr">
+  <xacro:arg name="name" default="amr"/>
+
+  <xacro:include filename="$(find description_mobile)/meshes/materials.xacro"/>
+  <xacro:include filename="$(find description_mobile)/urdf/properties/properties_swerveBOT_510.urdf.xacro"/>
+  <xacro:include filename="$(find description_mobile)/urdf/mech/chassis.urdf.xacro"/>
+  <xacro:include filename="$(find wheelbot_serial_bridge)/urdf/serial_diff_drive_module.urdf.xacro"/>
+  <xacro:include filename="$(find description_mobile)/urdf/mech/virtual_swerve_module.urdf.xacro"/>
+  <xacro:include filename="$(find description_mobile)/urdf/mech/rear_wheels.urdf.xacro"/>
+  <xacro:include filename="$(find wheelbot_serial_bridge)/ros2_control/wheelbot_serial_swerve_2bot.ros2_control.xacro"/>
+
+  <xacro:macro name="wheelbot_serial_mobile_robot" params="
+      namespace
+      prefix
+      position_Z
+      serial_port
+      baudrate
+      command_timeout_ms
+      active_modules">
+
+    <link name="base_footprint"/>
+
+    <xacro:chassis
+      prefix="${prefix}"
+      parent="base_footprint"
+      pos_z="${str(2*wheel_radius + base_height/2 + rulment_axial_height)}"
+    />
+
+    <xacro:virtual_swerve_module
+      prefix="${prefix}"
+      parent="chassis_link"
+      pos_x="${str(wheelbase/2)}"
+      pos_y="${str(wheel_track/2)}"
+      pos_z="${position_Z}"
+    />
+
+    <xacro:serial_diff_drive_module
+      namespace="${namespace}"
+      prefix="${prefix}"
+      name="diffBOT_FR"
+      parent="chassis_link"
+      drive_pos="FR_"
+      steering_pos="virtual_front_right">
+      <origin xyz="${wheelbase/2} -${wheel_track/2} -${base_height/2 + rulment_axial_height/2}" rpy="0 0 0"/>
+    </xacro:serial_diff_drive_module>
+
+    <xacro:serial_diff_drive_module
+      namespace="${namespace}"
+      prefix="${prefix}"
+      name="diffBOT_RL"
+      parent="chassis_link"
+      drive_pos="RL_"
+      steering_pos="virtual_rear_left"
+      steering_mimic_offset="-${PI}">
+      <origin xyz="-${wheelbase/2} ${wheel_track/2} -${base_height/2 + rulment_axial_height/2}" rpy="0 0 ${PI}"/>
+    </xacro:serial_diff_drive_module>
+
+    <xacro:wheelbot_serial_swerve_2bot_ros2_control
+      name="$(arg name)"
+      prefix="${prefix}"
+      serial_port="${serial_port}"
+      baudrate="${baudrate}"
+      command_timeout_ms="${command_timeout_ms}"
+      active_modules="${active_modules}"
+      wheel_radius="${wheel_radius}"
+      wheel_drive_len="0.23"
+    />
+  </xacro:macro>
+</robot>

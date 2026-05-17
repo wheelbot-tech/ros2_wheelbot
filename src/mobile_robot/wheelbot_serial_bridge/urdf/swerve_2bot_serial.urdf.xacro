@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="amr">
+  <xacro:arg name="name" default="amr"/>
+  <xacro:arg name="namespace" default=""/>
+  <xacro:arg name="prefix" default=""/>
+  <xacro:arg name="serial_port" default="/dev/ttyACM0"/>
+  <xacro:arg name="baudrate" default="115200"/>
+  <xacro:arg name="command_timeout_ms" default="500"/>
+  <xacro:arg name="active_modules" default="FR,RL"/>
+
+  <xacro:include filename="$(find wheelbot_serial_bridge)/urdf/swerve_2bot_serial_macro.xacro"/>
+  <xacro:arg name="position_Z" default="${str(2*wheel_radius + base_height/2 + rulment_axial_height)}"/>
+
+  <xacro:wheelbot_serial_mobile_robot
+    namespace="$(arg namespace)"
+    prefix="$(arg prefix)"
+    position_Z="$(arg position_Z)"
+    serial_port="$(arg serial_port)"
+    baudrate="$(arg baudrate)"
+    command_timeout_ms="$(arg command_timeout_ms)"
+    active_modules="$(arg active_modules)"
+  />
+</robot>
