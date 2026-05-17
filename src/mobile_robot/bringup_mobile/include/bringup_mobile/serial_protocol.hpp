@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-namespace wheelbot_serial_bridge
+namespace bringup_mobile
 {
 
 struct ModuleState
@@ -42,4 +42,4 @@ std::string format_velocity_command(const std::string & module, double right_rad
 std::string format_estop_command(const std::string & module);
 std::vector<std::string> default_modules();
 
-}  // namespace wheelbot_serial_bridge
+}  // namespace bringup_mobile

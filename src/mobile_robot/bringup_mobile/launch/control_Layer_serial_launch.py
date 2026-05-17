@@ -23,8 +23,9 @@ def generate_launch_description():
             " ",
             PathJoinSubstitution(
                 [
-                    FindPackageShare("wheelbot_serial_bridge"),
+                    FindPackageShare("description_mobile"),
                     "urdf",
+                    "robots",
                     "swerve_2bot_serial.urdf.xacro",
                 ]
             ),
@@ -53,7 +54,7 @@ def generate_launch_description():
 
     robot_controllers = PathJoinSubstitution(
         [
-            FindPackageShare("wheelbot_serial_bridge"),
+            FindPackageShare("bringup_mobile"),
             "config",
             "swerve_2bot_serial_controllers.yaml",
         ]

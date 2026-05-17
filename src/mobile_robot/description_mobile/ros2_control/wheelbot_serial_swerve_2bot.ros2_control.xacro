@@ -6,7 +6,7 @@
 
     <ros2_control name="${name}" type="system">
       <hardware>
-        <plugin>wheelbot_serial_bridge/WheelbotSerialHardware</plugin>
+        <plugin>bringup_mobile/WheelbotSerialHardware</plugin>
         <param name="serial_port">${serial_port}</param>
         <param name="baudrate">${baudrate}</param>
         <param name="command_timeout_ms">${command_timeout_ms}</param>

@@ -1,8 +1,8 @@
-#include "wheelbot_serial_bridge/serial_protocol.hpp"
+#include "bringup_mobile/serial_protocol.hpp"
 
 #include <gtest/gtest.h>
 
-namespace wheelbot_serial_bridge
+namespace bringup_mobile
 {
 
 TEST(SerialProtocol, ParsesMasterStateLine)
@@ -63,4 +63,4 @@ TEST(SerialProtocol, FormatsEstopCommand)
   EXPECT_EQ(format_estop_command("all"), "ESTOP ALL\n");
 }
 
-}  // namespace wheelbot_serial_bridge
+}  // namespace bringup_mobile

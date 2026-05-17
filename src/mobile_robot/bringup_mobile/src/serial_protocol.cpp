@@ -1,4 +1,4 @@
-#include "wheelbot_serial_bridge/serial_protocol.hpp"
+#include "bringup_mobile/serial_protocol.hpp"
 
 #include <algorithm>
 #include <cctype>
@@ -6,7 +6,7 @@
 #include <sstream>
 #include <string>
 
-namespace wheelbot_serial_bridge
+namespace bringup_mobile
 {
 namespace
 {
@@ -123,4 +123,4 @@ std::string format_estop_command(const std::string & module)
   return "ESTOP " + normalize_module(module) + "\n";
 }
 
-}  // namespace wheelbot_serial_bridge
+}  // namespace bringup_mobile

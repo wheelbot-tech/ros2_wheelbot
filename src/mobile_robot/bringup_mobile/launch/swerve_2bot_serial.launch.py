@@ -9,7 +9,6 @@ NAMESPACE = os.environ.get('ROS_NAMESPACE') if 'ROS_NAMESPACE' in os.environ els
 
 def generate_launch_description():
     bringup_path = get_package_share_directory("bringup_mobile")
-    serial_path = get_package_share_directory("wheelbot_serial_bridge")
     joystick_file = os.path.join(bringup_path, 'config', 'F710_sim.yaml')
     #rviz_file = os.path.join(bringup_path, 'config', 'view.rviz')
 
@@ -33,7 +32,7 @@ def generate_launch_description():
 
     control_layer = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            os.path.join(serial_path, 'launch', 'control_Layer_serial_launch.py')
+            os.path.join(bringup_path, 'launch', 'control_Layer_serial_launch.py')
         )
     )
 

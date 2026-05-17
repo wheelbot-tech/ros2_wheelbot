@@ -1,6 +1,6 @@
 #pragma once
 
-#include "wheelbot_serial_bridge/serial_protocol.hpp"
+#include "bringup_mobile/serial_protocol.hpp"
 
 #include <hardware_interface/handle.hpp>
 #include <hardware_interface/hardware_info.hpp>
@@ -19,7 +19,7 @@
 #include <string>
 #include <vector>
 
-namespace wheelbot_serial_bridge
+namespace bringup_mobile
 {
 
 class WheelbotSerialHardware : public hardware_interface::SystemInterface
@@ -89,4 +89,4 @@ private:
   std::map<std::string, rclcpp::Publisher<sensor_msgs::msg::Imu>::SharedPtr> imu_publishers_;
 };
 
-}  // namespace wheelbot_serial_bridge
+}  // namespace bringup_mobile

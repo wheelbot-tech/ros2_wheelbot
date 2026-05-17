@@ -8,7 +8,7 @@
   <xacro:arg name="command_timeout_ms" default="500"/>
   <xacro:arg name="active_modules" default="FR,RL"/>
 
-  <xacro:include filename="$(find wheelbot_serial_bridge)/urdf/swerve_2bot_serial_macro.xacro"/>
+  <xacro:include filename="$(find description_mobile)/urdf/robots/swerve_2bot_serial_macro.xacro"/>
   <xacro:arg name="position_Z" default="${str(2*wheel_radius + base_height/2 + rulment_axial_height)}"/>
 
   <xacro:wheelbot_serial_mobile_robot

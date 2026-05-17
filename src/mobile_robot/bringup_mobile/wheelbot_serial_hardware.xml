@@ -1,7 +1,7 @@
 <library path="wheelbot_serial_hardware">
   <class
-    name="wheelbot_serial_bridge/WheelbotSerialHardware"
-    type="wheelbot_serial_bridge::WheelbotSerialHardware"
+    name="bringup_mobile/WheelbotSerialHardware"
+    type="bringup_mobile::WheelbotSerialHardware"
     base_class_type="hardware_interface::SystemInterface">
     <description>
       ros2_control SystemInterface for WheelBot USB serial communication with the ESP-NOW master.

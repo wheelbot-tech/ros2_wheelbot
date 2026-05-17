@@ -1,12 +1,6 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.8)
 project(bringup_mobile)
 
-# Default to C99
-if(NOT CMAKE_C_STANDARD)
-  set(CMAKE_C_STANDARD 99)
-endif()
-
-# Default to C++17
 if(NOT CMAKE_CXX_STANDARD)
   set(CMAKE_CXX_STANDARD 17)
 endif()
@@ -17,76 +11,65 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
+find_package(hardware_interface REQUIRED)
+find_package(pluginlib REQUIRED)
 find_package(rclcpp REQUIRED)
-find_package(rclpy REQUIRED)
 find_package(sensor_msgs REQUIRED)
-find_package(xacro REQUIRED)
-find_package(controller_manager REQUIRED)
-find_package(ros2_control REQUIRED)
-find_package(joint_state_broadcaster REQUIRED)
-find_package(twist_mux REQUIRED)
-find_package(diff_drive_controller REQUIRED)
-find_package(joint_trajectory_controller REQUIRED)
-find_package(topic_based_ros2_control REQUIRED)
-find_package(ackermann_msgs REQUIRED)
-find_package(geometry_msgs REQUIRED)
-find_package(steering_controllers_library REQUIRED)
-find_package(swerve_drive_controller REQUIRED)
-find_package(angles REQUIRED)
+
+add_library(wheelbot_serial_protocol
+  src/serial_protocol.cpp
+)
+set_target_properties(wheelbot_serial_protocol PROPERTIES
+  POSITION_INDEPENDENT_CODE ON
+)
+target_include_directories(wheelbot_serial_protocol PUBLIC
+  "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+  "$<INSTALL_INTERFACE:include>"
+)
+
+add_library(wheelbot_serial_hardware SHARED
+  src/serial_hardware.cpp
+)
+target_link_libraries(wheelbot_serial_hardware wheelbot_serial_protocol)
+target_include_directories(wheelbot_serial_hardware PUBLIC
+  "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+  "$<INSTALL_INTERFACE:include>"
+)
+ament_target_dependencies(wheelbot_serial_hardware hardware_interface pluginlib rclcpp sensor_msgs)
+pluginlib_export_plugin_description_file(hardware_interface wheelbot_serial_hardware.xml)
 
 install(
   DIRECTORY config launch scripts
   DESTINATION share/${PROJECT_NAME}
 )
 
-add_executable(jointstate_to_twist_2 src/jointstate_to_twist_2.cpp)
-ament_target_dependencies(jointstate_to_twist_2 rclcpp geometry_msgs sensor_msgs angles)
-
-add_executable(jointstate_sim_aggregator_2 src/jointstate_sim_aggregator_2.cpp)
-ament_target_dependencies(jointstate_sim_aggregator_2 rclcpp sensor_msgs)
-
-add_executable(jointstate_to_twist_4 src/jointstate_to_twist_4.cpp)
-ament_target_dependencies(jointstate_to_twist_4 rclcpp geometry_msgs sensor_msgs)
-
-add_executable(jointstate_sim_aggregator_4 src/jointstate_sim_aggregator_4.cpp)
-ament_target_dependencies(jointstate_sim_aggregator_4 rclcpp sensor_msgs)
-
-
-
-add_executable(jointstate_to_twist_2_ackermann src/jointstate_to_twist_2_ackermann.cpp)
-ament_target_dependencies(jointstate_to_twist_2_ackermann rclcpp geometry_msgs sensor_msgs)
-
-add_executable(jointstate_aggregator_2 src/jointstate_aggregator_2.cpp)
-ament_target_dependencies(jointstate_aggregator_2 rclcpp sensor_msgs)
-
-add_executable(jointstate_aggregator_2_swerve src/jointstate_aggregator_2_swerve.cpp)
-ament_target_dependencies(jointstate_aggregator_2_swerve rclcpp sensor_msgs)
-
-add_executable(jointstate_aggregator_2_ackermann src/jointstate_aggregator_2_ackermann.cpp)
-ament_target_dependencies(jointstate_aggregator_2_ackermann rclcpp sensor_msgs)
-
-add_executable(jointstate_aggregator_4 src/jointstate_aggregator_4.cpp)
-ament_target_dependencies(jointstate_aggregator_4 rclcpp sensor_msgs)
-
-
 install(
-  TARGETS
-    jointstate_to_twist_2
-    jointstate_sim_aggregator_2
-    jointstate_to_twist_4
-    jointstate_sim_aggregator_4
-    jointstate_aggregator_2
-    jointstate_aggregator_2_swerve
-    jointstate_to_twist_2_ackermann
-    jointstate_aggregator_2_ackermann
-    jointstate_aggregator_4
-
-  DESTINATION 
-    lib/${PROJECT_NAME}
+  DIRECTORY include/
+  DESTINATION include
 )
 
+install(
+  TARGETS wheelbot_serial_protocol wheelbot_serial_hardware
+  EXPORT export_${PROJECT_NAME}
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+  RUNTIME DESTINATION lib/${PROJECT_NAME}
+)
+
+ament_export_targets(export_${PROJECT_NAME} HAS_LIBRARY_TARGET)
+ament_export_dependencies(hardware_interface pluginlib rclcpp sensor_msgs)
+ament_export_include_directories(include)
+
 if(BUILD_TESTING)
+  find_package(ament_cmake_gtest REQUIRED)
   find_package(ament_lint_auto REQUIRED)
+
+  ament_add_gtest(test_serial_protocol test/test_serial_protocol.cpp)
+  if(TARGET test_serial_protocol)
+    target_link_libraries(test_serial_protocol wheelbot_serial_protocol)
+    target_include_directories(test_serial_protocol PRIVATE include)
+  endif()
+
   ament_lint_auto_find_test_dependencies()
 endif()
 

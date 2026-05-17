@@ -5,10 +5,10 @@
   <xacro:include filename="$(find description_mobile)/meshes/materials.xacro"/>
   <xacro:include filename="$(find description_mobile)/urdf/properties/properties_swerveBOT_510.urdf.xacro"/>
   <xacro:include filename="$(find description_mobile)/urdf/mech/chassis.urdf.xacro"/>
-  <xacro:include filename="$(find wheelbot_serial_bridge)/urdf/serial_diff_drive_module.urdf.xacro"/>
+  <xacro:include filename="$(find description_mobile)/urdf/mech/serial_diff_drive_module.urdf.xacro"/>
   <xacro:include filename="$(find description_mobile)/urdf/mech/virtual_swerve_module.urdf.xacro"/>
   <xacro:include filename="$(find description_mobile)/urdf/mech/rear_wheels.urdf.xacro"/>
-  <xacro:include filename="$(find wheelbot_serial_bridge)/ros2_control/wheelbot_serial_swerve_2bot.ros2_control.xacro"/>
+  <xacro:include filename="$(find description_mobile)/ros2_control/wheelbot_serial_swerve_2bot.ros2_control.xacro"/>
 
   <xacro:macro name="wheelbot_serial_mobile_robot" params="
       namespace

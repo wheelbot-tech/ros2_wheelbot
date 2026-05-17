@@ -1,4 +1,4 @@
-#include "wheelbot_serial_bridge/serial_hardware.hpp"
+#include "bringup_mobile/serial_hardware.hpp"
 
 #include <hardware_interface/types/hardware_interface_type_values.hpp>
 #include <pluginlib/class_list_macros.hpp>
@@ -17,7 +17,7 @@
 #include <sstream>
 #include <stdexcept>
 
-namespace wheelbot_serial_bridge
+namespace bringup_mobile
 {
 namespace
 {
@@ -546,6 +546,6 @@ int WheelbotSerialHardware::baudrate_to_constant(int baudrate) const
   }
 }
 
-}  // namespace wheelbot_serial_bridge
+}  // namespace bringup_mobile
 
-PLUGINLIB_EXPORT_CLASS(wheelbot_serial_bridge::WheelbotSerialHardware, hardware_interface::SystemInterface)
+PLUGINLIB_EXPORT_CLASS(bringup_mobile::WheelbotSerialHardware, hardware_interface::SystemInterface)
