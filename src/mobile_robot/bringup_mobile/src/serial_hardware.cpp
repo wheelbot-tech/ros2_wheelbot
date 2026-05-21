@@ -74,6 +74,8 @@ hardware_interface::CallbackReturn WheelbotSerialHardware::on_init(
   wheel_radius_ = std::stod(get_parameter(info_, "wheel_radius", "0.0825"));
   wheel_drive_len_ = std::stod(get_parameter(info_, "wheel_drive_len", "0.23"));
   steering_gain_ = std::stod(get_parameter(info_, "steering_gain", "0.1"));
+  steering_alignment_tolerance_ =
+    std::stod(get_parameter(info_, "steering_alignment_tolerance", "0.08"));
   use_common_speed_scale_ = get_parameter(info_, "use_common_speed_scale", "true") != "false";
   zero_steering_when_stopped_ =
     get_parameter(info_, "zero_steering_when_stopped", "true") != "false";
@@ -509,15 +511,7 @@ double WheelbotSerialHardware::shortest_angular_distance(double from, double to)
 
 double WheelbotSerialHardware::steering_scale(double error_rad) const
 {
-  const double alpha_delta = std::fabs(error_rad);
-  if (alpha_delta < 0.2) {
-    return 1.0;
-  }
-  if (alpha_delta > 1.0) {
-    return 0.01;
-  }
-  const double scale = 1.0 - std::pow(2.0 * alpha_delta, 3.0);
-  return std::max(scale, 0.0);
+  return std::fabs(error_rad) <= steering_alignment_tolerance_ ? 1.0 : 0.0;
 }
 
 int WheelbotSerialHardware::baudrate_to_constant(int baudrate) const

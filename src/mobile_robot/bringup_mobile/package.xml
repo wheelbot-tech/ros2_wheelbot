@@ -12,9 +12,11 @@
   <depend>controller_manager</depend>
   <depend>description_mobile</depend>
   <depend>hardware_interface</depend>
+  <depend>geometry_msgs</depend>
   <depend>joint_state_broadcaster</depend>
   <depend>pluginlib</depend>
   <depend>rclcpp</depend>
+  <depend>rclpy</depend>
   <depend>robot_state_publisher</depend>
   <depend>rviz2</depend>
   <depend>sensor_msgs</depend>

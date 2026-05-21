@@ -70,6 +70,7 @@ private:
   double wheel_radius_{0.0825};
   double wheel_drive_len_{0.23};
   double steering_gain_{0.1};
+  double steering_alignment_tolerance_{0.08};
   bool use_common_speed_scale_{true};
   bool zero_steering_when_stopped_{true};
   std::vector<std::string> active_modules_{"RL", "RR", "FL", "FR"};

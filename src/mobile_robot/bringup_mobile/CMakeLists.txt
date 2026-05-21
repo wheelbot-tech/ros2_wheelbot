@@ -44,6 +44,12 @@ install(
 )
 
 install(
+  PROGRAMS
+    scripts/rectangle_diagonals_path.py
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+install(
   DIRECTORY include/
   DESTINATION include
 )

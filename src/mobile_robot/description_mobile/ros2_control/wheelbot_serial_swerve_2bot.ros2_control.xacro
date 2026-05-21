@@ -13,6 +13,8 @@
         <param name="active_modules">${active_modules}</param>
         <param name="wheel_radius">${wheel_radius}</param>
         <param name="wheel_drive_len">${wheel_drive_len}</param>
+        <param name="steering_alignment_tolerance">0.08</param>
+        <param name="use_common_speed_scale">true</param>
         <param name="zero_steering_when_stopped">true</param>
       </hardware>
 

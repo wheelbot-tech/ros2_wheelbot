@@ -12,6 +12,8 @@ swerve_controller:
   ros__parameters:
     wheelbase: 0.43
     trackwidth: 0.43
+    offset: [0.0, 0.0]
+    center_of_rotation: [0.0, 0.0]
     wheel_radius: 0.0825
 
     cmd_vel_timeout_seconds: 5.0
