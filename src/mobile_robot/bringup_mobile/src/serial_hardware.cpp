@@ -76,6 +76,11 @@ hardware_interface::CallbackReturn WheelbotSerialHardware::on_init(
   steering_gain_ = std::stod(get_parameter(info_, "steering_gain", "0.1"));
   steering_alignment_tolerance_ =
     std::stod(get_parameter(info_, "steering_alignment_tolerance", "0.08"));
+  steering_min_speed_scale_ =
+    std::clamp(std::stod(get_parameter(info_, "steering_min_speed_scale", "0.15")), 0.0, 1.0);
+  steering_zero_speed_error_ =
+    std::stod(get_parameter(info_, "steering_zero_speed_error", "1.2"));
+  smooth_arc_steering_ = get_parameter(info_, "steering_drive_mode", "strict_gate") == "smooth_arc";
   use_common_speed_scale_ = get_parameter(info_, "use_common_speed_scale", "true") != "false";
   zero_steering_when_stopped_ =
     get_parameter(info_, "zero_steering_when_stopped", "true") != "false";
@@ -511,7 +516,23 @@ double WheelbotSerialHardware::shortest_angular_distance(double from, double to)
 
 double WheelbotSerialHardware::steering_scale(double error_rad) const
 {
-  return std::fabs(error_rad) <= steering_alignment_tolerance_ ? 1.0 : 0.0;
+  const double abs_error = std::fabs(error_rad);
+  if (abs_error <= steering_alignment_tolerance_) {
+    return 1.0;
+  }
+  if (!smooth_arc_steering_) {
+    return 0.0;
+  }
+
+  const double zero_speed_error =
+    std::max(steering_zero_speed_error_, steering_alignment_tolerance_ + 1.0e-6);
+  if (abs_error >= zero_speed_error) {
+    return steering_min_speed_scale_;
+  }
+
+  const double ratio =
+    (abs_error - steering_alignment_tolerance_) / (zero_speed_error - steering_alignment_tolerance_);
+  return steering_min_speed_scale_ + (1.0 - steering_min_speed_scale_) * (1.0 - ratio);
 }
 
 int WheelbotSerialHardware::baudrate_to_constant(int baudrate) const

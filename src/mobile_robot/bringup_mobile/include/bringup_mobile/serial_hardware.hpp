@@ -71,6 +71,9 @@ private:
   double wheel_drive_len_{0.23};
   double steering_gain_{0.1};
   double steering_alignment_tolerance_{0.08};
+  double steering_min_speed_scale_{0.15};
+  double steering_zero_speed_error_{1.2};
+  bool smooth_arc_steering_{false};
   bool use_common_speed_scale_{true};
   bool zero_steering_when_stopped_{true};
   std::vector<std::string> active_modules_{"RL", "RR", "FL", "FR"};
