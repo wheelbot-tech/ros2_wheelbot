@@ -172,14 +172,6 @@ Pentru inregistrare:
 ros2 bag record -a
 ```
 
-## Probleme cunoscute
-
-Exista o problema documentata cu steering-ul swerve la zero: `swerve_drive_controller` trimite initial steering joints la zero, iar unele module pot sa nu ajunga corect la pozitia ceruta. Cand investighezi, coreleaza:
-
-- `/amr_joint_commands`
-- `/FR_amr_joint_states` sau modulul afectat
-- `/FR_drive_joint_commands` sau modulul afectat
-- fisierele MCAP din `DEBUG/rosbag2_2026_02_04-*`
 
 ## Cand termini o modificare
 

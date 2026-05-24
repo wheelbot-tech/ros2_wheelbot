@@ -23,9 +23,12 @@ RUST_LOG=debug ros2 run rmw_zenoh_cpp rmw_zenohd \
 2>&1 | tee zenoh_$(date +%Y%m%d_%H%M%S).log
 
 zenoh-bridge-mcp   --connect tcp/localhost:7447   --mcp-listen 0.0.0.0:8808
+zenoh-bridge-mcp --connect tcp/127.0.0.1:7447 --mcp-listen 127.0.0.1:8808
 
 zenoh-bridge-ros2dds -c /home/george/ZENOH/RMF/nav2_zenoh_bridge_ros2dds_client_config.json5
 
 ros2 bag record -a
 ros2 launch ros2_medkit_gateway gateway.launch.py
 # → http://localhost:8080/api/v1/areas
+
+ros2 launch bringup_mobile swerve_2bot_serial.launch.py
