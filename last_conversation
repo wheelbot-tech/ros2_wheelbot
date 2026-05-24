@@ -1,0 +1,179 @@
+Rezumat conversatie Balena / Jetson Nano / ROS 2 WheelBot
+Data: 2026-05-24
+
+Workspace:
+- /home/george/ROS2/ros2_wheelbot
+
+Obiectiv:
+- Testare `bringup_mobile` pe Nvidia Jetson Nano cu Balena.
+- Build preferat prin Balena Cloud Builder.
+- Pregatire arhitectura pentru Zenoh + Nav2 + Open-RMF.
+
+Balena setup adaugat:
+- `.dockerignore`
+- `docker-compose.yml`
+- `Dockerfile.template`
+- `balena/entrypoint.sh`
+- `balena/README.md`
+- `balena/nav2.Dockerfile`
+- `balena/nav2_entrypoint.sh`
+- `balena/rmf_agent.Dockerfile`
+- `balena/rmf_agent_entrypoint.sh`
+- `balena/zenoh_router.Dockerfile`
+- `balena/zenoh_router_entrypoint.sh`
+- `balena/prepare_push_context.sh`
+
+Servicii Balena stabilite:
+- `zenoh_router`
+  - Porneste routerul local Zenoh pe Jetson:
+    `ros2 run rmw_zenoh_cpp rmw_zenohd`
+  - Daca trebuie conectat la routerul de pe computerul Open-RMF:
+    `ZENOH_REMOTE_ROUTER_ENDPOINT=tcp/<ip-computer-rmf>:7447`
+
+- `base_control`
+  - Inlocuieste vechiul serviciu `wheelbot`.
+  - Ruleaza `bringup_mobile` real cu robotul serial:
+    `ros2 launch bringup_mobile swerve_2bot_serial.launch.py`
+  - Foloseste `rmw_zenoh_cpp`.
+  - Se conecteaza la routerul local:
+    `ZENOH_ROUTER_ENDPOINT=tcp/127.0.0.1:7447`
+
+- `nav2`
+  - Imagine separata cu `navigation2` si `nav2_bringup`.
+  - Inactiv implicit:
+    `NAV2_ENABLED=false`
+  - Se activeaza ulterior cu:
+    `NAV2_ENABLED=true`
+    `NAV2_COMMAND=<comanda launch Nav2>`
+
+- `rmf_agent`
+  - Imagine separata pentru viitorul agent / bridge Open-RMF.
+  - Inactiv implicit:
+    `RMF_AGENT_ENABLED=false`
+  - Se activeaza ulterior cu:
+    `RMF_AGENT_ENABLED=true`
+    `RMF_AGENT_COMMAND=<comanda agent RMF>`
+
+Configuratie identitate robot:
+- `ROBOT_ID=1`
+- `ROBOT_NAME=robot_1`
+- `ROS_NAMESPACE=robot_1`
+- `TF_FRAME_PREFIX=robot_1/`
+
+Strategie TF prefix:
+- Nu s-au schimbat joint names din URDF/controller YAML.
+- `robot_state_publisher` primeste parametrul:
+  `frame_prefix:=robot_1/`
+- `controller_manager` si `swerve_controller` ruleaza in namespace:
+  `/robot_1`
+- Controllerul swerve a fost modificat ca odometry frame id-urile generate din
+  namespace sa nu aiba slash initial.
+- Rezultat dorit:
+  - `robot_1/odom`
+  - `robot_1/base_link`
+  - `robot_1/base_footprint`
+
+Fisiere ROS modificate:
+- `src/mobile_robot/bringup_mobile/launch/control_Layer_serial_launch.py`
+  - Adaugat argument `frame_prefix`.
+  - `robot_state_publisher` si `ros2_control_node` ruleaza cu namespace.
+  - `robot_state_publisher` primeste `frame_prefix`.
+  - Spawner-ele folosesc explicit controller managerul namespaced.
+
+- `src/mobile_robot/bringup_mobile/launch/swerve_2bot_serial.launch.py`
+  - Default launch este `swerve_2bot_serial.launch.py`.
+  - Declara si forwardeaza explicit:
+    `namespace`, `frame_prefix`, `serial_port`, `baudrate`,
+    `command_timeout_ms`, `active_modules`.
+
+- `src/wheelbot_ros2_controllers/swerve_drive_controller/src/swerve_drive_controller.cpp`
+  - Normalizare TF prefix din namespace: elimina slash-ul initial.
+
+- `src/wheelbot_ros2_controllers/swerve_drive_controller/test/test_swerve_drive_controller.cpp`
+  - Testele au fost actualizate sa astepte `test_namespace/odom`, nu
+    `/test_namespace/odom`.
+
+Build/test rulate:
+- `python3 -m py_compile` pentru launch files.
+- `bash -n` pentru entrypoint-uri.
+- `docker compose config`.
+- `colcon build --symlink-install --packages-up-to bringup_mobile`.
+- `ROS_LOG_DIR=/tmp/ros-log ros2 launch bringup_mobile swerve_2bot_serial.launch.py --show-args`.
+- `ROS_LOG_DIR=/tmp/ros-log colcon test --packages-select swerve_drive_controller`.
+  - Testele controllerului swerve au trecut.
+- `ROS_LOG_DIR=/tmp/ros-log colcon test --packages-select bringup_mobile --ctest-args -R test_serial_protocol`.
+  - Testul `test_serial_protocol` a trecut.
+- Full `bringup_mobile` lint are probleme istorice de copyright/flake8/cpplint,
+  nelegate direct de schimbari.
+
+Probleme intalnite si rezolvari:
+- Initial serviciul Balena aparea doar ca `HOST OS` deoarece device-ul era in
+  Local Mode / fleet gresit. S-a rezolvat din Balena.
+
+- Build-ul cu `--symlink-install` si `rm -rf build` in Docker rupea install-ul
+  din container. Rezolvare:
+  - In `Dockerfile.template`, build-ul Docker foloseste:
+    `colcon build --merge-install --packages-up-to bringup_mobile`
+
+- Push direct din root a esuat cu:
+  `No such file or directory ... install/.../__pycache__/*.pyc`
+  Cauza:
+  - workspace local construit cu `--symlink-install`;
+  - `py_compile` a creat `__pycache__`;
+  - curatarea `__pycache__` a lasat symlink-uri rupte in `install/`;
+  - Balena CLI face `stat()` pe ele cand impacheteaza source package-ul.
+  Rezolvari:
+  - Curatare `build/ install/ log/` si rebuild local a facut push-ul sa mearga.
+  - A fost adaugat `balena/prepare_push_context.sh` pentru context curat.
+
+Regula de deploy Balena recomandata:
+- Pentru workspace ROS construit local, prefera:
+  `bash balena/prepare_push_context.sh`
+  `balena push Wheelbot_nano --source /tmp/ros2_wheelbot_balena`
+
+- Push direct din root este ok dupa curatarea folderelor generate:
+  `rm -rf build install log`
+  `balena push Wheelbot_nano`
+
+Regula importanta:
+- Cand se adauga servicii Balena, Dockerfile-uri, entrypoint-uri, configuratii,
+  launch files sau pachete ROS locale, trebuie actualizat si:
+  `balena/prepare_push_context.sh`
+- Ce nu copiaza scriptul nu ajunge in:
+  `/tmp/ros2_wheelbot_balena`
+  si nu va fi inclus in:
+  `balena push --source /tmp/ros2_wheelbot_balena`
+
+Comenzi utile pe Jetson/Balena:
+- Verificare containere:
+  `balena-engine ps -a`
+- Logs serviciu:
+  `balena-engine logs --tail 100 <service/container>`
+- Shutdown din Host OS:
+  `shutdown -h now`
+
+Verificari ROS dupa deploy:
+- In serviciul `base_control`:
+  `source /opt/ros/kilted/setup.bash`
+  `source /ros_ws/install/setup.bash`
+  `ros2 node list`
+  `ros2 topic list`
+  `ros2 control list_controllers`
+  `ros2 topic echo /tf_static --once`
+  `ros2 topic echo /robot_1/swerve_controller/odom --once`
+
+Observatii pentru Open-RMF:
+- `robot_id=1` este identificator hardware/inventar.
+- `robot_1` este numele operational recomandat pentru ROS namespace si RMF
+  robot name.
+- Pentru RMF/Nav2, separarea recomandata este:
+  - `ROBOT_ID=1`
+  - `ROBOT_NAME=robot_1`
+  - `ROS_NAMESPACE=robot_1`
+  - frame-uri TF prefixed: `robot_1/odom`, `robot_1/base_link`
+- Open-RMF computerul trebuie sa ruleze propriul router Zenoh daca vrem legatura
+  intre Jetson si RMF:
+  `RMW_IMPLEMENTATION=rmw_zenoh_cpp ros2 run rmw_zenoh_cpp rmw_zenohd`
+  iar pe serviciul `zenoh_router` de pe Jetson:
+  `ZENOH_REMOTE_ROUTER_ENDPOINT=tcp/<ip-computer-rmf>:7447`
+

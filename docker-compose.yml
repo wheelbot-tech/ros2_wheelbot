@@ -1,0 +1,69 @@
+version: "2.4"
+
+services:
+  zenoh_router:
+    build:
+      context: .
+      dockerfile: balena/zenoh_router.Dockerfile
+    network_mode: host
+    restart: unless-stopped
+    environment:
+      ROS_DOMAIN_ID: "0"
+      RMW_IMPLEMENTATION: "rmw_zenoh_cpp"
+      ZENOH_REMOTE_ROUTER_ENDPOINT: ""
+
+  base_control:
+    build:
+      context: .
+      dockerfile: Dockerfile.template
+    network_mode: host
+    privileged: true
+    restart: unless-stopped
+    depends_on:
+      - zenoh_router
+    environment:
+      ROS_DOMAIN_ID: "0"
+      RMW_IMPLEMENTATION: "rmw_zenoh_cpp"
+      ROBOT_ID: "1"
+      ZENOH_ROUTER_ENDPOINT: "tcp/127.0.0.1:7447"
+      LAUNCH_FILE: "swerve_2bot_serial.launch.py"
+      SERIAL_PORT: "/dev/ttyACM0"
+      BAUDRATE: "115200"
+      COMMAND_TIMEOUT_MS: "500"
+      ACTIVE_MODULES: "FR,RL"
+      JOY_DEV: "/dev/input/js0"
+      JOY_CONFIG: "F710_sim.yaml"
+
+  nav2:
+    build:
+      context: .
+      dockerfile: balena/nav2.Dockerfile
+    network_mode: host
+    restart: unless-stopped
+    depends_on:
+      - zenoh_router
+      - base_control
+    environment:
+      ROS_DOMAIN_ID: "0"
+      RMW_IMPLEMENTATION: "rmw_zenoh_cpp"
+      ROBOT_ID: "1"
+      ZENOH_ROUTER_ENDPOINT: "tcp/127.0.0.1:7447"
+      NAV2_ENABLED: "false"
+      NAV2_COMMAND: ""
+
+  rmf_agent:
+    build:
+      context: .
+      dockerfile: balena/rmf_agent.Dockerfile
+    network_mode: host
+    restart: unless-stopped
+    depends_on:
+      - zenoh_router
+      - nav2
+    environment:
+      ROS_DOMAIN_ID: "0"
+      RMW_IMPLEMENTATION: "rmw_zenoh_cpp"
+      ROBOT_ID: "1"
+      ZENOH_ROUTER_ENDPOINT: "tcp/127.0.0.1:7447"
+      RMF_AGENT_ENABLED: "false"
+      RMF_AGENT_COMMAND: ""

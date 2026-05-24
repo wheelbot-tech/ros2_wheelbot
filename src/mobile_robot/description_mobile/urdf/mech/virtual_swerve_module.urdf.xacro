@@ -18,7 +18,7 @@
       <child link="${prefix}virtual_front_right_steering_link"/>
       <origin xyz="${pos_x} -${pos_y} ${pos_z}" rpy="0 0 0"/>
       <axis xyz="0 0 1"/>
-      <limit lower="-3.14159" upper="3.14159" effort="100.0" velocity="10.0"/>
+      <limit lower="-${PI}" upper="${PI}" effort="100.0" velocity="10.0"/>
     </joint>
 
     <!-- virtual rear left steering -->
@@ -30,7 +30,7 @@
       <child link="${prefix}virtual_rear_left_steering_link"/>
       <origin xyz="-${pos_x} ${pos_y} ${pos_z}" rpy="0 0 0"/>
       <axis xyz="0 0 1"/>
-      <limit lower="-3.14159" upper="3.14159" effort="100.0" velocity="10.0"/>
+      <limit lower="-${PI}" upper="${PI}" effort="100.0" velocity="10.0"/>
     </joint>
 
 
@@ -43,7 +43,7 @@
       <child link="${prefix}virtual_rear_right_steering_link"/>
       <origin xyz="-${pos_x} -${pos_y} ${pos_z}" rpy="0 0 0"/>
       <axis xyz="0 0 1"/>
-      <limit lower="-3.14159" upper="3.14159" effort="100.0" velocity="10.0"/>
+      <limit lower="-${PI}" upper="${PI}" effort="100.0" velocity="10.0"/>
     </joint>
 
 
@@ -56,7 +56,7 @@
       <child link="${prefix}virtual_front_left_steering_link"/>
       <origin xyz="${pos_x} ${pos_y} ${pos_z}" rpy="0 0 0"/>
       <axis xyz="0 0 1"/>
-      <limit lower="-3.14159" upper="3.14159" effort="100.0" velocity="10.0"/>
+      <limit lower="-${PI}" upper="${PI}" effort="100.0" velocity="10.0"/>
     </joint>
 
 

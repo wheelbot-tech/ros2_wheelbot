@@ -10,6 +10,7 @@ from launch_ros.substitutions import FindPackageShare
 def generate_launch_description():
     use_sim_time = launch.substitutions.LaunchConfiguration('use_sim_time')
     use_stamped= launch.substitutions.LaunchConfiguration('use_stamped')
+    namespace = launch.substitutions.LaunchConfiguration('namespace')
     joy_dev = launch.substitutions.LaunchConfiguration('joy_dev')
     joy_config = launch.substitutions.LaunchConfiguration('joy_config')
     joy_teleop_config = launch.substitutions.LaunchConfiguration('joy_teleop_config')
@@ -17,6 +18,7 @@ def generate_launch_description():
     return launch.LaunchDescription([
         launch.actions.DeclareLaunchArgument('use_sim_time', default_value='false'),
         launch.actions.DeclareLaunchArgument('use_stamped', default_value='true'),
+        launch.actions.DeclareLaunchArgument('namespace', default_value=''),
         launch.actions.DeclareLaunchArgument('joy_dev', default_value='/dev/input/js0'),
         launch.actions.DeclareLaunchArgument('joy_config', default_value='F710_sim.yaml'),
         launch.actions.DeclareLaunchArgument('joy_teleop_config', 
@@ -25,6 +27,7 @@ def generate_launch_description():
 
         launch_ros.actions.Node(
             package='joy', executable='joy_node', name='joy_node',
+            namespace=namespace,
             parameters=[{
                 'dev': joy_dev,
                 'deadzone': 0.12,
@@ -33,7 +36,8 @@ def generate_launch_description():
         launch_ros.actions.Node(
             package='teleop_twist_joy', executable='teleop_node',
             name='teleop_twist_joy_node',
+            namespace=namespace,
             parameters=[joy_teleop_config, {'publish_stamped_twist': use_stamped}],
-            remappings={('/cmd_vel', 'joy_vel')},
+            remappings=[('cmd_vel', 'joy_vel')],
             ),
     ])

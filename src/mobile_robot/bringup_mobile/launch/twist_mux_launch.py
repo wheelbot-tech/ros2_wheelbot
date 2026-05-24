@@ -31,13 +31,15 @@ def generate_launch_description():
     default_config_joystick = os.path.join(bringup_path, 'config', 'joystick.yaml')
     use_sim_time = LaunchConfiguration('use_sim_time')
     use_stamped = LaunchConfiguration('use_stamped')  
+    namespace = LaunchConfiguration('namespace')
 
  
     twist_mux_node = Node(
         package='twist_mux',
         executable='twist_mux',
+        namespace=namespace,
         output='screen',
-        remappings=[('/cmd_vel_out', LaunchConfiguration('cmd_vel_out_stamped'))],
+        remappings=[('cmd_vel_out', LaunchConfiguration('cmd_vel_out_stamped'))],
         parameters=[
             {'use_sim_time': use_sim_time},
             {"use_stamped": use_stamped},
@@ -48,8 +50,9 @@ def generate_launch_description():
     twist_unstamped_mux_node = Node(
         package='twist_mux',
         executable='twist_mux',
+        namespace=namespace,
         output='screen',
-        remappings=[('/cmd_vel_out', LaunchConfiguration('cmd_vel_out_unstamped'))],
+        remappings=[('cmd_vel_out', LaunchConfiguration('cmd_vel_out_unstamped'))],
         parameters=[
             {'use_sim_time': use_sim_time},
             {"use_stamped": use_stamped},
@@ -60,8 +63,9 @@ def generate_launch_description():
     twist_marker_node = Node(
         package='twist_mux',
         executable='twist_marker',
+        namespace=namespace,
         output='screen',
-        remappings=[('/twist', LaunchConfiguration('cmd_vel_out_stamped'))],
+        remappings=[('twist', LaunchConfiguration('cmd_vel_out_stamped'))],
         parameters=[{
             'use_sim_time': use_sim_time,
             'use_stamped': use_stamped,
@@ -73,8 +77,9 @@ def generate_launch_description():
     twist_unstamped_marker_node = Node(
         package='twist_mux',
         executable='twist_marker',
+        namespace=namespace,
         output='screen',
-        remappings=[('/twist', LaunchConfiguration('cmd_vel_out_unstamped'))],
+        remappings=[('twist', LaunchConfiguration('cmd_vel_out_unstamped'))],
         parameters=[{
             'use_sim_time': use_sim_time,
             'use_stamped': use_stamped,
@@ -86,6 +91,7 @@ def generate_launch_description():
     twist_joystick_node = Node(
         package='twist_mux',
         executable='joystick_relay.py',
+        namespace=namespace,
         output='screen',
         remappings={('joy_vel_in', 'input_joy/cmd_vel'),
                     ('joy_vel_out', 'joy_vel')},
@@ -123,6 +129,14 @@ def generate_launch_description():
             'use_sim_time',
             default_value='false',
             description='Use sim time if true'),
+        DeclareLaunchArgument(
+            'use_stamped',
+            default_value='true',
+            description='Use stamped twist messages if true'),
+        DeclareLaunchArgument(
+            'namespace',
+            default_value='',
+            description='Namespace for twist mux nodes and topics'),
 
         # Nodes
         
