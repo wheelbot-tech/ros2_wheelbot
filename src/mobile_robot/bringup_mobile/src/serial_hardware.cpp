@@ -69,6 +69,8 @@ hardware_interface::CallbackReturn WheelbotSerialHardware::on_init(
   }
 
   serial_port_ = get_parameter(info_, "serial_port", "/dev/ttyACM0");
+  imu_topic_ = get_parameter(info_, "imu_topic", "/imu/data");
+  imu_frame_id_ = get_parameter(info_, "imu_frame_id", "imu_link");
   baudrate_ = std::stoi(get_parameter(info_, "baudrate", "115200"));
   command_timeout_ms_ = std::stoi(get_parameter(info_, "command_timeout_ms", "500"));
   wheel_radius_ = std::stod(get_parameter(info_, "wheel_radius", "0.0825"));
@@ -150,7 +152,7 @@ hardware_interface::CallbackReturn WheelbotSerialHardware::on_cleanup(
 {
   send_zero_commands();
   close_serial();
-  imu_publishers_.clear();
+  imu_publisher_.reset();
   imu_node_.reset();
   return hardware_interface::CallbackReturn::SUCCESS;
 }
@@ -160,7 +162,7 @@ hardware_interface::CallbackReturn WheelbotSerialHardware::on_shutdown(
 {
   send_zero_commands();
   close_serial();
-  imu_publishers_.clear();
+  imu_publisher_.reset();
   imu_node_.reset();
   return hardware_interface::CallbackReturn::SUCCESS;
 }
@@ -403,20 +405,35 @@ void WheelbotSerialHardware::apply_state(const ModuleState & state)
   position_states_[mapping.steering_joint_index] =
     normalize_angle(state.steering_rad + mapping.mounting_yaw_rad);
   velocity_states_[mapping.steering_joint_index] = 0.0;
+  if (mapping.module_steering_joint_index != kNotFound) {
+    position_states_[mapping.module_steering_joint_index] =
+      normalize_angle(state.steering_rad + mapping.mounting_yaw_rad);
+    velocity_states_[mapping.module_steering_joint_index] = 0.0;
+  }
   position_states_[mapping.wheel_joint_index] = 0.5 * (state.pos_right_rad + state.pos_left_rad);
   velocity_states_[mapping.wheel_joint_index] = 0.5 * (state.vel_right_rad_s + state.vel_left_rad_s);
+  if (mapping.right_wheel_joint_index != kNotFound) {
+    position_states_[mapping.right_wheel_joint_index] = state.pos_right_rad;
+    velocity_states_[mapping.right_wheel_joint_index] = state.vel_right_rad_s;
+  }
+  if (mapping.left_wheel_joint_index != kNotFound) {
+    position_states_[mapping.left_wheel_joint_index] = state.pos_left_rad;
+    velocity_states_[mapping.left_wheel_joint_index] = state.vel_left_rad_s;
+  }
 }
 
 void WheelbotSerialHardware::publish_imu_sample(const ImuSample & sample)
 {
-  const auto publisher_it = imu_publishers_.find(sample.module);
-  if (publisher_it == imu_publishers_.end()) {
+  if (sample.module != "MASTER" && sample.module != "BASE" && sample.module != "CHASSIS") {
+    return;
+  }
+  if (!imu_publisher_) {
     return;
   }
 
   sensor_msgs::msg::Imu msg;
   msg.header.stamp = imu_node_ ? imu_node_->now() : rclcpp::Clock().now();
-  msg.header.frame_id = sample.module + "_imu_link";
+  msg.header.frame_id = imu_frame_id_;
   msg.orientation_covariance[0] = -1.0;
   msg.angular_velocity.x = sample.gyro_x_rad_s;
   msg.angular_velocity.y = sample.gyro_y_rad_s;
@@ -425,7 +442,7 @@ void WheelbotSerialHardware::publish_imu_sample(const ImuSample & sample)
   msg.linear_acceleration.y = sample.accel_y_m_s2;
   msg.linear_acceleration.z = sample.accel_z_m_s2;
 
-  publisher_it->second->publish(msg);
+  imu_publisher_->publish(msg);
 }
 
 void WheelbotSerialHardware::setup_imu_publishers()
@@ -437,11 +454,10 @@ void WheelbotSerialHardware::setup_imu_publishers()
     imu_node_ = std::make_shared<rclcpp::Node>("wheelbot_serial_imu_bridge", options);
   }
 
-  imu_publishers_.clear();
-  for (const auto & module : active_modules_) {
-    imu_publishers_[module] =
-      imu_node_->create_publisher<sensor_msgs::msg::Imu>("/" + module + "_imu", rclcpp::SensorDataQoS());
-  }
+  imu_publisher_ = imu_node_->create_publisher<sensor_msgs::msg::Imu>(imu_topic_, rclcpp::SensorDataQoS());
+  RCLCPP_INFO(rclcpp::get_logger("WheelbotSerialHardware"),
+    "Publishing chassis IMU from ESP-NOW master on %s with frame_id %s",
+    imu_topic_.c_str(), imu_frame_id_.c_str());
 }
 
 void WheelbotSerialHardware::send_zero_commands()
@@ -456,11 +472,24 @@ void WheelbotSerialHardware::send_zero_commands()
 
 void WheelbotSerialHardware::build_module_mappings()
 {
-  const std::map<std::string, std::pair<std::string, std::string>> joints_by_module = {
-    {"FR", {"virtual_front_right_steering_joint", "virtual_front_right_wheel_joint"}},
-    {"FL", {"virtual_front_left_steering_joint", "virtual_front_left_wheel_joint"}},
-    {"RR", {"virtual_rear_right_steering_joint", "virtual_rear_right_wheel_joint"}},
-    {"RL", {"virtual_rear_left_steering_joint", "virtual_rear_left_wheel_joint"}},
+  struct ModuleJointNames
+  {
+    std::string steering;
+    std::string virtual_wheel;
+    std::string module_steering;
+    std::string right_wheel;
+    std::string left_wheel;
+  };
+
+  const std::map<std::string, ModuleJointNames> joints_by_module = {
+    {"FR", {"virtual_front_right_steering_joint", "virtual_front_right_wheel_joint",
+      "FR_steering_joint", "FR_drive_right_joint", "FR_drive_left_joint"}},
+    {"FL", {"virtual_front_left_steering_joint", "virtual_front_left_wheel_joint",
+      "FL_steering_joint", "FL_drive_right_joint", "FL_drive_left_joint"}},
+    {"RR", {"virtual_rear_right_steering_joint", "virtual_rear_right_wheel_joint",
+      "RR_steering_joint", "RR_drive_right_joint", "RR_drive_left_joint"}},
+    {"RL", {"virtual_rear_left_steering_joint", "virtual_rear_left_wheel_joint",
+      "RL_steering_joint", "RL_drive_right_joint", "RL_drive_left_joint"}},
   };
 
   module_mappings_.clear();
@@ -470,15 +499,20 @@ void WheelbotSerialHardware::build_module_mappings()
     if (config_it == joints_by_module.end()) {
       continue;
     }
-    const auto steering_index = find_joint(info_, config_it->second.first);
-    const auto wheel_index = find_joint(info_, config_it->second.second);
+    const auto steering_index = find_joint(info_, config_it->second.steering);
+    const auto wheel_index = find_joint(info_, config_it->second.virtual_wheel);
     if (steering_index == kNotFound || wheel_index == kNotFound) {
       RCLCPP_WARN(rclcpp::get_logger("WheelbotSerialHardware"),
         "Skipping module %s because virtual joints are missing", module.c_str());
       continue;
     }
+    const auto module_steering_index = find_joint(info_, config_it->second.module_steering);
+    const auto right_wheel_index = find_joint(info_, config_it->second.right_wheel);
+    const auto left_wheel_index = find_joint(info_, config_it->second.left_wheel);
     module_to_mapping_[module] = module_mappings_.size();
-    module_mappings_.push_back({module, steering_index, wheel_index, module == "RL" ? kPi : 0.0});
+    module_mappings_.push_back(
+      {module, steering_index, wheel_index, module_steering_index, right_wheel_index,
+        left_wheel_index, module == "RL" ? kPi : 0.0});
   }
 }
 

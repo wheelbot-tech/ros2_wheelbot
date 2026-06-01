@@ -1,25 +1,26 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://wiki.ros.org/xacro">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <xacro:macro name="chassis" params="
+    <xacro:macro name="stand" params="
         prefix parent
-        pos_z"
+        base_height"
     >
-    
-     <link name="${prefix}chassis_link">
+
+     <link name="${prefix}stand_link">
         <collision>
             <origin xyz="0 0 0" rpy="0 0 0"/>
             <geometry>
-                <box size="${base_length} ${base_width} ${base_height}"/>
+                <box size="${stand_length} ${stand_width} ${stand_height}"/>
             </geometry>
         </collision>
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0"/>
             <geometry>
-                <box size="${base_length} ${base_width} ${base_height}"/>
+                <box size="${stand_length} ${stand_width} ${stand_height}"/>
             </geometry>
-            <material name="transparent"/>
+            <material name="PETG_orange"/>
         </visual>
+
         <inertial>
             <origin xyz="0 0 0" rpy="0 0 0"/>
             <mass value="${base_mass}"/>
@@ -30,11 +31,10 @@
             </inertial>
      </link>
 
-     <joint name="${prefix}chassis_joint" type="fixed">
-
+     <joint name="${prefix}stand_joint" type="fixed">
         <parent link="${prefix}${parent}"/>
-        <child link="${prefix}chassis_link"/>
-        <origin xyz="0 0 ${pos_z}" rpy="0 0 0"/>
+        <child link="${prefix}stand_link"/>
+        <origin xyz="0 0 ${str(base_height/2 + 0.20)}" rpy="0 0 0"/>
         <axis xyz="0 0 1"/>
         <dynamics damping="0.2"/>
      </joint>

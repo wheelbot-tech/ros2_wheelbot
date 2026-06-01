@@ -136,6 +136,7 @@ SERIAL_PORT=/dev/ttyACM0
 BAUDRATE=115200
 COMMAND_TIMEOUT_MS=500
 ACTIVE_MODULES=FR,RL
+ENABLE_ODOM_FUSION=true
 JOY_DEV=/dev/input/js0
 JOY_CONFIG=F710_sim.yaml
 ```
@@ -150,6 +151,12 @@ At startup, `base_control` generates a namespace-specific controller YAML in
 The generated file uses exact namespaced keys such as
 `/robot_1/controller_manager` and `/robot_1/swerve_controller`, avoiding fragile
 wildcard parameter matching.
+
+By default, `base_control` starts `robot_localization/ekf_node` from
+`bringup_mobile/config/ekf_swerve_imu.yaml`. The filtered odometry is published
+as `/robot_1/odom`, fusing `swerve_controller/odom` with the chassis IMU on
+`/robot_1/imu/data`. Set `ENABLE_ODOM_FUSION=false` to run only the raw
+swerve controller odometry.
 
 To launch only the headless serial control layer, set:
 
@@ -177,7 +184,7 @@ NAV2_ENABLED=true
 NAV2_COMMAND=ros2 launch nav2_bringup bringup_launch.py namespace:=robot_1 use_namespace:=True params_file:=/path/to/nav2_params.yaml
 ```
 
-Keep `robot_1/odom` and `robot_1/base_link` aligned with the `base_control`
+Keep `robot_1/odom` and `robot_1/base_footprint` aligned with the `base_control`
 TF/frame setup.
 
 ## rmf_agent

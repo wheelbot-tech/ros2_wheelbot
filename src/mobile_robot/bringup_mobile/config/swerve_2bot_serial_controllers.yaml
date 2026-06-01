@@ -29,15 +29,15 @@ swerve_controller:
     rear_left_axle_joint: virtual_rear_left_steering_joint
     rear_right_axle_joint: virtual_rear_right_steering_joint
 
-    front_left_velocity_threshold: 2.0
-    front_right_velocity_threshold: 2.0
-    rear_left_velocity_threshold: 2.0
-    rear_right_velocity_threshold: 2.0
+    front_left_velocity_threshold: 1.0
+    front_right_velocity_threshold: 1.0
+    rear_left_velocity_threshold: 1.0
+    rear_right_velocity_threshold: 1.0
 
     pose_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.01]
     twist_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.01]
 
     odom: odom
-    base_footprint: base_link
+    base_footprint: base_footprint
     enable_odom_tf: false
     open_loop: true

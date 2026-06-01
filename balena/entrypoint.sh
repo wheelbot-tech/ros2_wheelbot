@@ -43,24 +43,32 @@ COMMAND_TIMEOUT_MS="${COMMAND_TIMEOUT_MS:-500}"
 ACTIVE_MODULES="${ACTIVE_MODULES:-FR,RL}"
 JOY_DEV="${JOY_DEV:-/dev/input/js0}"
 JOY_CONFIG="${JOY_CONFIG:-F710_sim.yaml}"
+ENABLE_ODOM_FUSION="${ENABLE_ODOM_FUSION:-true}"
 TF_FRAME_PREFIX="${TF_FRAME_PREFIX:-}"
 if [ -z "${TF_FRAME_PREFIX}" ] && [ -n "${ROS_NAMESPACE}" ]; then
   TF_FRAME_PREFIX="${ROS_NAMESPACE#/}/"
 fi
 export TF_FRAME_PREFIX
+export ENABLE_ODOM_FUSION
 CONTROLLERS_FILE="${CONTROLLERS_FILE:-/tmp/${ROS_NAMESPACE}_swerve_2bot_serial_controllers.yaml}"
+EKF_CONFIG_FILE="${EKF_CONFIG_FILE:-/tmp/${ROS_NAMESPACE}_ekf_swerve_imu.yaml}"
 export CONTROLLERS_FILE
+export EKF_CONFIG_FILE
 
 cat > /tmp/wheelbot_identity.env <<EOF
 export ROBOT_ID="${ROBOT_ID}"
 export ROBOT_NAME="${ROBOT_NAME}"
 export ROS_NAMESPACE="${ROS_NAMESPACE}"
 export TF_FRAME_PREFIX="${TF_FRAME_PREFIX}"
+export ENABLE_ODOM_FUSION="${ENABLE_ODOM_FUSION}"
 export CONTROLLERS_FILE="${CONTROLLERS_FILE}"
+export EKF_CONFIG_FILE="${EKF_CONFIG_FILE}"
 EOF
 
 echo "WheelBot identity: ROBOT_ID=${ROBOT_ID} ROBOT_NAME=${ROBOT_NAME} ROS_NAMESPACE=${ROS_NAMESPACE} TF_FRAME_PREFIX=${TF_FRAME_PREFIX}"
 echo "WheelBot controllers file: ${CONTROLLERS_FILE}"
+echo "WheelBot EKF config file: ${EKF_CONFIG_FILE}"
+echo "WheelBot odom fusion: ENABLE_ODOM_FUSION=${ENABLE_ODOM_FUSION}"
 
 cat > "${CONTROLLERS_FILE}" <<EOF
 /${ROS_NAMESPACE}/controller_manager:
@@ -103,18 +111,64 @@ cat > "${CONTROLLERS_FILE}" <<EOF
     twist_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.01]
 
     odom: odom
-    base_footprint: base_link
+    base_footprint: base_footprint
     enable_odom_tf: false
     open_loop: true
+EOF
+
+cat > "${EKF_CONFIG_FILE}" <<EOF
+/${ROS_NAMESPACE}/ekf_filter_node:
+  ros__parameters:
+    frequency: 30.0
+    sensor_timeout: 0.2
+    two_d_mode: true
+
+    publish_tf: true
+    publish_acceleration: false
+    print_diagnostics: false
+
+    map_frame: map
+    odom_frame: ${TF_FRAME_PREFIX}odom
+    base_link_frame: ${TF_FRAME_PREFIX}base_footprint
+    world_frame: ${TF_FRAME_PREFIX}odom
+
+    odom0: swerve_controller/odom
+    odom0_config: [
+      true,  true,  false,
+      false, false, true,
+      true,  true,  false,
+      false, false, true,
+      false, false, false
+    ]
+    odom0_queue_size: 10
+    odom0_nodelay: true
+    odom0_differential: false
+    odom0_relative: false
+
+    imu0: imu/data
+    imu0_config: [
+      false, false, false,
+      false, false, false,
+      false, false, false,
+      false, false, true,
+      false, false, false
+    ]
+    imu0_queue_size: 50
+    imu0_nodelay: true
+    imu0_differential: false
+    imu0_relative: false
+    imu0_remove_gravitational_acceleration: false
 EOF
 
 exec ros2 launch bringup_mobile "${LAUNCH_FILE}" \
   namespace:="${ROS_NAMESPACE}" \
   frame_prefix:="${TF_FRAME_PREFIX}" \
   controllers_file:="${CONTROLLERS_FILE}" \
+  ekf_config_file:="${EKF_CONFIG_FILE}" \
   serial_port:="${SERIAL_PORT}" \
   baudrate:="${BAUDRATE}" \
   command_timeout_ms:="${COMMAND_TIMEOUT_MS}" \
   active_modules:="${ACTIVE_MODULES}" \
+  enable_odom_fusion:="${ENABLE_ODOM_FUSION}" \
   joy_dev:="${JOY_DEV}" \
   joy_config:="${JOY_CONFIG}"

@@ -31,6 +31,7 @@ services:
       BAUDRATE: "115200"
       COMMAND_TIMEOUT_MS: "500"
       ACTIVE_MODULES: "FR,RL"
+      ENABLE_ODOM_FUSION: "true"
       JOY_DEV: "/dev/input/js0"
       JOY_CONFIG: "F710_sim.yaml"
 

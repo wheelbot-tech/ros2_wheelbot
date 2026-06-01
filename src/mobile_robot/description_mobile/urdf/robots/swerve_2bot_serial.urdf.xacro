@@ -7,6 +7,8 @@
   <xacro:arg name="baudrate" default="115200"/>
   <xacro:arg name="command_timeout_ms" default="500"/>
   <xacro:arg name="active_modules" default="FR,RL"/>
+  <xacro:arg name="imu_topic" default="/imu/data"/>
+  <xacro:arg name="imu_frame_id" default="imu_link"/>
 
   <xacro:include filename="$(find description_mobile)/urdf/robots/swerve_2bot_serial_macro.xacro"/>
   <xacro:arg name="position_Z" default="${str(2*wheel_radius + base_height/2 + rulment_axial_height)}"/>
@@ -19,5 +21,7 @@
     baudrate="$(arg baudrate)"
     command_timeout_ms="$(arg command_timeout_ms)"
     active_modules="$(arg active_modules)"
+    imu_topic="$(arg imu_topic)"
+    imu_frame_id="$(arg imu_frame_id)"
   />
 </robot>

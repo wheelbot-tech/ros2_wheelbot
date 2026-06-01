@@ -28,11 +28,11 @@ TEST(SerialProtocol, IgnoresNonStateLines)
 TEST(SerialProtocol, ParsesMasterImuLine)
 {
   const auto sample =
-    parse_imu_line("IMU FR 0.123986 -0.531202 9.819922 -0.003196 0.000000 0.001065 "
+    parse_imu_line("IMU MASTER 0.123986 -0.531202 9.819922 -0.003196 0.000000 0.001065 "
                    "0.000000 0.000000 -2.419917 151860 42");
 
   ASSERT_TRUE(sample.has_value());
-  EXPECT_EQ(sample->module, "FR");
+  EXPECT_EQ(sample->module, "MASTER");
   EXPECT_DOUBLE_EQ(sample->accel_x_m_s2, 0.123986);
   EXPECT_DOUBLE_EQ(sample->accel_y_m_s2, -0.531202);
   EXPECT_DOUBLE_EQ(sample->accel_z_m_s2, 9.819922);
@@ -49,8 +49,9 @@ TEST(SerialProtocol, ParsesMasterImuLine)
 TEST(SerialProtocol, IgnoresNonImuLines)
 {
   EXPECT_FALSE(parse_imu_line("STATE FR 1.0 2.0 3.0 4.0 5.0").has_value());
+  EXPECT_FALSE(parse_imu_line("IMU FR 0 0 0 0 0 0 0 0 0 0 0").has_value());
   EXPECT_FALSE(parse_imu_line("IMU XX 0 0 0 0 0 0 0 0 0 0 0").has_value());
-  EXPECT_FALSE(parse_imu_line("IMU FR 0 0 0").has_value());
+  EXPECT_FALSE(parse_imu_line("IMU MASTER 0 0 0").has_value());
 }
 
 TEST(SerialProtocol, FormatsVelocityCommandInRightLeftOrder)

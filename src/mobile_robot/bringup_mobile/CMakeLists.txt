@@ -14,7 +14,11 @@ find_package(ament_cmake REQUIRED)
 find_package(hardware_interface REQUIRED)
 find_package(pluginlib REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(geometry_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
+find_package(visualization_msgs REQUIRED)
+find_package(tf2 REQUIRED)
+find_package(Eigen3 REQUIRED)
 
 add_library(wheelbot_serial_protocol
   src/serial_protocol.cpp
@@ -37,6 +41,12 @@ target_include_directories(wheelbot_serial_hardware PUBLIC
 )
 ament_target_dependencies(wheelbot_serial_hardware hardware_interface pluginlib rclcpp sensor_msgs)
 pluginlib_export_plugin_description_file(hardware_interface wheelbot_serial_hardware.xml)
+
+add_executable(imu_motion_visualizer src/imu_motion_visualizer.cpp)
+target_link_libraries(imu_motion_visualizer Eigen3::Eigen)
+ament_target_dependencies(imu_motion_visualizer rclcpp geometry_msgs sensor_msgs visualization_msgs tf2)
+
+install(TARGETS imu_motion_visualizer DESTINATION lib/${PROJECT_NAME})
 
 install(
   DIRECTORY config launch scripts

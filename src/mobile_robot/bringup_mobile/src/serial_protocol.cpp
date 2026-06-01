@@ -52,6 +52,12 @@ bool is_known_module(const std::string & module)
   return std::find(modules.begin(), modules.end(), normalized) != modules.end();
 }
 
+bool is_chassis_imu_source(const std::string & source)
+{
+  const auto normalized = normalize_module(source);
+  return normalized == "MASTER" || normalized == "BASE" || normalized == "CHASSIS";
+}
+
 std::optional<ModuleState> parse_state_line(const std::string & line)
 {
   const auto cleaned = trim(line);
@@ -102,7 +108,7 @@ std::optional<ImuSample> parse_imu_line(const std::string & line)
   }
 
   module = normalize_module(module);
-  if (!is_known_module(module)) {
+  if (!is_chassis_imu_source(module)) {
     return std::nullopt;
   }
 

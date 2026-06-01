@@ -5,9 +5,11 @@
   <xacro:include filename="$(find description_mobile)/meshes/materials.xacro"/>
   <xacro:include filename="$(find description_mobile)/urdf/properties/properties_swerveBOT_510.urdf.xacro"/>
   <xacro:include filename="$(find description_mobile)/urdf/mech/chassis.urdf.xacro"/>
+  <xacro:include filename="$(find description_mobile)/urdf/mech/stand.urdf.xacro"/>
   <xacro:include filename="$(find description_mobile)/urdf/mech/serial_diff_drive_module.urdf.xacro"/>
   <xacro:include filename="$(find description_mobile)/urdf/mech/virtual_swerve_module.urdf.xacro"/>
   <xacro:include filename="$(find description_mobile)/urdf/mech/rear_wheels.urdf.xacro"/>
+  <xacro:include filename="$(find description_mobile)/urdf/sensors/imu.urdf.xacro"/>
   <xacro:include filename="$(find description_mobile)/ros2_control/wheelbot_serial_swerve_2bot.ros2_control.xacro"/>
 
   <xacro:macro name="wheelbot_serial_mobile_robot" params="
@@ -17,19 +19,32 @@
       serial_port
       baudrate
       command_timeout_ms
-      active_modules">
+      active_modules
+      imu_topic
+      imu_frame_id">
 
-    <link name="base_footprint"/>
+    <link name="${prefix}base_footprint"/>
 
     <xacro:chassis
       prefix="${prefix}"
       parent="base_footprint"
       pos_z="${str(2*wheel_radius + base_height/2 + rulment_axial_height)}"
     />
+    <!--
+    <xacro:stand
+      prefix="${prefix}"
+      parent="chassis_link"
+      base_height="${base_height}"
+    />
+    -->
+
+    <xacro:imu prefix="${prefix}" parent="chassis_link" joint_name="imu_to_chassis_link">
+      <origin xyz="${wheelbase/2 - 0.05 }  0 0.26" rpy="1.57 1.57 1.57"/>
+    </xacro:imu>
 
     <xacro:virtual_swerve_module
       prefix="${prefix}"
-      parent="chassis_link"
+      parent="${prefix}chassis_link"
       pos_x="${str(wheelbase/2)}"
       pos_y="${str(wheel_track/2)}"
       pos_z="${position_Z}"
@@ -39,7 +54,7 @@
       namespace="${namespace}"
       prefix="${prefix}"
       name="diffBOT_FR"
-      parent="chassis_link"
+      parent="${prefix}chassis_link"
       drive_pos="FR_"
       steering_pos="virtual_front_right">
       <origin xyz="${wheelbase/2} -${wheel_track/2} -${base_height/2 + rulment_axial_height/2}" rpy="0 0 0"/>
@@ -49,7 +64,7 @@
       namespace="${namespace}"
       prefix="${prefix}"
       name="diffBOT_RL"
-      parent="chassis_link"
+      parent="${prefix}chassis_link"
       drive_pos="RL_"
       steering_pos="virtual_rear_left"
       steering_mimic_offset="-${PI}">
@@ -65,6 +80,8 @@
       active_modules="${active_modules}"
       wheel_radius="${wheel_radius}"
       wheel_drive_len="0.23"
+      imu_topic="${imu_topic}"
+      imu_frame_id="${imu_frame_id}"
     />
   </xacro:macro>
 </robot>

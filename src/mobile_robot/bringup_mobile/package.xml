@@ -18,10 +18,12 @@
   <depend>rclcpp</depend>
   <depend>rclpy</depend>
   <depend>robot_state_publisher</depend>
+  <depend>robot_localization</depend>
   <depend>rviz2</depend>
   <depend>sensor_msgs</depend>
   <depend>swerve_drive_controller</depend>
   <depend>twist_mux</depend>
+  <depend>visualization_msgs</depend>
   <depend>xacro</depend>
 
   <test_depend>ament_cmake_gtest</test_depend>

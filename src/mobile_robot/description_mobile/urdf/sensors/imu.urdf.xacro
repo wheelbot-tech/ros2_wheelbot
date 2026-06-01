@@ -1,11 +1,11 @@
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
-  <xacro:macro name="imu" params="*origin">
+  <xacro:macro name="imu" params="prefix:='' parent:=base_link joint_name:=imu_to_base_link *origin">
     
-    <link name="imu_link"/>
+    <link name="${prefix}imu_link"/>
     
-    <joint name="imu_to_base_link" type="fixed">
-      <parent link="base_link"/>
-      <child link="imu_link"/>
+    <joint name="${prefix}${joint_name}" type="fixed">
+      <parent link="${prefix}${parent}"/>
+      <child link="${prefix}imu_link"/>
       <xacro:insert_block name="origin" />
     </joint>
 

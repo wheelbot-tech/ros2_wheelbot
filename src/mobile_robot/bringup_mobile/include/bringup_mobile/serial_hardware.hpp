@@ -15,6 +15,7 @@
 
 #include <array>
 #include <cstddef>
+#include <limits>
 #include <map>
 #include <string>
 #include <vector>
@@ -44,6 +45,9 @@ private:
     std::string module;
     std::size_t steering_joint_index{0};
     std::size_t wheel_joint_index{0};
+    std::size_t module_steering_joint_index{std::numeric_limits<std::size_t>::max()};
+    std::size_t right_wheel_joint_index{std::numeric_limits<std::size_t>::max()};
+    std::size_t left_wheel_joint_index{std::numeric_limits<std::size_t>::max()};
     double mounting_yaw_rad{0.0};
   };
 
@@ -65,6 +69,8 @@ private:
   int baudrate_to_constant(int baudrate) const;
 
   std::string serial_port_{"/dev/ttyACM0"};
+  std::string imu_topic_{"/imu/data"};
+  std::string imu_frame_id_{"imu_link"};
   int baudrate_{115200};
   int command_timeout_ms_{500};
   double wheel_radius_{0.0825};
@@ -90,7 +96,7 @@ private:
   std::vector<ModuleMapping> module_mappings_;
   std::map<std::string, std::size_t> module_to_mapping_;
   rclcpp::Node::SharedPtr imu_node_;
-  std::map<std::string, rclcpp::Publisher<sensor_msgs::msg::Imu>::SharedPtr> imu_publishers_;
+  rclcpp::Publisher<sensor_msgs::msg::Imu>::SharedPtr imu_publisher_;
 };
 
 }  // namespace bringup_mobile
