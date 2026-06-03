@@ -42,7 +42,7 @@ Sistemul curent important este varianta swerve cu 2 module fizice differential-d
 - `src/sensors/` si `src/husarion_components_description/` - descrieri si drivere pentru senzori.
 - `src/teleop_ws/twist_mux/` - `twist_mux` inclus in workspace.
 
-Exista pachete/fork-uri cu propriul `.git` sub `src/`, de exemplu `rplidar_ros`, `ros_components_description`, `twist_mux`, `topic_based_ros2_control`, `wheelbot_ros2_controllers`, `ur_description` si `husarion_components_description`. Trateaza-le cu grija: nu face operatii git destructive in ele fara acord.
+Exista pachete/fork-uri cu propriul `.git` sub `src/`, de exemplu `rplidar_ros`, `twist_mux`, `topic_based_ros2_control`, `wheelbot_ros2_controllers`, `ur_description` si `husarion_components_description`. Trateaza-le cu grija: nu face operatii git destructive in ele fara acord.
 
 ## Build si setup
 

@@ -14,10 +14,6 @@
 	path = src/sensors/rplidar_ros
 	url = https://github.com/wheelbot-tech/rplidar_ros
 	branch = ros2
-[submodule "src/sensors/ros_components_description"]
-	path = src/sensors/ros_components_description
-	url = https://github.com/wheelbot-tech/ros_components_description
-	branch = ros2
 [submodule "src/husarion_components_description"]
 	path = src/husarion_components_description
 	url = https://github.com/wheelbot-tech/husarion_components_description.git
