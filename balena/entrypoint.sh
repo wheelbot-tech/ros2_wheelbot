@@ -113,7 +113,8 @@ cat > "${CONTROLLERS_FILE}" <<EOF
     odom: odom
     base_footprint: base_footprint
     enable_odom_tf: false
-    open_loop: true
+    open_loop: false
+    active_wheels: [front_right, rear_left]
 EOF
 
 cat > "${EKF_CONFIG_FILE}" <<EOF
