@@ -45,6 +45,7 @@ WORKDIR ${ROS_WS}
 
 COPY src/mobile_robot/bringup_mobile src/mobile_robot/bringup_mobile
 COPY src/mobile_robot/description_mobile src/mobile_robot/description_mobile
+COPY src/husarion_components_description src/husarion_components_description
 COPY src/wheelbot_ros2_controllers/swerve_drive_controller src/wheelbot_ros2_controllers/swerve_drive_controller
 COPY src/teleop_ws/twist_mux src/teleop_ws/twist_mux
 COPY balena/entrypoint.sh /entrypoint.sh

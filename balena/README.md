@@ -7,6 +7,7 @@ WheelBot Jetson Nano:
   controller.
 - `zenoh_router`: local Zenoh router used by every robot-side ROS service.
 - `nav2`: Nav2 runtime image, idle by default until a launch command is set.
+  The image also contains the `rplidar_ros` driver for the front RPLIDAR.
 - `rmf_agent`: Open-RMF robot agent/fleet bridge image, idle by default until a
   command is set.
 
@@ -170,7 +171,25 @@ instead of editing `docker-compose.yml`.
 
 ## nav2
 
-`nav2` is installed in its own service, but the service is idle by default:
+`nav2` is installed in its own service. The service also starts the front
+RPLIDAR driver by default, publishing `/robot_1/front_lidar/scan` with frame
+`front_lidar_laser`.
+
+Front RPLIDAR variables:
+
+```text
+RPLIDAR_ENABLED=true
+RPLIDAR_SERIAL_PORT=/dev/rplidar
+RPLIDAR_SERIAL_BAUDRATE=115200
+RPLIDAR_FRAME_ID=front_lidar_laser
+RPLIDAR_SCAN_MODE=Sensitivity
+RPLIDAR_ANGLE_COMPENSATE=true
+```
+
+The driver runs in a retry loop so the service can survive lidar unplug/replug
+or delayed device creation. Set `RPLIDAR_ENABLED=false` to keep the lidar idle.
+
+Nav2 itself is idle by default:
 
 ```text
 NAV2_ENABLED=false
