@@ -44,13 +44,30 @@ fi
 
 start_front_lidar() {
   local lidar_namespace="/${ROS_NAMESPACE}/front_lidar"
-  local serial_port="${RPLIDAR_SERIAL_PORT:-/dev/rplidar}"
+  local configured_serial_port="${RPLIDAR_SERIAL_PORT:-/dev/ttyUSB0}"
+  local serial_port
   local serial_baudrate="${RPLIDAR_SERIAL_BAUDRATE:-115200}"
-  local frame_id="${RPLIDAR_FRAME_ID:-front_lidar_laser}"
+  local frame_id="${RPLIDAR_FRAME_ID:-${ROS_NAMESPACE}/front_lidar_laser}"
   local scan_mode="${RPLIDAR_SCAN_MODE:-Sensitivity}"
   local angle_compensate="${RPLIDAR_ANGLE_COMPENSATE:-true}"
 
   while true; do
+    serial_port="${configured_serial_port}"
+    if [ ! -e "${serial_port}" ]; then
+      for candidate in /dev/rplidar /dev/ttyUSB*; do
+        if [ -e "${candidate}" ]; then
+          serial_port="${candidate}"
+          break
+        fi
+      done
+    fi
+
+    if [ ! -e "${serial_port}" ]; then
+      echo "No RPLIDAR serial device found; expected ${configured_serial_port} or /dev/ttyUSB*"
+      sleep "${RPLIDAR_RETRY_SECONDS:-5}"
+      continue
+    fi
+
     echo "Starting front RPLIDAR on ${serial_port} in namespace ${lidar_namespace}"
     if ! ros2 run rplidar_ros rplidar_node --ros-args \
       -r "__ns:=${lidar_namespace}" \
@@ -69,17 +86,24 @@ start_front_lidar() {
   done
 }
 
-if [ "${RPLIDAR_ENABLED:-false}" = "true" ]; then
-  start_front_lidar &
-fi
-
 if [ "$#" -gt 0 ]; then
+  if [ "${RPLIDAR_ENABLED:-false}" = "true" ]; then
+    start_front_lidar &
+  fi
   exec "$@"
 fi
 
 if [ "${NAV2_ENABLED:-false}" != "true" ]; then
+  if [ "${RPLIDAR_ENABLED:-false}" = "true" ]; then
+    echo "NAV2_ENABLED is not true; running front RPLIDAR supervisor as the main process."
+    start_front_lidar
+  fi
   echo "NAV2_ENABLED is not true; keeping nav2 service idle."
   exec sleep infinity
+fi
+
+if [ "${RPLIDAR_ENABLED:-false}" = "true" ]; then
+  start_front_lidar &
 fi
 
 if [ -z "${NAV2_COMMAND:-}" ]; then

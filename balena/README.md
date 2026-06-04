@@ -179,12 +179,15 @@ Front RPLIDAR variables:
 
 ```text
 RPLIDAR_ENABLED=true
-RPLIDAR_SERIAL_PORT=/dev/rplidar
+RPLIDAR_SERIAL_PORT=/dev/ttyUSB0
 RPLIDAR_SERIAL_BAUDRATE=115200
-RPLIDAR_FRAME_ID=front_lidar_laser
 RPLIDAR_SCAN_MODE=Sensitivity
 RPLIDAR_ANGLE_COMPENSATE=true
 ```
+
+`RPLIDAR_FRAME_ID` defaults to `<ROS_NAMESPACE>/front_lidar_laser`, matching
+the `robot_state_publisher` frame prefix. Override it only when using a
+different TF layout.
 
 The driver runs in a retry loop so the service can survive lidar unplug/replug
 or delayed device creation. Set `RPLIDAR_ENABLED=false` to keep the lidar idle.
