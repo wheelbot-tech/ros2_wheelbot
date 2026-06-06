@@ -129,28 +129,6 @@ def generate_launch_description():
             description="Robot description topic used by RViz, relative to namespace.",
         )
     )
-    declared_arguments.append(
-        DeclareLaunchArgument(
-            "visualize_imu",
-            default_value="true",
-            description="Start the local IMU MarkerArray visualizer for RViz.",
-        )
-    )
-    declared_arguments.append(
-        DeclareLaunchArgument(
-            "imu_topic",
-            default_value="imu/data",
-            description="IMU input topic for the visualizer, relative to namespace unless absolute.",
-        )
-    )
-    declared_arguments.append(
-        DeclareLaunchArgument(
-            "imu_markers_topic",
-            default_value="imu_markers",
-            description="MarkerArray output topic for RViz, relative to namespace unless absolute.",
-        )
-    )
-
     # Initialize Arguments
     description_package = LaunchConfiguration("description_package")
     description_file = LaunchConfiguration("description_file")
@@ -166,10 +144,6 @@ def generate_launch_description():
     joint_states_topic = LaunchConfiguration("joint_states_topic")
     expanded_joint_states_topic = LaunchConfiguration("expanded_joint_states_topic")
     robot_description_topic_name = LaunchConfiguration("robot_description_topic")
-    visualize_imu = LaunchConfiguration("visualize_imu")
-    imu_topic = LaunchConfiguration("imu_topic")
-    imu_markers_topic = LaunchConfiguration("imu_markers_topic")
-
     # Get URDF via xacro
     robot_description_content = Command(
         [
@@ -298,24 +272,11 @@ def generate_launch_description():
         ],
         condition=IfCondition(gui),
     )
-    imu_motion_visualizer_node = Node(
-        package="bringup_mobile",
-        executable="imu_motion_visualizer",
-        namespace=namespace,
-        output="both",
-        remappings=[
-            ("imu/data", imu_topic),
-            ("imu_markers", imu_markers_topic),
-        ],
-        condition=IfCondition(visualize_imu),
-    )
-
     nodes = [
         SetEnvironmentVariable("RMW_IMPLEMENTATION", rmw_implementation),
         joint_state_publisher_node,
         joint_state_publisher_gui_node,
         robot_state_publisher_node,
-        imu_motion_visualizer_node,
         rviz_node,
     ]
 

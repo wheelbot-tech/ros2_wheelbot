@@ -12,7 +12,6 @@
   <depend>controller_manager</depend>
   <depend>description_mobile</depend>
   <depend>hardware_interface</depend>
-  <depend>geometry_msgs</depend>
   <depend>joint_state_broadcaster</depend>
   <depend>pluginlib</depend>
   <depend>rclcpp</depend>
@@ -23,7 +22,6 @@
   <depend>sensor_msgs</depend>
   <depend>swerve_drive_controller</depend>
   <depend>twist_mux</depend>
-  <depend>visualization_msgs</depend>
   <depend>xacro</depend>
 
   <test_depend>ament_cmake_gtest</test_depend>

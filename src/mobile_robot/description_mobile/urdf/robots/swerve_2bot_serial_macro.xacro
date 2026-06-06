@@ -40,7 +40,7 @@
     -->
 
     <xacro:imu prefix="${prefix}" parent="chassis_link" joint_name="imu_to_chassis_link">
-      <origin xyz="${wheelbase/2 - 0.05 }  0 0.26" rpy="1.57 1.57 1.57"/>
+      <origin xyz="${wheelbase/2 - 0.05 }  0 0.26" rpy="1.57 0 1.57"/>
     </xacro:imu>
 
     <xacro:lidar.slamtec_rplidar
