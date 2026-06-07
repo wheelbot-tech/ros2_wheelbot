@@ -33,9 +33,11 @@ ros2 launch ros2_medkit_gateway gateway.launch.py
 
 colcon build --symlink-install --packages-select
 *****************************************************
+ZENOH
 RUST_LOG=debug ros2 run rmw_zenoh_cpp rmw_zenohd
 zenoh-bridge-mcp --connect tcp/127.0.0.1:7447 --mcp-listen 127.0.0.1:8808
 
+BALENA
 balena login
 bash balena/prepare_push_context.sh
 balena push Wheelbot_nano --source /tmp/ros2_wheelbot_balena
