@@ -52,6 +52,11 @@ bool is_known_module(const std::string & module)
   return std::find(modules.begin(), modules.end(), normalized) != modules.end();
 }
 
+bool is_jetson_shutdown_request(const std::string & line)
+{
+  return line == "JETSON_SHUTDOWN";
+}
+
 bool is_chassis_imu_source(const std::string & source)
 {
   const auto normalized = normalize_module(source);

@@ -36,6 +36,7 @@ struct ImuSample
 
 bool is_known_module(const std::string & module);
 std::string normalize_module(std::string module);
+bool is_jetson_shutdown_request(const std::string & line);
 std::optional<ModuleState> parse_state_line(const std::string & line);
 std::optional<ImuSample> parse_imu_line(const std::string & line);
 std::string format_velocity_command(const std::string & module, double right_rad_s, double left_rad_s);

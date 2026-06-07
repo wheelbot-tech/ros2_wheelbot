@@ -140,6 +140,7 @@ ACTIVE_MODULES=FR,RL
 ENABLE_ODOM_FUSION=true
 JOY_DEV=/dev/input/js0
 JOY_CONFIG=F710_sim.yaml
+JETSON_SHUTDOWN_REQUEST_FILE=/tmp/wheelbot_jetson_shutdown.request
 ```
 
 At startup, `base_control` generates a namespace-specific controller YAML in
@@ -168,6 +169,13 @@ LAUNCH_FILE=control_Layer_serial_launch.py
 The service runs privileged so USB serial devices are visible inside the
 container. If the ESP master appears as another device, change `SERIAL_PORT`
 instead of editing `docker-compose.yml`.
+
+When the ESP-NOW master sends the exact serial line `JETSON_SHUTDOWN`, the
+serial hardware plugin stops and estops the active modules, then signals the
+entrypoint watchdog. The watchdog calls the balena Supervisor
+`POST /v1/shutdown` endpoint with `force=true`, allowing the host to stop even
+when an update lock is active. The `base_control` service therefore requires
+the `io.balena.features.supervisor-api` label included in `docker-compose.yml`.
 
 ## nav2
 

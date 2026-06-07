@@ -4,6 +4,38 @@ set -e
 source "/opt/ros/${ROS_DISTRO}/setup.bash"
 source "${ROS_WS}/install/setup.bash"
 
+JETSON_SHUTDOWN_REQUEST_FILE="${JETSON_SHUTDOWN_REQUEST_FILE:-/tmp/wheelbot_jetson_shutdown.request}"
+export JETSON_SHUTDOWN_REQUEST_FILE
+
+watch_jetson_shutdown_request() {
+  rm -f "${JETSON_SHUTDOWN_REQUEST_FILE}"
+
+  while true; do
+    if [ -f "${JETSON_SHUTDOWN_REQUEST_FILE}" ]; then
+      echo "JETSON_SHUTDOWN request received; asking balena Supervisor to stop the host"
+
+      if [ -z "${BALENA_SUPERVISOR_ADDRESS:-}" ] || [ -z "${BALENA_SUPERVISOR_API_KEY:-}" ]; then
+        echo "Cannot shut down host: balena Supervisor API variables are unavailable" >&2
+      elif curl --fail --silent --show-error --max-time 10 \
+        -X POST \
+        --header "Content-Type: application/json" \
+        --data '{"force": true}' \
+        "${BALENA_SUPERVISOR_ADDRESS}/v1/shutdown?apikey=${BALENA_SUPERVISOR_API_KEY}"
+      then
+        rm -f "${JETSON_SHUTDOWN_REQUEST_FILE}"
+        echo "Jetson shutdown accepted by balena Supervisor"
+        return
+      else
+        echo "Jetson shutdown request failed; retrying in 5 seconds" >&2
+      fi
+
+      sleep 5
+    else
+      sleep 0.2
+    fi
+  done
+}
+
 normalize_ros_name() {
   local value
   value="$(printf '%s' "$1" | tr '[:upper:]' '[:lower:]')"
@@ -35,6 +67,8 @@ fi
 if [ "$#" -gt 0 ]; then
   exec "$@"
 fi
+
+watch_jetson_shutdown_request &
 
 LAUNCH_FILE="${LAUNCH_FILE:-swerve_2bot_serial.launch.py}"
 SERIAL_PORT="${SERIAL_PORT:-/dev/ttyACM0}"

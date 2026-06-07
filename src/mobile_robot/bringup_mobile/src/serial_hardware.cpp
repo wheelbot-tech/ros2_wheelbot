@@ -12,6 +12,7 @@
 #include <cerrno>
 #include <chrono>
 #include <cmath>
+#include <cstdlib>
 #include <cstring>
 #include <limits>
 #include <sstream>
@@ -71,6 +72,11 @@ hardware_interface::CallbackReturn WheelbotSerialHardware::on_init(
   serial_port_ = get_parameter(info_, "serial_port", "/dev/ttyACM0");
   imu_topic_ = get_parameter(info_, "imu_topic", "/imu/data");
   imu_frame_id_ = get_parameter(info_, "imu_frame_id", "imu_link");
+  shutdown_request_file_ =
+    get_parameter(info_, "shutdown_request_file", "/tmp/wheelbot_jetson_shutdown.request");
+  if (const char * request_file = std::getenv("JETSON_SHUTDOWN_REQUEST_FILE")) {
+    shutdown_request_file_ = request_file;
+  }
   baudrate_ = std::stoi(get_parameter(info_, "baudrate", "115200"));
   command_timeout_ms_ = std::stoi(get_parameter(info_, "command_timeout_ms", "500"));
   wheel_radius_ = std::stod(get_parameter(info_, "wheel_radius", "0.0825"));
@@ -142,6 +148,7 @@ hardware_interface::CallbackReturn WheelbotSerialHardware::on_init(
 hardware_interface::CallbackReturn WheelbotSerialHardware::on_configure(
   const rclcpp_lifecycle::State &)
 {
+  shutdown_requested_ = false;
   setup_imu_publishers();
   open_serial();
   return hardware_interface::CallbackReturn::SUCCESS;
@@ -219,6 +226,10 @@ hardware_interface::return_type WheelbotSerialHardware::read(
 hardware_interface::return_type WheelbotSerialHardware::write(
   const rclcpp::Time & time, const rclcpp::Duration &)
 {
+  if (shutdown_requested_) {
+    return hardware_interface::return_type::OK;
+  }
+
   if (last_open_attempt_.get_clock_type() != time.get_clock_type()) {
     last_open_attempt_ = time;
   }
@@ -365,6 +376,8 @@ void WheelbotSerialHardware::read_serial_lines()
       apply_state(*state);
     } else if (const auto imu_sample = parse_imu_line(line)) {
       publish_imu_sample(*imu_sample);
+    } else if (is_jetson_shutdown_request(line)) {
+      request_jetson_shutdown();
     }
     newline = rx_buffer_.find_first_of("\r\n");
   }
@@ -443,6 +456,54 @@ void WheelbotSerialHardware::publish_imu_sample(const ImuSample & sample)
   msg.linear_acceleration.z = sample.accel_z_m_s2;
 
   imu_publisher_->publish(msg);
+}
+
+void WheelbotSerialHardware::request_jetson_shutdown()
+{
+  if (shutdown_requested_) {
+    return;
+  }
+
+  shutdown_requested_ = true;
+  send_zero_commands();
+  for (const auto & module : active_modules_) {
+    write_line(format_estop_command(module));
+  }
+
+  const int request_fd =
+    ::open(shutdown_request_file_.c_str(), O_WRONLY | O_CREAT | O_TRUNC | O_CLOEXEC, 0644);
+  if (request_fd < 0) {
+    RCLCPP_ERROR(
+      rclcpp::get_logger("WheelbotSerialHardware"),
+      "JETSON_SHUTDOWN received, but cannot create %s: %s",
+      shutdown_request_file_.c_str(), std::strerror(errno));
+    return;
+  }
+
+  constexpr char request[] = "JETSON_SHUTDOWN\n";
+  const ssize_t written = ::write(request_fd, request, sizeof(request) - 1);
+  const int write_error = written < 0 ? errno : 0;
+  ::close(request_fd);
+
+  if (written != static_cast<ssize_t>(sizeof(request) - 1)) {
+    if (written < 0) {
+      RCLCPP_ERROR(
+        rclcpp::get_logger("WheelbotSerialHardware"),
+        "JETSON_SHUTDOWN received, but writing %s failed: %s",
+        shutdown_request_file_.c_str(), std::strerror(write_error));
+    } else {
+      RCLCPP_ERROR(
+        rclcpp::get_logger("WheelbotSerialHardware"),
+        "JETSON_SHUTDOWN received, but writing %s was incomplete",
+        shutdown_request_file_.c_str());
+    }
+    return;
+  }
+
+  RCLCPP_WARN(
+    rclcpp::get_logger("WheelbotSerialHardware"),
+    "JETSON_SHUTDOWN received; motors stopped and host shutdown requested via %s",
+    shutdown_request_file_.c_str());
 }
 
 void WheelbotSerialHardware::setup_imu_publishers()

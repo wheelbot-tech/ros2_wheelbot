@@ -58,6 +58,7 @@ private:
   bool write_line(const std::string & line);
   void apply_state(const ModuleState & state);
   void publish_imu_sample(const ImuSample & sample);
+  void request_jetson_shutdown();
   void setup_imu_publishers();
   void send_zero_commands();
   void build_module_mappings();
@@ -71,6 +72,7 @@ private:
   std::string serial_port_{"/dev/ttyACM0"};
   std::string imu_topic_{"/imu/data"};
   std::string imu_frame_id_{"imu_link"};
+  std::string shutdown_request_file_{"/tmp/wheelbot_jetson_shutdown.request"};
   int baudrate_{115200};
   int command_timeout_ms_{500};
   double wheel_radius_{0.0825};
@@ -82,6 +84,7 @@ private:
   bool smooth_arc_steering_{false};
   bool use_common_speed_scale_{true};
   bool zero_steering_when_stopped_{true};
+  bool shutdown_requested_{false};
   std::vector<std::string> active_modules_{"RL", "RR", "FL", "FR"};
 
   int serial_fd_{-1};

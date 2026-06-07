@@ -54,6 +54,15 @@ TEST(SerialProtocol, IgnoresNonImuLines)
   EXPECT_FALSE(parse_imu_line("IMU MASTER 0 0 0").has_value());
 }
 
+TEST(SerialProtocol, AcceptsOnlyExactJetsonShutdownRequest)
+{
+  EXPECT_TRUE(is_jetson_shutdown_request("JETSON_SHUTDOWN"));
+  EXPECT_FALSE(is_jetson_shutdown_request(" JETSON_SHUTDOWN"));
+  EXPECT_FALSE(is_jetson_shutdown_request("JETSON_SHUTDOWN "));
+  EXPECT_FALSE(is_jetson_shutdown_request("JETSON_REBOOT"));
+  EXPECT_FALSE(is_jetson_shutdown_request("OK JETSON_SHUTDOWN"));
+}
+
 TEST(SerialProtocol, FormatsVelocityCommandInRightLeftOrder)
 {
   EXPECT_EQ(format_velocity_command("rl_", 1.25, -2.5), "VEL RL 1.250000 -2.500000\n");
