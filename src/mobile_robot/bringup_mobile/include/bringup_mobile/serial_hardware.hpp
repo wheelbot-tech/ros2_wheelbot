@@ -100,6 +100,7 @@ private:
   std::map<std::string, std::size_t> module_to_mapping_;
   rclcpp::Node::SharedPtr imu_node_;
   rclcpp::Publisher<sensor_msgs::msg::Imu>::SharedPtr imu_publisher_;
+  bool imu_quaternion_seen_{false};
 };
 
 }  // namespace bringup_mobile

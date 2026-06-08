@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <cctype>
+#include <cmath>
 #include <iomanip>
 #include <sstream>
 #include <string>
@@ -118,6 +119,69 @@ std::optional<ImuSample> parse_imu_line(const std::string & line)
   }
 
   sample.module = module;
+  return sample;
+}
+
+std::optional<ImuSample> parse_imuq_line(const std::string & line)
+{
+  const auto cleaned = trim(line);
+  if (cleaned.empty() || cleaned.front() == '#') {
+    return std::nullopt;
+  }
+
+  std::istringstream stream(cleaned);
+  std::string tag;
+  std::string module;
+  std::string status;
+  ImuSample sample;
+
+  stream >> tag >> module >>
+    sample.orientation_x >> sample.orientation_y >> sample.orientation_z >> sample.orientation_w >>
+    sample.gyro_x_rad_s >> sample.gyro_y_rad_s >> sample.gyro_z_rad_s >>
+    sample.accel_x_m_s2 >> sample.accel_y_m_s2 >> sample.accel_z_m_s2 >>
+    sample.timestamp_us >> sample.seq >> status;
+
+  if (!stream || tag != "IMUQ") {
+    return std::nullopt;
+  }
+
+  module = normalize_module(module);
+  if (!is_chassis_imu_source(module)) {
+    return std::nullopt;
+  }
+
+  try {
+    std::size_t parsed_chars = 0;
+    sample.status = static_cast<uint32_t>(std::stoul(status, &parsed_chars, 0));
+    if (parsed_chars != status.size()) {
+      return std::nullopt;
+    }
+  } catch (const std::exception &) {
+    return std::nullopt;
+  }
+
+  const double quaternion_norm = std::sqrt(
+    sample.orientation_x * sample.orientation_x +
+    sample.orientation_y * sample.orientation_y +
+    sample.orientation_z * sample.orientation_z +
+    sample.orientation_w * sample.orientation_w);
+  if (!std::isfinite(quaternion_norm) || quaternion_norm < 1e-6 ||
+    !std::isfinite(sample.gyro_x_rad_s) ||
+    !std::isfinite(sample.gyro_y_rad_s) ||
+    !std::isfinite(sample.gyro_z_rad_s) ||
+    !std::isfinite(sample.accel_x_m_s2) ||
+    !std::isfinite(sample.accel_y_m_s2) ||
+    !std::isfinite(sample.accel_z_m_s2))
+  {
+    return std::nullopt;
+  }
+
+  sample.orientation_x /= quaternion_norm;
+  sample.orientation_y /= quaternion_norm;
+  sample.orientation_z /= quaternion_norm;
+  sample.orientation_w /= quaternion_norm;
+  sample.module = module;
+  sample.has_orientation = true;
   return sample;
 }
 

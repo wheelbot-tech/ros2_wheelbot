@@ -149,6 +149,7 @@ hardware_interface::CallbackReturn WheelbotSerialHardware::on_configure(
   const rclcpp_lifecycle::State &)
 {
   shutdown_requested_ = false;
+  imu_quaternion_seen_ = false;
   setup_imu_publishers();
   open_serial();
   return hardware_interface::CallbackReturn::SUCCESS;
@@ -374,8 +375,12 @@ void WheelbotSerialHardware::read_serial_lines()
     rx_buffer_.erase(0, newline + 1);
     if (const auto state = parse_state_line(line)) {
       apply_state(*state);
-    } else if (const auto imu_sample = parse_imu_line(line)) {
+    } else if (const auto imu_sample = parse_imuq_line(line)) {
       publish_imu_sample(*imu_sample);
+    } else if (const auto imu_sample = parse_imu_line(line)) {
+      if (!imu_quaternion_seen_) {
+        publish_imu_sample(*imu_sample);
+      }
     } else if (is_jetson_shutdown_request(line)) {
       request_jetson_shutdown();
     }
@@ -447,13 +452,40 @@ void WheelbotSerialHardware::publish_imu_sample(const ImuSample & sample)
   sensor_msgs::msg::Imu msg;
   msg.header.stamp = imu_node_ ? imu_node_->now() : rclcpp::Clock().now();
   msg.header.frame_id = imu_frame_id_;
-  msg.orientation_covariance[0] = -1.0;
+  if (sample.has_orientation) {
+    imu_quaternion_seen_ = true;
+    const uint32_t required_status = ImuSample::kImuValid | ImuSample::kAttitudeValid;
+    const uint32_t error_status = ImuSample::kSampleGap | ImuSample::kImuReadError;
+    if ((sample.status & required_status) == required_status &&
+      (sample.status & error_status) == 0)
+    {
+      msg.orientation.x = sample.orientation_x;
+      msg.orientation.y = sample.orientation_y;
+      msg.orientation.z = sample.orientation_z;
+      msg.orientation.w = sample.orientation_w;
+      msg.orientation_covariance[0] = 0.1;
+      msg.orientation_covariance[4] = 0.1;
+      msg.orientation_covariance[8] = 0.05;
+    } else {
+      msg.orientation.w = 1.0;
+      msg.orientation_covariance[0] = -1.0;
+    }
+  } else {
+    msg.orientation.w = 1.0;
+    msg.orientation_covariance[0] = -1.0;
+  }
   msg.angular_velocity.x = sample.gyro_x_rad_s;
   msg.angular_velocity.y = sample.gyro_y_rad_s;
   msg.angular_velocity.z = sample.gyro_z_rad_s;
+  msg.angular_velocity_covariance[0] = 0.01;
+  msg.angular_velocity_covariance[4] = 0.01;
+  msg.angular_velocity_covariance[8] = 0.0025;
   msg.linear_acceleration.x = sample.accel_x_m_s2;
   msg.linear_acceleration.y = sample.accel_y_m_s2;
   msg.linear_acceleration.z = sample.accel_z_m_s2;
+  msg.linear_acceleration_covariance[0] = 0.25;
+  msg.linear_acceleration_covariance[4] = 0.25;
+  msg.linear_acceleration_covariance[8] = 0.25;
 
   imu_publisher_->publish(msg);
 }

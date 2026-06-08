@@ -42,9 +42,9 @@ balena login
 bash balena/prepare_push_context.sh
 balena push Wheelbot_nano --source /tmp/ros2_wheelbot_balena
 
+RVIZ
 Pentru local fără prefix:
 ros2 launch description_mobile view_robot_swerve.launch.py
-
 Pentru TF prefixat:
 ros2 launch description_mobile view_robot_swerve.launch.py \
   namespace:=robot_1 \
@@ -58,3 +58,6 @@ ros2 run nav2_map_server map_saver_cli \
   -t /robot_1/map \
   -f /home/george/ROS2/ros2_wheelbot/src/mobile_robot/navigation_ws/nav2/maps/wheelbot_map \
   --ros-args -p save_map_timeout:=10.0
+
+TEST ROTATIE in jurul axei
+ros2 run bringup_mobile record_rotation_test.py --namespace robot_1 --armed

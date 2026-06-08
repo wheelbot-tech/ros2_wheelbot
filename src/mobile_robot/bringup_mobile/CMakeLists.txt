@@ -45,6 +45,7 @@ install(
 
 install(
   PROGRAMS
+    scripts/record_rotation_test.py
     scripts/rectangle_diagonals_path.py
   DESTINATION lib/${PROJECT_NAME}
 )

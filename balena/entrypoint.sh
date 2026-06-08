@@ -123,7 +123,7 @@ cat > "${CONTROLLERS_FILE}" <<EOF
     center_of_rotation: [0.0, 0.0]
     wheel_radius: 0.0825
 
-    cmd_vel_timeout_seconds: 5.0
+    cmd_vel_timeout: 5.0
     use_stamped_vel: true
 
     front_left_wheel_joint: virtual_front_left_wheel_joint
@@ -170,9 +170,9 @@ cat > "${EKF_CONFIG_FILE}" <<EOF
     odom0: swerve_controller/odom
     odom0_config: [
       true,  true,  false,
-      false, false, true,
+      false, false, false,
       true,  true,  false,
-      false, false, true,
+      false, false, false,
       false, false, false
     ]
     odom0_queue_size: 10
@@ -183,15 +183,15 @@ cat > "${EKF_CONFIG_FILE}" <<EOF
     imu0: imu/data
     imu0_config: [
       false, false, false,
+      true,  true,  true,
       false, false, false,
-      false, false, false,
-      false, false, true,
+      true,  true,  true,
       false, false, false
     ]
     imu0_queue_size: 50
     imu0_nodelay: true
     imu0_differential: false
-    imu0_relative: false
+    imu0_relative: true
     imu0_remove_gravitational_acceleration: false
 EOF
 

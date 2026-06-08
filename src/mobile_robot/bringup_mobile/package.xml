@@ -11,13 +11,17 @@
 
   <depend>controller_manager</depend>
   <depend>description_mobile</depend>
+  <depend>geometry_msgs</depend>
   <depend>hardware_interface</depend>
   <depend>joint_state_broadcaster</depend>
+  <depend>nav_msgs</depend>
   <depend>pluginlib</depend>
   <depend>rclcpp</depend>
   <depend>rclpy</depend>
   <depend>robot_state_publisher</depend>
   <depend>robot_localization</depend>
+  <exec_depend>rosbag2_storage_mcap</exec_depend>
+  <exec_depend>rosbag2_transport</exec_depend>
   <depend>rviz2</depend>
   <depend>sensor_msgs</depend>
   <depend>swerve_drive_controller</depend>

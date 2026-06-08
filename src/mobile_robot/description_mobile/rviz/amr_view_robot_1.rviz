@@ -8,6 +8,7 @@ Panels:
         - /RobotModel1
         - /IMU1
         - /TF1
+        - /TF1/Frames1
       Splitter Ratio: 0.5
     Tree Height: 271
   - Class: rviz_common/Selection
@@ -109,6 +110,15 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        front_lidar_laser:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        front_lidar_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         imu_link:
           Alpha: 1
           Show Axes: false
@@ -156,7 +166,7 @@ Visualization Manager:
     - Acceleration properties:
         Acc. vector alpha: 1
         Acc. vector color: 255; 0; 0
-        Acc. vector scale: 0.05
+        Acc. vector scale: 0.05000000074505806
         Derotate acceleration: false
         Enable acceleration: true
       Axes properties:
@@ -166,20 +176,21 @@ Visualization Manager:
         Box alpha: 0.25
         Box color: 255; 255; 255
         Enable box: false
-        x_scale: 0.2
-        y_scale: 0.1
-        z_scale: 0.05
+        x_scale: 0.20000000298023224
+        y_scale: 0.10000000149011612
+        z_scale: 0.05000000074505806
       Class: rviz_imu_plugin/Imu
       Enabled: true
-      Filter size: 10
       Name: IMU
       Topic:
         Depth: 5
         Durability Policy: Volatile
+        Filter size: 10
         History Policy: Keep Last
         Reliability Policy: Best Effort
         Value: /robot_1/imu/data
       Value: true
+      fixed_frame_orientation: true
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
@@ -215,6 +226,8 @@ Visualization Manager:
       Use rainbow: false
       Value: true
     - Alpha: 0.699999988079071
+      Binary representation: false
+      Binary threshold: 100
       Class: rviz_default_plugins/Map
       Color Scheme: map
       Draw Behind: true
@@ -241,7 +254,7 @@ Visualization Manager:
       Filter (whitelist): ""
       Frame Timeout: 15
       Frames:
-        All Enabled: true
+        All Enabled: false
         robot_1/FR_chassis_2_link:
           Value: true
         robot_1/FR_steering_link:
@@ -262,6 +275,10 @@ Visualization Manager:
           Value: true
         robot_1/chassis_link:
           Value: true
+        robot_1/front_lidar_laser:
+          Value: true
+        robot_1/front_lidar_link:
+          Value: true
         robot_1/imu_link:
           Value: true
         robot_1/odom:
@@ -281,7 +298,7 @@ Visualization Manager:
         robot_1/virtual_rear_right_steering_link:
           Value: true
         robot_1/virtual_rear_right_wheel_link:
-          Value: true
+          Value: false
       Marker Scale: 0.4000000059604645
       Name: TF
       Show Arrows: true
@@ -303,6 +320,9 @@ Visualization Manager:
                     {}
                   robot_1/RL_wheel_drive_right:
                     {}
+              robot_1/front_lidar_link:
+                robot_1/front_lidar_laser:
+                  {}
               robot_1/imu_link:
                 {}
               robot_1/virtual_front_left_steering_link:
@@ -322,7 +342,7 @@ Visualization Manager:
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: robot_1/base_footprint
+    Fixed Frame: robot_1/odom
     Frame Rate: 30
   Name: root
   Tools:
@@ -365,25 +385,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 3
+      Distance: 2.00408935546875
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0
-        Y: 0
-        Z: 0
+        X: 0.07471668720245361
+        Y: -0.05960972234606743
+        Z: -0.25877881050109863
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.7853981852531433
+      Pitch: 0.7603982090950012
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 0.7853981852531433
+      Yaw: 0.745398223400116
     Saved: ~
 Window Geometry:
   Displays:

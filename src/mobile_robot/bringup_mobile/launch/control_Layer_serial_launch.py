@@ -222,9 +222,9 @@ def generate_launch_description():
         "odom0": "swerve_controller/odom",
         "odom0_config": [
             True, True, False,
-            False, False, True,
+            False, False, False,
             True, True, False,
-            False, False, True,
+            False, False, False,
             False, False, False,
         ],
         "odom0_queue_size": 10,
@@ -234,15 +234,15 @@ def generate_launch_description():
         "imu0": "imu/data",
         "imu0_config": [
             False, False, False,
+            True, True, True,
             False, False, False,
-            False, False, False,
-            False, False, True,
+            True, True, True,
             False, False, False,
         ],
         "imu0_queue_size": 50,
         "imu0_nodelay": True,
         "imu0_differential": False,
-        "imu0_relative": False,
+        "imu0_relative": True,
         "imu0_remove_gravitational_acceleration": False,
     }
 
