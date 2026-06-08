@@ -3,3 +3,5 @@ install/
 log/
 DEBUG/
 .codex
+__pycache__/
+*.py[cod]
