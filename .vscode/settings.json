@@ -94,8 +94,14 @@
   "files.exclude": {
     "**/.git": false
   },
-  "idf.currentSetup": "/home/george/.espressif/v6.0-beta2/esp-idf",
+  "idf.currentSetup": "/home/george/.espressif/v6.0.1/esp-idf",
   "editor.tabSize": 2,
   "editor.insertSpaces": true,
-  "ROS2.distro": "kilted"
+  "ROS2.distro": "kilted",
+  "clangd.path": "/home/george/.espressif/tools/esp-clang/esp-20.1.1_20250829/esp-clang/bin/clangd",
+  "clangd.arguments": [
+    "--background-index",
+    "--query-driver=**",
+    "--compile-commands-dir=/home/george/ROS2/ros2_wheelbot/build"
+  ]
 }
