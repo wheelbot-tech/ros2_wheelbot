@@ -10,7 +10,10 @@ services:
     environment:
       ROS_DOMAIN_ID: "0"
       RMW_IMPLEMENTATION: "rmw_zenoh_cpp"
-      ZENOH_REMOTE_ROUTER_ENDPOINT: ""
+      ZENOH_REMOTE_ROUTER_ENDPOINT: "tcp/192.168.1.133:7447"
+      ZENOH_REMOTE_RETRY_INIT_MS: "250"
+      ZENOH_REMOTE_RETRY_MAX_MS: "1000"
+      ZENOH_REMOTE_BLOCK_WAIT_US: "1000000"
 
   base_control:
     build:

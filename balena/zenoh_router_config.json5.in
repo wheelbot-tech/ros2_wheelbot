@@ -1,0 +1,35 @@
+{
+  mode: "router",
+
+  listen: {
+    endpoints: ["tcp/[::]:7447"],
+  },
+
+  connect: {
+    timeout_ms: -1,
+    endpoints: [
+      "@REMOTE_ENDPOINT@#retry_period_init_ms=@RETRY_INIT_MS@;retry_period_max_ms=@RETRY_MAX_MS@;retry_period_increase_factor=2;exit_on_failure=false",
+    ],
+    exit_on_failure: false,
+  },
+
+  scouting: {
+    multicast: {
+      enabled: false,
+    },
+  },
+
+  transport: {
+    link: {
+      tx: {
+        queue: {
+          congestion_control: {
+            block: {
+              wait_before_close: @BLOCK_WAIT_US@,
+            },
+          },
+        },
+      },
+    },
+  },
+}

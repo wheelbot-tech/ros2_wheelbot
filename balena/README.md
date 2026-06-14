@@ -118,6 +118,9 @@ the `zenoh_router` service:
 
 ```text
 ZENOH_REMOTE_ROUTER_ENDPOINT=tcp/<rmf-computer-ip>:7447
+ZENOH_REMOTE_RETRY_INIT_MS=250
+ZENOH_REMOTE_RETRY_MAX_MS=1000
+ZENOH_REMOTE_BLOCK_WAIT_US=1000000
 ```
 
 The Open-RMF computer should also run:
@@ -125,6 +128,14 @@ The Open-RMF computer should also run:
 ```bash
 RMW_IMPLEMENTATION=rmw_zenoh_cpp ros2 run rmw_zenoh_cpp rmw_zenohd
 ```
+
+When a remote endpoint is configured, the robot router uses a direct TCP
+router-to-router connection and disables multicast scouting. The shorter
+blocking and reconnect periods avoid the default failure path that can add
+roughly nine seconds to a brief Wi-Fi interruption. Reserve the computer's
+address in DHCP or update `ZENOH_REMOTE_ROUTER_ENDPOINT` when its address
+changes. The entrypoint generates `/tmp/wheelbot_zenoh_router_config.json5`
+from `balena/zenoh_router_config.json5.in`.
 
 ## base_control
 

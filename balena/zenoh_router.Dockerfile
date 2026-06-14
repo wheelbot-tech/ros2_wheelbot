@@ -8,8 +8,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   && rm -rf /var/lib/apt/lists/*
 
 COPY balena/zenoh_router_entrypoint.sh /entrypoint.sh
+COPY balena/zenoh_router_config.json5.in /etc/wheelbot/zenoh_router_config.json5.in
 
 RUN chmod +x /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
-
