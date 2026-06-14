@@ -46,39 +46,14 @@ Exista pachete/fork-uri cu propriul `.git` sub `src/`, de exemplu `rplidar_ros`,
 
 ## Build si setup
 
-Pentru informatii despre graful ROS runtime pe robotul activ, prefera Zenoh MCP (`mcp__zenoh`). Pentru informatii de pachete/build local foloseste in continuare `colcon` si toolchain-ul ROS local.
-
-Comenzi uzuale:
-
-```bash
-cd /home/george/ROS2/ros2_wheelbot
-source /opt/ros/kilted/setup.bash
-rosdep install --from-paths src --ignore-src -r -y
-colcon build --symlink-install
-source install/setup.bash
-```
-
-Pentru iteratii mai rapide, construieste pachetul afectat:
-
-```bash
-colcon build --symlink-install --packages-select bringup_mobile
-colcon build --symlink-install --packages-select description_mobile
-colcon build --symlink-install --packages-select swerve_drive_controller
-colcon build --symlink-install --packages-select topic_based_ros2_control
-```
-
-Daca schimbi un controller sau o biblioteca folosita de alt pachet, construieste si dependentele necesare:
-
-```bash
-colcon build --symlink-install --packages-up-to swerve_drive_controller
-colcon build --symlink-install --packages-up-to bringup_mobile
-```
+- nu face colcon build si teste automat , solicita si vor fi facute manual si in cazul aparitiei de erori vor fi copiate in codex
+- precizeaza de fiecare data cand modificarile facute necesita "balena push"
 
 ## Testare
 
 Cand un sistem ROS este deja lansat prin `rmw_zenoh`, foloseste mai intai Zenoh MCP pentru inspectie de topicuri/noduri/parametri deduse din admin space/liveliness. Ruleaza `ros-mcp-server` doar ca fallback daca vede acelasi graf, iar comenzi `ros2 ...` manual doar pentru verificari care cer output CLI exact.
 
-Ruleaza testele doar pentru zona modificata cand este posibil:
+Testele vor fi rulate manual doar pentru zona modificata cand este posibil , transmite comenzile pentru teste :
 
 ```bash
 colcon test --packages-select bringup_mobile
