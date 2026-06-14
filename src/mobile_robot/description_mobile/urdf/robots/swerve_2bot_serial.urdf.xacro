@@ -6,6 +6,7 @@
   <xacro:arg name="serial_port" default="/dev/ttyACM0"/>
   <xacro:arg name="baudrate" default="115200"/>
   <xacro:arg name="command_timeout_ms" default="500"/>
+  <xacro:arg name="state_timeout_ms" default="500"/>
   <xacro:arg name="active_modules" default="FR,RL"/>
   <xacro:arg name="imu_topic" default="/imu/data"/>
   <xacro:arg name="imu_frame_id" default="imu_link"/>
@@ -20,6 +21,7 @@
     serial_port="$(arg serial_port)"
     baudrate="$(arg baudrate)"
     command_timeout_ms="$(arg command_timeout_ms)"
+    state_timeout_ms="$(arg state_timeout_ms)"
     active_modules="$(arg active_modules)"
     imu_topic="$(arg imu_topic)"
     imu_frame_id="$(arg imu_frame_id)"

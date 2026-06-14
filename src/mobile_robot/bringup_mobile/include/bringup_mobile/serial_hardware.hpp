@@ -54,9 +54,12 @@ private:
   bool open_serial();
   void close_serial();
   bool configure_port(int fd) const;
-  void read_serial_lines();
+  void read_serial_lines(const rclcpp::Time & time);
   bool write_line(const std::string & line);
-  void apply_state(const ModuleState & state);
+  void apply_state(const ModuleState & state, const rclcpp::Time & time);
+  void check_state_timeouts(const rclcpp::Time & time);
+  void latch_state_timeout(const std::string & module, double age_ms);
+  void zero_state_velocities();
   void publish_imu_sample(const ImuSample & sample);
   void request_jetson_shutdown();
   void setup_imu_publishers();
@@ -66,7 +69,6 @@ private:
   double * command_ptr(std::size_t joint_index, const std::string & interface_name);
   double normalize_angle(double angle_rad) const;
   double shortest_angular_distance(double from, double to) const;
-  double steering_scale(double error_rad) const;
   int baudrate_to_constant(int baudrate) const;
 
   std::string serial_port_{"/dev/ttyACM0"};
@@ -75,22 +77,22 @@ private:
   std::string shutdown_request_file_{"/tmp/wheelbot_jetson_shutdown.request"};
   int baudrate_{115200};
   int command_timeout_ms_{500};
+  int state_timeout_ms_{500};
   double wheel_radius_{0.0825};
   double wheel_drive_len_{0.23};
   double steering_gain_{0.1};
-  double steering_alignment_tolerance_{0.08};
-  double steering_min_speed_scale_{0.15};
-  double steering_zero_speed_error_{1.2};
-  bool smooth_arc_steering_{false};
-  bool use_common_speed_scale_{true};
   bool zero_steering_when_stopped_{true};
   bool shutdown_requested_{false};
+  bool state_monitor_started_{false};
+  bool state_timeout_fault_{false};
   std::vector<std::string> active_modules_{"RL", "RR", "FL", "FR"};
 
   int serial_fd_{-1};
   std::string rx_buffer_;
   rclcpp::Time last_open_attempt_;
   rclcpp::Time last_command_time_;
+  rclcpp::Time state_monitor_start_time_;
+  std::map<std::string, rclcpp::Time> last_state_times_;
 
   std::vector<double> position_states_;
   std::vector<double> velocity_states_;

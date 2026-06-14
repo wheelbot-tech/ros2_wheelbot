@@ -79,17 +79,10 @@ hardware_interface::CallbackReturn WheelbotSerialHardware::on_init(
   }
   baudrate_ = std::stoi(get_parameter(info_, "baudrate", "115200"));
   command_timeout_ms_ = std::stoi(get_parameter(info_, "command_timeout_ms", "500"));
+  state_timeout_ms_ = std::stoi(get_parameter(info_, "state_timeout_ms", "500"));
   wheel_radius_ = std::stod(get_parameter(info_, "wheel_radius", "0.0825"));
   wheel_drive_len_ = std::stod(get_parameter(info_, "wheel_drive_len", "0.23"));
   steering_gain_ = std::stod(get_parameter(info_, "steering_gain", "0.1"));
-  steering_alignment_tolerance_ =
-    std::stod(get_parameter(info_, "steering_alignment_tolerance", "0.08"));
-  steering_min_speed_scale_ =
-    std::clamp(std::stod(get_parameter(info_, "steering_min_speed_scale", "0.15")), 0.0, 1.0);
-  steering_zero_speed_error_ =
-    std::stod(get_parameter(info_, "steering_zero_speed_error", "1.2"));
-  smooth_arc_steering_ = get_parameter(info_, "steering_drive_mode", "strict_gate") == "smooth_arc";
-  use_common_speed_scale_ = get_parameter(info_, "use_common_speed_scale", "true") != "false";
   zero_steering_when_stopped_ =
     get_parameter(info_, "zero_steering_when_stopped", "true") != "false";
 
@@ -150,8 +143,21 @@ hardware_interface::CallbackReturn WheelbotSerialHardware::on_configure(
 {
   shutdown_requested_ = false;
   imu_quaternion_seen_ = false;
+  state_monitor_started_ = false;
+  state_timeout_fault_ = false;
+  last_state_times_.clear();
   setup_imu_publishers();
   open_serial();
+  if (state_timeout_ms_ > 0) {
+    RCLCPP_INFO(
+      rclcpp::get_logger("WheelbotSerialHardware"),
+      "Per-module STATE watchdog enabled with %d ms timeout",
+      state_timeout_ms_);
+  } else {
+    RCLCPP_WARN(
+      rclcpp::get_logger("WheelbotSerialHardware"),
+      "Per-module STATE watchdog is disabled");
+  }
   return hardware_interface::CallbackReturn::SUCCESS;
 }
 
@@ -217,8 +223,14 @@ hardware_interface::return_type WheelbotSerialHardware::read(
     open_serial();
   }
 
+  // Buffered feedback must not hide a control-loop or transport outage.
+  check_state_timeouts(time);
+  if (state_timeout_fault_) {
+    return hardware_interface::return_type::ERROR;
+  }
+
   if (serial_fd_ >= 0) {
-    read_serial_lines();
+    read_serial_lines(time);
   }
 
   return hardware_interface::return_type::OK;
@@ -227,7 +239,7 @@ hardware_interface::return_type WheelbotSerialHardware::read(
 hardware_interface::return_type WheelbotSerialHardware::write(
   const rclcpp::Time & time, const rclcpp::Duration &)
 {
-  if (shutdown_requested_) {
+  if (shutdown_requested_ || state_timeout_fault_) {
     return hardware_interface::return_type::OK;
   }
 
@@ -246,24 +258,12 @@ hardware_interface::return_type WheelbotSerialHardware::write(
     return hardware_interface::return_type::OK;
   }
 
-  std::map<std::string, double> scale_by_module;
-  double common_scale = 1.0;
   bool robot_is_stopped = true;
   for (const auto & mapping : module_mappings_) {
     if (std::fabs(velocity_commands_[mapping.wheel_joint_index]) > 1.0e-4) {
       robot_is_stopped = false;
       break;
     }
-  }
-
-  for (const auto & mapping : module_mappings_) {
-    const double current = position_states_[mapping.steering_joint_index];
-    const double target = (zero_steering_when_stopped_ && robot_is_stopped)
-      ? 0.0
-      : position_commands_[mapping.steering_joint_index];
-    const double scale = steering_scale(shortest_angular_distance(current, target));
-    scale_by_module[mapping.module] = scale;
-    common_scale = std::min(common_scale, scale);
   }
 
   bool ok = true;
@@ -273,8 +273,7 @@ hardware_interface::return_type WheelbotSerialHardware::write(
       ? 0.0
       : position_commands_[mapping.steering_joint_index];
     const double error = shortest_angular_distance(current, target);
-    const double scale = use_common_speed_scale_ ? common_scale : scale_by_module[mapping.module];
-    const double linear_m_s = velocity_commands_[mapping.wheel_joint_index] * wheel_radius_ * scale;
+    const double linear_m_s = velocity_commands_[mapping.wheel_joint_index] * wheel_radius_;
     const double angular_rad_s = steering_gain_ * error / wheel_drive_len_;
     const double right_rad_s =
       (linear_m_s + angular_rad_s * wheel_drive_len_ / 2.0) / wheel_radius_;
@@ -286,6 +285,10 @@ hardware_interface::return_type WheelbotSerialHardware::write(
 
   if (ok) {
     last_command_time_ = time;
+    if (!state_monitor_started_ && state_timeout_ms_ > 0) {
+      state_monitor_start_time_ = time;
+      state_monitor_started_ = true;
+    }
     return hardware_interface::return_type::OK;
   }
 
@@ -353,7 +356,7 @@ bool WheelbotSerialHardware::configure_port(int fd) const
   return true;
 }
 
-void WheelbotSerialHardware::read_serial_lines()
+void WheelbotSerialHardware::read_serial_lines(const rclcpp::Time & time)
 {
   std::array<char, 256> buffer {};
   while (true) {
@@ -374,7 +377,7 @@ void WheelbotSerialHardware::read_serial_lines()
     const auto line = rx_buffer_.substr(0, newline);
     rx_buffer_.erase(0, newline + 1);
     if (const auto state = parse_state_line(line)) {
-      apply_state(*state);
+      apply_state(*state, time);
     } else if (const auto imu_sample = parse_imuq_line(line)) {
       publish_imu_sample(*imu_sample);
     } else if (const auto imu_sample = parse_imu_line(line)) {
@@ -412,13 +415,15 @@ bool WheelbotSerialHardware::write_line(const std::string & line)
   return true;
 }
 
-void WheelbotSerialHardware::apply_state(const ModuleState & state)
+void WheelbotSerialHardware::apply_state(
+  const ModuleState & state, const rclcpp::Time & time)
 {
   const auto it = module_to_mapping_.find(state.module);
   if (it == module_to_mapping_.end()) {
     return;
   }
 
+  last_state_times_[state.module] = time;
   const auto & mapping = module_mappings_[it->second];
   position_states_[mapping.steering_joint_index] =
     normalize_angle(state.steering_rad + mapping.mounting_yaw_rad);
@@ -437,6 +442,76 @@ void WheelbotSerialHardware::apply_state(const ModuleState & state)
   if (mapping.left_wheel_joint_index != kNotFound) {
     position_states_[mapping.left_wheel_joint_index] = state.pos_left_rad;
     velocity_states_[mapping.left_wheel_joint_index] = state.vel_left_rad_s;
+  }
+}
+
+void WheelbotSerialHardware::check_state_timeouts(const rclcpp::Time & time)
+{
+  if (state_timeout_ms_ <= 0 || !state_monitor_started_ || state_timeout_fault_) {
+    return;
+  }
+  if (state_monitor_start_time_.get_clock_type() != time.get_clock_type()) {
+    state_monitor_start_time_ = time;
+    last_state_times_.clear();
+    return;
+  }
+
+  for (const auto & mapping : module_mappings_) {
+    const auto state_it = last_state_times_.find(mapping.module);
+    rclcpp::Time reference = state_monitor_start_time_;
+    if (state_it != last_state_times_.end() &&
+      state_it->second.get_clock_type() == time.get_clock_type() &&
+      state_it->second > reference)
+    {
+      reference = state_it->second;
+    }
+    if (reference.get_clock_type() != time.get_clock_type()) {
+      last_state_times_.erase(mapping.module);
+      continue;
+    }
+
+    const double age_ms = (time - reference).seconds() * 1000.0;
+    if (age_ms > static_cast<double>(state_timeout_ms_)) {
+      latch_state_timeout(mapping.module, age_ms);
+      return;
+    }
+  }
+}
+
+void WheelbotSerialHardware::latch_state_timeout(
+  const std::string & module, double age_ms)
+{
+  state_timeout_fault_ = true;
+  zero_state_velocities();
+
+  if (serial_fd_ >= 0) {
+    send_zero_commands();
+    for (const auto & active_module : active_modules_) {
+      write_line(format_estop_command(active_module));
+    }
+  }
+
+  RCLCPP_ERROR(
+    rclcpp::get_logger("WheelbotSerialHardware"),
+    "STATE timeout for module %s: %.0f ms without fresh feedback "
+    "(limit %d ms); sent ESTOP to all active modules and latched hardware fault",
+    module.c_str(), age_ms, state_timeout_ms_);
+}
+
+void WheelbotSerialHardware::zero_state_velocities()
+{
+  for (const auto & mapping : module_mappings_) {
+    velocity_states_[mapping.steering_joint_index] = 0.0;
+    velocity_states_[mapping.wheel_joint_index] = 0.0;
+    if (mapping.module_steering_joint_index != kNotFound) {
+      velocity_states_[mapping.module_steering_joint_index] = 0.0;
+    }
+    if (mapping.right_wheel_joint_index != kNotFound) {
+      velocity_states_[mapping.right_wheel_joint_index] = 0.0;
+    }
+    if (mapping.left_wheel_joint_index != kNotFound) {
+      velocity_states_[mapping.left_wheel_joint_index] = 0.0;
+    }
   }
 }
 
@@ -639,27 +714,6 @@ double WheelbotSerialHardware::normalize_angle(double angle_rad) const
 double WheelbotSerialHardware::shortest_angular_distance(double from, double to) const
 {
   return normalize_angle(to - from);
-}
-
-double WheelbotSerialHardware::steering_scale(double error_rad) const
-{
-  const double abs_error = std::fabs(error_rad);
-  if (abs_error <= steering_alignment_tolerance_) {
-    return 1.0;
-  }
-  if (!smooth_arc_steering_) {
-    return 0.0;
-  }
-
-  const double zero_speed_error =
-    std::max(steering_zero_speed_error_, steering_alignment_tolerance_ + 1.0e-6);
-  if (abs_error >= zero_speed_error) {
-    return steering_min_speed_scale_;
-  }
-
-  const double ratio =
-    (abs_error - steering_alignment_tolerance_) / (zero_speed_error - steering_alignment_tolerance_);
-  return steering_min_speed_scale_ + (1.0 - steering_min_speed_scale_) * (1.0 - ratio);
 }
 
 int WheelbotSerialHardware::baudrate_to_constant(int baudrate) const

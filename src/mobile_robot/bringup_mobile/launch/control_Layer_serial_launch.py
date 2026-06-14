@@ -22,6 +22,7 @@ def generate_launch_description():
         DeclareLaunchArgument("serial_port", default_value="/dev/ttyACM0"),
         DeclareLaunchArgument("baudrate", default_value="115200"),
         DeclareLaunchArgument("command_timeout_ms", default_value="500"),
+        DeclareLaunchArgument("state_timeout_ms", default_value="500"),
         DeclareLaunchArgument("active_modules", default_value="FR,RL"),
         DeclareLaunchArgument("enable_odom_fusion", default_value="true"),
         DeclareLaunchArgument(
@@ -73,6 +74,9 @@ def generate_launch_description():
             " ",
             "command_timeout_ms:=",
             LaunchConfiguration("command_timeout_ms"),
+            " ",
+            "state_timeout_ms:=",
+            LaunchConfiguration("state_timeout_ms"),
             " ",
             "active_modules:=",
             LaunchConfiguration("active_modules"),

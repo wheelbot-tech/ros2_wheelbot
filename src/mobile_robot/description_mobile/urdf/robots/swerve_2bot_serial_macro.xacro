@@ -20,6 +20,7 @@
       serial_port
       baudrate
       command_timeout_ms
+      state_timeout_ms
       active_modules
       imu_topic
       imu_frame_id">
@@ -88,6 +89,7 @@
       serial_port="${serial_port}"
       baudrate="${baudrate}"
       command_timeout_ms="${command_timeout_ms}"
+      state_timeout_ms="${state_timeout_ms}"
       active_modules="${active_modules}"
       wheel_radius="${wheel_radius}"
       wheel_drive_len="0.23"

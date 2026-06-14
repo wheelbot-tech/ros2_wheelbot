@@ -24,6 +24,7 @@
   <exec_depend>rosbag2_transport</exec_depend>
   <depend>rviz2</depend>
   <depend>sensor_msgs</depend>
+  <depend>std_srvs</depend>
   <depend>swerve_drive_controller</depend>
   <depend>twist_mux</depend>
   <depend>xacro</depend>

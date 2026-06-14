@@ -2,8 +2,10 @@ import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, TimerAction
+from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration, PythonExpression
+from launch_ros.actions import Node
 
 NAMESPACE = os.environ.get('ROS_NAMESPACE') if 'ROS_NAMESPACE' in os.environ else ''
 
@@ -33,8 +35,10 @@ def generate_launch_description():
         DeclareLaunchArgument("serial_port", default_value="/dev/ttyACM0"),
         DeclareLaunchArgument("baudrate", default_value="115200"),
         DeclareLaunchArgument("command_timeout_ms", default_value="500"),
+        DeclareLaunchArgument("state_timeout_ms", default_value="500"),
         DeclareLaunchArgument("active_modules", default_value="FR,RL"),
         DeclareLaunchArgument("enable_odom_fusion", default_value="true"),
+        DeclareLaunchArgument("enable_rotation_test_server", default_value="true"),
         DeclareLaunchArgument("controllers_file", default_value=default_controllers_file),
         DeclareLaunchArgument(
             "ekf_config_file",
@@ -69,6 +73,7 @@ def generate_launch_description():
         'serial_port': LaunchConfiguration("serial_port"),
         'baudrate': LaunchConfiguration("baudrate"),
         'command_timeout_ms': LaunchConfiguration("command_timeout_ms"),
+        'state_timeout_ms': LaunchConfiguration("state_timeout_ms"),
         'active_modules': LaunchConfiguration("active_modules"),
         'enable_odom_fusion': LaunchConfiguration("enable_odom_fusion"),
         'controllers_file': LaunchConfiguration("controllers_file"),
@@ -111,11 +116,34 @@ def generate_launch_description():
 
     delay_teleop_layer = TimerAction(period=6.0, actions=[teleop_layer])
     delay_tmux_layer = TimerAction(period=7.0, actions=[tmux_layer])
+    rotation_test_server = Node(
+        package="bringup_mobile",
+        executable="rotation_test_server.py",
+        namespace=LaunchConfiguration("namespace"),
+        name="rotation_test_server",
+        output="both",
+        condition=IfCondition(
+            LaunchConfiguration("enable_rotation_test_server")
+        ),
+        parameters=[
+            {
+                "namespace": LaunchConfiguration("namespace"),
+                "angular_speed": 0.15,
+                "slow_angular_speed": 0.10,
+                "sensor_timeout": 15.0,
+            }
+        ],
+    )
+    delay_rotation_test_server = TimerAction(
+        period=8.0,
+        actions=[rotation_test_server],
+    )
     #delay_debug_layer = TimerAction(period=8.0, actions=[debug_layer])
 
     return LaunchDescription(declared_arguments + [
         control_layer,
         delay_teleop_layer,
         delay_tmux_layer,
+        delay_rotation_test_server,
         #delay_debug_layer,
     ])

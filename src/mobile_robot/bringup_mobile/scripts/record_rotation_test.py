@@ -9,11 +9,13 @@ import os
 from pathlib import Path
 import signal
 import subprocess
+import threading
 import time
 
 from geometry_msgs.msg import TwistStamped
 from nav_msgs.msg import Odometry
 import rclpy
+from rclpy.executors import SingleThreadedExecutor
 from rclpy.node import Node
 from rclpy.utilities import remove_ros_args
 from sensor_msgs.msg import Imu, JointState
@@ -108,26 +110,32 @@ class RotationRecorder(Node):
         self.bag_process = None
         self.record_joint_samples = False
         self.joint_samples = []
+        self.joint_recording_resume_at = 0.0
         self.latest_joint_sample = {}
         self.latest_joint_sample_at = None
+        self.data_lock = threading.Lock()
 
     def odom_callback(self, msg):
-        self.odom_yaw.update(quaternion_yaw(msg.pose.pose.orientation))
-        self.odom_x = msg.pose.pose.position.x
-        self.odom_y = msg.pose.pose.position.y
-        self.odom_received_at = time.monotonic()
+        with self.data_lock:
+            self.odom_yaw.update(quaternion_yaw(msg.pose.pose.orientation))
+            self.odom_x = msg.pose.pose.position.x
+            self.odom_y = msg.pose.pose.position.y
+            self.odom_received_at = time.monotonic()
 
     def raw_odom_callback(self, msg):
-        self.raw_odom_yaw.update(quaternion_yaw(msg.pose.pose.orientation))
-        self.raw_odom_received_at = time.monotonic()
+        with self.data_lock:
+            self.raw_odom_yaw.update(quaternion_yaw(msg.pose.pose.orientation))
+            self.raw_odom_received_at = time.monotonic()
 
     def imu_callback(self, msg):
         if msg.orientation_covariance[0] < 0.0:
             return
-        self.imu_yaw.update(quaternion_yaw(msg.orientation))
-        self.imu_received_at = time.monotonic()
+        with self.data_lock:
+            self.imu_yaw.update(quaternion_yaw(msg.orientation))
+            self.imu_received_at = time.monotonic()
 
     def joint_states_callback(self, msg):
+        received_at = time.monotonic()
         positions = dict(zip(msg.name, msg.position))
         velocities = dict(zip(msg.name, msg.velocity))
         sample = {}
@@ -143,25 +151,45 @@ class RotationRecorder(Node):
             if not all(name in velocities for name in (right_name, left_name)):
                 continue
             sample[module] = {
-                'received_at': time.monotonic(),
+                'received_at': received_at,
                 'steering_rad': positions[steering_name],
                 'right_velocity_rad_s': velocities[right_name],
                 'left_velocity_rad_s': velocities[left_name],
             }
         if sample:
-            self.latest_joint_sample = sample
-            self.latest_joint_sample_at = time.monotonic()
-            if self.record_joint_samples:
-                self.joint_samples.append(sample)
+            with self.data_lock:
+                self.latest_joint_sample = sample
+                self.latest_joint_sample_at = received_at
+                if (
+                    self.record_joint_samples
+                    and received_at >= self.joint_recording_resume_at
+                ):
+                    self.joint_samples.append(sample)
+
+    def measurement_snapshot(self):
+        with self.data_lock:
+            return {
+                'odom_yaw': self.odom_yaw.value,
+                'raw_odom_yaw': self.raw_odom_yaw.value,
+                'imu_yaw': self.imu_yaw.value,
+                'odom_received_at': self.odom_received_at,
+                'raw_odom_received_at': self.raw_odom_received_at,
+                'imu_received_at': self.imu_received_at,
+                'odom_x': self.odom_x,
+                'odom_y': self.odom_y,
+            }
 
     def steering_watchdog_error(self):
-        if self.latest_joint_sample_at is None:
+        with self.data_lock:
+            latest_at = self.latest_joint_sample_at
+            latest_sample = dict(self.latest_joint_sample)
+        if latest_at is None:
             return None
-        if time.monotonic() - self.latest_joint_sample_at > self.args.max_sensor_age:
+        if time.monotonic() - latest_at > self.args.max_sensor_age:
             return None
 
         worst = None
-        for module, sample in self.latest_joint_sample.items():
+        for module, sample in latest_sample.items():
             error = math.atan2(
                 math.sin(sample['steering_rad'] - self.args.steering_target),
                 math.cos(sample['steering_rad'] - self.args.steering_target),
@@ -171,9 +199,11 @@ class RotationRecorder(Node):
         return worst
 
     def summarize_module_steering(self, module):
+        with self.data_lock:
+            joint_samples = list(self.joint_samples)
         samples = [
             sample[module]
-            for sample in self.joint_samples
+            for sample in joint_samples
             if (
                 module in sample
                 and sample[module]['received_at'] >= self.steering_analysis_start_at
@@ -249,14 +279,13 @@ class RotationRecorder(Node):
     def spin_sleep(self, duration_s):
         deadline = time.monotonic() + duration_s
         while rclpy.ok() and time.monotonic() < deadline:
-            rclpy.spin_once(self, timeout_sec=min(0.05, deadline - time.monotonic()))
+            time.sleep(max(0.0, min(0.05, deadline - time.monotonic())))
 
     def hold(self, angular_z, duration_s):
         deadline = time.monotonic() + duration_s
         period_s = 1.0 / self.args.rate
         while rclpy.ok() and time.monotonic() < deadline:
             self.publish_twist(angular_z)
-            rclpy.spin_once(self, timeout_sec=0.0)
             time.sleep(period_s)
 
     def stop_robot(self, duration_s=None):
@@ -269,7 +298,7 @@ class RotationRecorder(Node):
         while rclpy.ok() and time.monotonic() < deadline:
             if self.publisher.get_subscription_count() > 0:
                 return
-            rclpy.spin_once(self, timeout_sec=0.1)
+            time.sleep(0.1)
         self.get_logger().warning(
             f'no local ROS graph subscriber found on {self.publisher.topic_name}; '
             'continuing because rmw_zenoh may hide remote subscribers'
@@ -278,30 +307,38 @@ class RotationRecorder(Node):
     def wait_for_measurements(self):
         deadline = time.monotonic() + self.args.sensor_timeout
         while rclpy.ok() and time.monotonic() < deadline:
-            rclpy.spin_once(self, timeout_sec=0.1)
+            snapshot = self.measurement_snapshot()
             if (
-                self.odom_yaw.value is not None
-                and self.raw_odom_yaw.value is not None
-                and self.imu_yaw.value is not None
+                snapshot['odom_yaw'] is not None
+                and snapshot['raw_odom_yaw'] is not None
+                and snapshot['imu_yaw'] is not None
             ):
                 break
-        if self.odom_yaw.value is None:
+            time.sleep(0.05)
+        snapshot = self.measurement_snapshot()
+        if snapshot['odom_yaw'] is None:
             raise RuntimeError(
                 f'no Odometry received on {self.args.odom_topic}; '
                 'the test requires fused base-frame yaw'
             )
 
-        if self.raw_odom_yaw.value is None:
+        if snapshot['raw_odom_yaw'] is None:
             raise RuntimeError(
                 f'no raw Odometry received on {self.args.raw_odom_topic}'
             )
-        if self.imu_yaw.value is None:
+        if snapshot['imu_yaw'] is None:
             raise RuntimeError(
                 f'no valid IMU orientation received on {self.args.imu_topic}; '
                 'IMU orientation is required to control physical rotation'
             )
 
-    def ensure_fresh_measurement(self, received_at, label):
+    def ensure_fresh_measurement(self, label):
+        received_at_key = {
+            'fused odometry': 'odom_received_at',
+            'raw wheel odometry': 'raw_odom_received_at',
+            'IMU orientation': 'imu_received_at',
+        }[label]
+        received_at = self.measurement_snapshot()[received_at_key]
         if received_at is None:
             raise RuntimeError(f'{label} has not been received')
         age = time.monotonic() - received_at
@@ -313,25 +350,76 @@ class RotationRecorder(Node):
         )
         deadline = time.monotonic() + self.args.sensor_timeout
         while rclpy.ok() and time.monotonic() < deadline:
-            rclpy.spin_once(self, timeout_sec=0.1)
-            current_received_at = {
-                'fused odometry': self.odom_received_at,
-                'raw wheel odometry': self.raw_odom_received_at,
-                'IMU orientation': self.imu_received_at,
-            }[label]
+            current_received_at = self.measurement_snapshot()[received_at_key]
             if current_received_at is not None:
                 age = time.monotonic() - current_received_at
             if age <= self.args.max_sensor_age:
                 return
+            time.sleep(0.05)
 
         raise RuntimeError(f'{label} is stale by {age:.3f} seconds')
 
     def ensure_fresh_measurements(self):
-        self.ensure_fresh_measurement(self.imu_received_at, 'IMU orientation')
-        self.ensure_fresh_measurement(self.odom_received_at, 'fused odometry')
-        self.ensure_fresh_measurement(
-            self.raw_odom_received_at,
-            'raw wheel odometry',
+        self.ensure_fresh_measurement('IMU orientation')
+        self.ensure_fresh_measurement('fused odometry')
+        self.ensure_fresh_measurement('raw wheel odometry')
+
+    def pause_until_measurements_fresh(self, label):
+        snapshot = self.measurement_snapshot()
+        now = time.monotonic()
+        measurements = (
+            ('IMU orientation', snapshot['imu_received_at']),
+            ('fused odometry', snapshot['odom_received_at']),
+            ('raw wheel odometry', snapshot['raw_odom_received_at']),
+        )
+        stale = [
+            (measurement, math.inf if received_at is None else now - received_at)
+            for measurement, received_at in measurements
+            if received_at is None or now - received_at > self.args.max_sensor_age
+        ]
+        if not stale:
+            return 0.0
+
+        stale_summary = ', '.join(
+            f'{measurement}={age:.3f}s' if math.isfinite(age)
+            else f'{measurement}=missing'
+            for measurement, age in stale
+        )
+        self.get_logger().warning(
+            f'{label}: feedback stale ({stale_summary}); '
+            'holding zero command until communication recovers'
+        )
+
+        outage_started_at = time.monotonic()
+        deadline = outage_started_at + self.args.sensor_timeout
+        period_s = 1.0 / self.args.rate
+        while rclpy.ok() and time.monotonic() < deadline:
+            self.publish_twist(0.0)
+            snapshot = self.measurement_snapshot()
+            now = time.monotonic()
+            received_times = (
+                snapshot['imu_received_at'],
+                snapshot['odom_received_at'],
+                snapshot['raw_odom_received_at'],
+            )
+            if all(
+                received_at is not None
+                and now - received_at <= self.args.max_sensor_age
+                for received_at in received_times
+            ):
+                outage_duration = now - outage_started_at
+                self.get_logger().info(
+                    f'{label}: communication recovered after '
+                    f'{outage_duration:.3f} seconds; resuming rotation'
+                )
+                return outage_duration
+            time.sleep(period_s)
+
+        self.publish_twist(0.0)
+        outage_duration = time.monotonic() - outage_started_at
+        raise RuntimeError(
+            f'{label}: communication did not recover within '
+            f'{outage_duration:.3f} seconds; robot remains stopped'
         )
 
     def start_recording(self, output_path):
@@ -367,7 +455,7 @@ class RotationRecorder(Node):
             if output_path.exists():
                 self.spin_sleep(self.args.record_settle_time)
                 return
-            rclpy.spin_once(self, timeout_sec=0.1)
+            time.sleep(0.1)
 
         self.stop_recording()
         raise RuntimeError(f'ros2 bag record did not create {output_path}')
@@ -392,20 +480,27 @@ class RotationRecorder(Node):
 
     def rotate_once(self, direction, label):
         self.ensure_fresh_measurements()
-        start_odom_yaw = self.odom_yaw.value
-        start_raw_odom_yaw = self.raw_odom_yaw.value
-        start_imu_yaw = self.imu_yaw.value
+        start_snapshot = self.measurement_snapshot()
+        start_odom_yaw = start_snapshot['odom_yaw']
+        start_raw_odom_yaw = start_snapshot['raw_odom_yaw']
+        start_imu_yaw = start_snapshot['imu_yaw']
         start_time = time.monotonic()
         target = 2.0 * math.pi
         sign_checked = False
         steering_error_since = None
         best_progress = 0.0
         last_progress_at = start_time
-        self.joint_samples = []
-        self.steering_analysis_start_at = (
+        communication_outages = []
+        steering_watchdog_enable_at = (
             start_time + self.args.steering_watchdog_grace
         )
-        self.record_joint_samples = True
+        with self.data_lock:
+            self.joint_samples = []
+            self.steering_analysis_start_at = (
+                start_time + self.args.steering_watchdog_grace
+            )
+            self.joint_recording_resume_at = self.steering_analysis_start_at
+            self.record_joint_samples = True
 
         try:
             self.get_logger().info(
@@ -414,7 +509,19 @@ class RotationRecorder(Node):
             )
 
             while rclpy.ok():
-                self.ensure_fresh_measurements()
+                outage_duration = self.pause_until_measurements_fresh(label)
+                if outage_duration > 0.0:
+                    communication_outages.append(outage_duration)
+                    start_time += outage_duration
+                    last_progress_at = time.monotonic()
+                    steering_error_since = None
+                    steering_watchdog_enable_at = (
+                        time.monotonic() + self.args.steering_watchdog_grace
+                    )
+                    with self.data_lock:
+                        self.joint_recording_resume_at = (
+                            steering_watchdog_enable_at
+                        )
                 elapsed = time.monotonic() - start_time
                 if elapsed > self.args.turn_timeout:
                     raise RuntimeError(
@@ -422,7 +529,9 @@ class RotationRecorder(Node):
                         f'{self.args.turn_timeout:.1f} s timeout'
                     )
 
-                imu_delta = self.imu_yaw.value - start_imu_yaw
+                imu_delta = (
+                    self.measurement_snapshot()['imu_yaw'] - start_imu_yaw
+                )
                 progress = direction * imu_delta
                 if progress >= best_progress + self.args.stall_progress:
                     best_progress = progress
@@ -436,7 +545,7 @@ class RotationRecorder(Node):
                         f'IMU delta={degrees(imu_delta):+.2f} deg'
                     )
 
-                if elapsed >= self.args.steering_watchdog_grace:
+                if time.monotonic() >= steering_watchdog_enable_at:
                     worst = self.steering_watchdog_error()
                     if (
                         worst is not None
@@ -476,17 +585,18 @@ class RotationRecorder(Node):
                 if remaining < self.args.slowdown_angle:
                     speed = self.args.slow_angular_speed
                 self.publish_twist(direction * speed)
-                rclpy.spin_once(self, timeout_sec=0.0)
                 time.sleep(1.0 / self.args.rate)
         finally:
-            self.record_joint_samples = False
+            with self.data_lock:
+                self.record_joint_samples = False
 
         self.stop_robot(self.args.settle_time)
         self.ensure_fresh_measurements()
 
-        imu_delta = self.imu_yaw.value - start_imu_yaw
-        odom_delta = self.odom_yaw.value - start_odom_yaw
-        raw_odom_delta = self.raw_odom_yaw.value - start_raw_odom_yaw
+        end_snapshot = self.measurement_snapshot()
+        imu_delta = end_snapshot['imu_yaw'] - start_imu_yaw
+        odom_delta = end_snapshot['odom_yaw'] - start_odom_yaw
+        raw_odom_delta = end_snapshot['raw_odom_yaw'] - start_raw_odom_yaw
         directional_imu = direction * imu_delta
         directional_raw_odom = direction * raw_odom_delta
         imu_error = directional_imu - target
@@ -519,6 +629,9 @@ class RotationRecorder(Node):
             'imu_turn_error_deg': degrees(imu_error),
             'raw_odom_imu_disagreement_deg': degrees(raw_odom_imu_error),
             'wheel_odom_error_percent': wheel_error_percent,
+            'communication_outage_count': len(communication_outages),
+            'communication_outage_total_s': sum(communication_outages),
+            'communication_outage_durations_s': communication_outages,
             'sign_pass': sign_pass,
             'closure_pass': closure_pass,
             'wheel_consistency_pass': wheel_consistency_pass,
@@ -572,16 +685,18 @@ class RotationRecorder(Node):
 
         self.stop_robot(self.args.initial_stop_time)
         self.ensure_fresh_measurements()
-        suite_start_imu_yaw = self.imu_yaw.value
-        suite_start_odom_yaw = self.odom_yaw.value
-        suite_start_raw_odom_yaw = self.raw_odom_yaw.value
-        suite_start_x = self.odom_x
-        suite_start_y = self.odom_y
+        suite_start = self.measurement_snapshot()
+        suite_start_imu_yaw = suite_start['imu_yaw']
+        suite_start_odom_yaw = suite_start['odom_yaw']
+        suite_start_raw_odom_yaw = suite_start['raw_odom_yaw']
+        suite_start_x = suite_start['odom_x']
+        suite_start_y = suite_start['odom_y']
         results = []
         failure = None
         interrupted = False
 
-        self.start_recording(bag_path)
+        if not self.args.disable_recording:
+            self.start_recording(bag_path)
         try:
             for index in range(self.args.turns):
                 results.append(self.rotate_once(-1.0, f'CW turn {index + 1}'))
@@ -598,14 +713,15 @@ class RotationRecorder(Node):
             self.stop_robot(self.args.final_stop_time)
             self.stop_recording()
 
-        suite_imu_yaw_error = self.imu_yaw.value - suite_start_imu_yaw
-        suite_odom_yaw_error = self.odom_yaw.value - suite_start_odom_yaw
+        suite_end = self.measurement_snapshot()
+        suite_imu_yaw_error = suite_end['imu_yaw'] - suite_start_imu_yaw
+        suite_odom_yaw_error = suite_end['odom_yaw'] - suite_start_odom_yaw
         suite_raw_odom_yaw_error = (
-            self.raw_odom_yaw.value - suite_start_raw_odom_yaw
+            suite_end['raw_odom_yaw'] - suite_start_raw_odom_yaw
         )
         position_error = math.hypot(
-            self.odom_x - suite_start_x,
-            self.odom_y - suite_start_y,
+            suite_end['odom_x'] - suite_start_x,
+            suite_end['odom_y'] - suite_start_y,
         )
         report = {
             'timestamp': timestamp,
@@ -659,7 +775,7 @@ class RotationRecorder(Node):
             'completed_trials': len(results),
             'expected_trials': 2 * self.args.turns,
             'failure': failure,
-            'bag_path': str(bag_path),
+            'bag_path': None if self.args.disable_recording else str(bag_path),
         }
         report_path.write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8')
 
@@ -725,8 +841,8 @@ def parse_args():
         help='topic/frame namespace; defaults to ROS_NAMESPACE',
     )
     parser.add_argument('--output-dir', default='DEBUG')
-    parser.add_argument('--turns', type=positive_int, default=2)
-    parser.add_argument('--angular-speed', type=positive_float, default=0.30)
+    parser.add_argument('--turns', type=positive_int, default=1)
+    parser.add_argument('--angular-speed', type=positive_float, default=0.15)
     parser.add_argument('--slow-angular-speed', type=positive_float, default=0.10)
     parser.add_argument(
         '--slowdown-angle-deg',
@@ -832,6 +948,11 @@ def parse_args():
         help='record every discovered topic instead of the reduced validation set',
     )
     parser.add_argument(
+        '--disable-recording',
+        action='store_true',
+        help='run the test without starting a local rosbag recorder',
+    )
+    parser.add_argument(
         '--armed',
         action='store_true',
         help='record bags and publish non-zero rotation commands',
@@ -876,6 +997,10 @@ def main():
     args = parse_args()
     rclpy.init()
     node = RotationRecorder(args)
+    executor = SingleThreadedExecutor()
+    executor.add_node(node)
+    executor_thread = threading.Thread(target=executor.spin, daemon=True)
+    executor_thread.start()
     try:
         node.run()
     except KeyboardInterrupt:
@@ -887,6 +1012,8 @@ def main():
         if node.args.armed:
             node.stop_robot(0.5)
         node.stop_recording()
+        executor.shutdown()
+        executor_thread.join(timeout=2.0)
         node.destroy_node()
         rclpy.shutdown()
 

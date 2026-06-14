@@ -2,7 +2,7 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <xacro:macro name="wheelbot_serial_swerve_2bot_ros2_control"
-    params="name prefix serial_port baudrate command_timeout_ms active_modules wheel_radius wheel_drive_len imu_topic imu_frame_id">
+    params="name prefix serial_port baudrate command_timeout_ms state_timeout_ms active_modules wheel_radius wheel_drive_len imu_topic imu_frame_id">
 
     <ros2_control name="${name}" type="system">
       <hardware>
@@ -10,17 +10,13 @@
         <param name="serial_port">${serial_port}</param>
         <param name="baudrate">${baudrate}</param>
         <param name="command_timeout_ms">${command_timeout_ms}</param>
+        <param name="state_timeout_ms">${state_timeout_ms}</param>
         <param name="active_modules">${active_modules}</param>
         <param name="imu_topic">${imu_topic}</param>
         <param name="imu_frame_id">${imu_frame_id}</param>
         <param name="wheel_radius">${wheel_radius}</param>
         <param name="wheel_drive_len">${wheel_drive_len}</param>
-        <param name="steering_drive_mode">strict_gate</param>
         <param name="steering_gain">0.35</param>
-        <param name="steering_alignment_tolerance">0.10</param>
-        <param name="steering_min_speed_scale">0.15</param>
-        <param name="steering_zero_speed_error">1.20</param>
-        <param name="use_common_speed_scale">true</param>
         <param name="zero_steering_when_stopped">true</param>
       </hardware>
 
