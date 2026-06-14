@@ -8,12 +8,14 @@
 #include <termios.h>
 #include <unistd.h>
 
+#include <algorithm>
 #include <cerrno>
 #include <chrono>
 #include <cmath>
 #include <cstdlib>
 #include <cstring>
 #include <limits>
+#include <sstream>
 #include <stdexcept>
 
 namespace bringup_mobile
@@ -23,6 +25,23 @@ namespace
 
 constexpr std::size_t kNotFound = std::numeric_limits<std::size_t>::max();
 constexpr double kPi = 3.14159265358979323846;
+
+std::vector<std::string> split_csv_or_spaces(const std::string & value)
+{
+  std::string normalized = value;
+  std::replace(normalized.begin(), normalized.end(), ',', ' ');
+
+  std::istringstream stream(normalized);
+  std::vector<std::string> result;
+  std::string item;
+  while (stream >> item) {
+    item = normalize_module(item);
+    if (is_known_module(item)) {
+      result.push_back(item);
+    }
+  }
+  return result;
+}
 
 std::string get_parameter(
   const hardware_interface::HardwareInfo & info, const std::string & name, const std::string & default_value)
@@ -67,17 +86,10 @@ hardware_interface::CallbackReturn WheelbotSerialHardware::on_init(
   zero_steering_when_stopped_ =
     get_parameter(info_, "zero_steering_when_stopped", "true") != "false";
 
-  const auto active_modules_parameter = get_parameter(info_, "active_modules", "FR,RL");
-  const auto modules = parse_active_modules(active_modules_parameter);
-  if (!modules) {
-    RCLCPP_ERROR(
-      rclcpp::get_logger("WheelbotSerialHardware"),
-      "Invalid active_modules value '%s'. Expected a non-empty, unique list containing only "
-      "FR, FL, RR, and RL.",
-      active_modules_parameter.c_str());
-    return hardware_interface::CallbackReturn::ERROR;
+  const auto modules = split_csv_or_spaces(get_parameter(info_, "active_modules", "RL,RR,FL,FR"));
+  if (!modules.empty()) {
+    active_modules_ = modules;
   }
-  active_modules_ = *modules;
 
   position_states_.assign(info_.joints.size(), 0.0);
   velocity_states_.assign(info_.joints.size(), 0.0);

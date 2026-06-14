@@ -98,21 +98,6 @@ TEST(SerialProtocol, AcceptsOnlyExactJetsonShutdownRequest)
   EXPECT_FALSE(is_jetson_shutdown_request("OK JETSON_SHUTDOWN"));
 }
 
-TEST(SerialProtocol, ParsesActiveModules)
-{
-  const auto modules = parse_active_modules("fr_, RL");
-
-  ASSERT_TRUE(modules.has_value());
-  EXPECT_EQ(*modules, (std::vector<std::string>{"FR", "RL"}));
-}
-
-TEST(SerialProtocol, RejectsInvalidActiveModules)
-{
-  EXPECT_FALSE(parse_active_modules("").has_value());
-  EXPECT_FALSE(parse_active_modules("FR,unknown").has_value());
-  EXPECT_FALSE(parse_active_modules("FR,fr_").has_value());
-}
-
 TEST(SerialProtocol, FormatsVelocityCommandInRightLeftOrder)
 {
   EXPECT_EQ(format_velocity_command("rl_", 1.25, -2.5), "VEL RL 1.250000 -2.500000\n");

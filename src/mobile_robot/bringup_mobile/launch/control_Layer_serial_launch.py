@@ -1,18 +1,7 @@
-import os
-import tempfile
-
-import yaml
-
 from launch import LaunchDescription
-from launch.actions import (
-    DeclareLaunchArgument,
-    OpaqueFunction,
-    RegisterEventHandler,
-    SetLaunchConfiguration,
-)
+from launch.actions import DeclareLaunchArgument, RegisterEventHandler
 from launch.conditions import IfCondition
-from launch.event_handlers import OnProcessExit, OnShutdown
-from launch.logging import get_logger
+from launch.event_handlers import OnProcessExit
 from launch.substitutions import (
     Command,
     FindExecutable,
@@ -22,122 +11,6 @@ from launch.substitutions import (
 )
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
-
-
-MODULE_TO_WHEEL = {
-    "FL": "front_left",
-    "FR": "front_right",
-    "RL": "rear_left",
-    "RR": "rear_right",
-}
-
-
-def _parse_active_modules(value):
-    modules = []
-    for item in value.replace(",", " ").split():
-        module = item.rstrip("_").upper()
-        if module not in MODULE_TO_WHEEL:
-            raise RuntimeError(
-                f"Invalid active_modules entry '{item}'. "
-                "Expected FR, FL, RR, or RL."
-            )
-        if module in modules:
-            raise RuntimeError(
-                f"Duplicate active_modules entry '{item}'."
-            )
-        modules.append(module)
-
-    if not modules:
-        raise RuntimeError("active_modules must contain at least one module.")
-    return modules
-
-
-def _active_wheels_from_modules(value):
-    return [MODULE_TO_WHEEL[module] for module in _parse_active_modules(value)]
-
-
-def _find_swerve_controller_parameters(controllers):
-    if not isinstance(controllers, dict):
-        raise RuntimeError('controllers_file root must be a YAML mapping.')
-
-    matches = []
-    for node_name, node_config in controllers.items():
-        normalized_name = str(node_name).rstrip('/')
-        if normalized_name.split('/')[-1] != 'swerve_controller':
-            continue
-        if not isinstance(node_config, dict):
-            continue
-        parameters = node_config.get('ros__parameters')
-        if isinstance(parameters, dict):
-            matches.append((node_name, parameters))
-
-    if not matches:
-        raise RuntimeError(
-            'controllers_file must contain a swerve_controller node with '
-            'ros__parameters.'
-        )
-    if len(matches) > 1:
-        matched_names = ', '.join(str(name) for name, _ in matches)
-        raise RuntimeError(
-            'controllers_file contains multiple swerve_controller parameter '
-            f'sections: {matched_names}.'
-        )
-    return matches[0][1]
-
-
-def _prepare_controllers_file(context):
-    active_modules = LaunchConfiguration("active_modules").perform(context)
-    modules = _parse_active_modules(active_modules)
-    controllers_file = LaunchConfiguration("controllers_file").perform(context)
-
-    try:
-        with open(controllers_file, "r", encoding="utf-8") as stream:
-            controllers = yaml.safe_load(stream)
-    except (OSError, yaml.YAMLError) as error:
-        raise RuntimeError(
-            f"Cannot load controllers_file '{controllers_file}': {error}"
-        ) from error
-
-    try:
-        controller_parameters = _find_swerve_controller_parameters(controllers)
-    except RuntimeError as error:
-        raise RuntimeError(
-            f"Invalid controllers_file '{controllers_file}': {error}"
-        ) from error
-
-    active_wheels = _active_wheels_from_modules(active_modules)
-    controller_parameters["active_wheels"] = active_wheels
-
-    with tempfile.NamedTemporaryFile(
-        mode="w",
-        prefix="wheelbot_swerve_controllers_",
-        suffix=".yaml",
-        delete=False,
-        encoding="utf-8",
-    ) as stream:
-        yaml.safe_dump(controllers, stream, sort_keys=False)
-        generated_file = stream.name
-
-    get_logger("control_Layer_serial_launch").info(
-        "Derived active_wheels=%s from active_modules=%s",
-        active_wheels,
-        modules,
-    )
-    return [
-        SetLaunchConfiguration("resolved_controllers_file", generated_file)
-    ]
-
-
-def _cleanup_controllers_file(event, context):
-    del event
-    generated_file = context.launch_configurations.get(
-        "resolved_controllers_file", ""
-    )
-    if generated_file:
-        try:
-            os.unlink(generated_file)
-        except FileNotFoundError:
-            pass
 
 
 def generate_launch_description():
@@ -243,7 +116,7 @@ def generate_launch_description():
         ]
     )
 
-    robot_controllers = LaunchConfiguration("resolved_controllers_file")
+    robot_controllers = LaunchConfiguration("controllers_file")
     ekf_config_file = LaunchConfiguration("ekf_config_file")
     tf_topic = PythonExpression(
         [
@@ -322,9 +195,6 @@ def generate_launch_description():
             target_action=joint_state_broadcaster_spawner,
             on_exit=[swerve_controller_spawner],
         )
-    )
-    cleanup_controllers_file = RegisterEventHandler(
-        OnShutdown(on_shutdown=_cleanup_controllers_file)
     )
 
     odom_frame = PythonExpression(
@@ -406,8 +276,6 @@ def generate_launch_description():
     return LaunchDescription(
         declared_arguments
         + [
-            OpaqueFunction(function=_prepare_controllers_file),
-            cleanup_controllers_file,
             robot_state_pub_node,
             control_node,
             joint_state_broadcaster_spawner,

@@ -50,7 +50,6 @@ struct ImuSample
 
 bool is_known_module(const std::string & module);
 std::string normalize_module(std::string module);
-std::optional<std::vector<std::string>> parse_active_modules(const std::string & value);
 bool is_jetson_shutdown_request(const std::string & line);
 std::optional<ModuleState> parse_state_line(const std::string & line);
 std::optional<ImuSample> parse_imu_line(const std::string & line);

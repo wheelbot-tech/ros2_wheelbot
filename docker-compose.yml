@@ -37,6 +37,7 @@ services:
       COMMAND_TIMEOUT_MS: "500"
       ACTIVE_MODULES: "FR,RL"
       ENABLE_ODOM_FUSION: "true"
+      ENABLE_ROTATION_TEST_SERVER: "false"
       JOY_DEV: "/dev/input/js0"
       JOY_CONFIG: "F710_sim.yaml"
       JETSON_SHUTDOWN_REQUEST_FILE: "/tmp/wheelbot_jetson_shutdown.request"

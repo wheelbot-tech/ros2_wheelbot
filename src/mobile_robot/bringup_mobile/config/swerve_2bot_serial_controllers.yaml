@@ -41,7 +41,6 @@ swerve_controller:
     base_footprint: base_footprint
     enable_odom_tf: false
     open_loop: false
-    # Fallback for direct controller use; serial launch derives this from active_modules.
     active_wheels: [front_right, rear_left]
     use_common_speed_scale: true
     steering_speed_scale_start_angle: 0.17453292519943295  # 10 degrees

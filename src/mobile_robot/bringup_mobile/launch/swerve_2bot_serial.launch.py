@@ -38,7 +38,7 @@ def generate_launch_description():
         DeclareLaunchArgument("state_timeout_ms", default_value="500"),
         DeclareLaunchArgument("active_modules", default_value="FR,RL"),
         DeclareLaunchArgument("enable_odom_fusion", default_value="true"),
-        DeclareLaunchArgument("enable_rotation_test_server", default_value="true"),
+        DeclareLaunchArgument("enable_rotation_test_server", default_value="false"),
         DeclareLaunchArgument("controllers_file", default_value=default_controllers_file),
         DeclareLaunchArgument(
             "ekf_config_file",

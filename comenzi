@@ -60,4 +60,9 @@ ros2 run nav2_map_server map_saver_cli \
   --ros-args -p save_map_timeout:=10.0
 
 TEST ROTATIE in jurul axei
-ros2 run bringup_mobile record_rotation_test.py --namespace robot_1 --armed
+ruleaza pe desktop:
+ros2 run bringup_mobile record_static_steering_test.py   --namespace robot_1 --armed
+ruleaza pe jetson:
+ros2 run bringup_mobile start_rotation_test.py \
+  --namespace robot_1 \
+  --armed

@@ -149,10 +149,15 @@ BAUDRATE=115200
 COMMAND_TIMEOUT_MS=500
 ACTIVE_MODULES=FR,RL
 ENABLE_ODOM_FUSION=true
+ENABLE_ROTATION_TEST_SERVER=false
 JOY_DEV=/dev/input/js0
 JOY_CONFIG=F710_sim.yaml
 JETSON_SHUTDOWN_REQUEST_FILE=/tmp/wheelbot_jetson_shutdown.request
 ```
+
+`ENABLE_ROTATION_TEST_SERVER` must remain `false` during normal operation.
+Set it temporarily to `true` only for an armed remote rotation test, then
+restore it to `false` and restart `base_control`.
 
 At startup, `base_control` generates a namespace-specific controller YAML in
 `/tmp`, for example:

@@ -53,30 +53,6 @@ bool is_known_module(const std::string & module)
   return std::find(modules.begin(), modules.end(), normalized) != modules.end();
 }
 
-std::optional<std::vector<std::string>> parse_active_modules(const std::string & value)
-{
-  std::string normalized_value = value;
-  std::replace(normalized_value.begin(), normalized_value.end(), ',', ' ');
-
-  std::istringstream stream(normalized_value);
-  std::vector<std::string> modules;
-  std::string module;
-  while (stream >> module) {
-    module = normalize_module(module);
-    if (!is_known_module(module) ||
-      std::find(modules.begin(), modules.end(), module) != modules.end())
-    {
-      return std::nullopt;
-    }
-    modules.push_back(module);
-  }
-
-  if (modules.empty()) {
-    return std::nullopt;
-  }
-  return modules;
-}
-
 bool is_jetson_shutdown_request(const std::string & line)
 {
   return line == "JETSON_SHUTDOWN";
