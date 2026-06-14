@@ -83,7 +83,7 @@ private:
   double steering_gain_{0.1};
   bool zero_steering_when_stopped_{true};
   bool shutdown_requested_{false};
-  bool state_monitor_started_{false};
+  bool state_watchdog_armed_{false};
   bool state_timeout_fault_{false};
   std::vector<std::string> active_modules_{"RL", "RR", "FL", "FR"};
 
@@ -91,7 +91,7 @@ private:
   std::string rx_buffer_;
   rclcpp::Time last_open_attempt_;
   rclcpp::Time last_command_time_;
-  rclcpp::Time state_monitor_start_time_;
+  rclcpp::Time state_watchdog_arm_time_;
   std::map<std::string, rclcpp::Time> last_state_times_;
 
   std::vector<double> position_states_;

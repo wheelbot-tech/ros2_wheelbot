@@ -143,7 +143,7 @@ hardware_interface::CallbackReturn WheelbotSerialHardware::on_configure(
 {
   shutdown_requested_ = false;
   imu_quaternion_seen_ = false;
-  state_monitor_started_ = false;
+  state_watchdog_armed_ = false;
   state_timeout_fault_ = false;
   last_state_times_.clear();
   setup_imu_publishers();
@@ -151,7 +151,8 @@ hardware_interface::CallbackReturn WheelbotSerialHardware::on_configure(
   if (state_timeout_ms_ > 0) {
     RCLCPP_INFO(
       rclcpp::get_logger("WheelbotSerialHardware"),
-      "Per-module STATE watchdog enabled with %d ms timeout",
+      "Per-module STATE watchdog will arm after initial feedback from all active modules "
+      "(timeout %d ms)",
       state_timeout_ms_);
   } else {
     RCLCPP_WARN(
@@ -223,16 +224,11 @@ hardware_interface::return_type WheelbotSerialHardware::read(
     open_serial();
   }
 
-  // Buffered feedback must not hide a control-loop or transport outage.
-  check_state_timeouts(time);
-  if (state_timeout_fault_) {
-    return hardware_interface::return_type::ERROR;
-  }
-
   if (serial_fd_ >= 0) {
     read_serial_lines(time);
   }
 
+  check_state_timeouts(time);
   return hardware_interface::return_type::OK;
 }
 
@@ -285,10 +281,6 @@ hardware_interface::return_type WheelbotSerialHardware::write(
 
   if (ok) {
     last_command_time_ = time;
-    if (!state_monitor_started_ && state_timeout_ms_ > 0) {
-      state_monitor_start_time_ = time;
-      state_monitor_started_ = true;
-    }
     return hardware_interface::return_type::OK;
   }
 
@@ -447,27 +439,42 @@ void WheelbotSerialHardware::apply_state(
 
 void WheelbotSerialHardware::check_state_timeouts(const rclcpp::Time & time)
 {
-  if (state_timeout_ms_ <= 0 || !state_monitor_started_ || state_timeout_fault_) {
+  if (state_timeout_ms_ <= 0 || state_timeout_fault_) {
     return;
   }
-  if (state_monitor_start_time_.get_clock_type() != time.get_clock_type()) {
-    state_monitor_start_time_ = time;
+
+  if (!state_watchdog_armed_) {
+    for (const auto & mapping : module_mappings_) {
+      const auto state_it = last_state_times_.find(mapping.module);
+      if (state_it == last_state_times_.end() ||
+        state_it->second.get_clock_type() != time.get_clock_type())
+      {
+        return;
+      }
+    }
+
+    state_watchdog_armed_ = true;
+    state_watchdog_arm_time_ = time;
+    RCLCPP_INFO(
+      rclcpp::get_logger("WheelbotSerialHardware"),
+      "Per-module STATE watchdog armed after initial feedback from all active modules");
+    return;
+  }
+
+  if (state_watchdog_arm_time_.get_clock_type() != time.get_clock_type()) {
+    state_watchdog_armed_ = false;
     last_state_times_.clear();
     return;
   }
 
   for (const auto & mapping : module_mappings_) {
     const auto state_it = last_state_times_.find(mapping.module);
-    rclcpp::Time reference = state_monitor_start_time_;
+    rclcpp::Time reference = state_watchdog_arm_time_;
     if (state_it != last_state_times_.end() &&
       state_it->second.get_clock_type() == time.get_clock_type() &&
       state_it->second > reference)
     {
       reference = state_it->second;
-    }
-    if (reference.get_clock_type() != time.get_clock_type()) {
-      last_state_times_.erase(mapping.module);
-      continue;
     }
 
     const double age_ms = (time - reference).seconds() * 1000.0;
@@ -494,7 +501,7 @@ void WheelbotSerialHardware::latch_state_timeout(
   RCLCPP_ERROR(
     rclcpp::get_logger("WheelbotSerialHardware"),
     "STATE timeout for module %s: %.0f ms without fresh feedback "
-    "(limit %d ms); sent ESTOP to all active modules and latched hardware fault",
+    "(limit %d ms); sent ESTOP to all active modules and latched command fault",
     module.c_str(), age_ms, state_timeout_ms_);
 }
 
