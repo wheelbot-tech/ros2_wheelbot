@@ -71,6 +71,7 @@ ament_export_include_directories(include)
 
 if(BUILD_TESTING)
   find_package(ament_cmake_gtest REQUIRED)
+  find_package(ament_cmake_pytest REQUIRED)
   find_package(ament_lint_auto REQUIRED)
 
   ament_add_gtest(test_serial_protocol test/test_serial_protocol.cpp)
@@ -78,6 +79,11 @@ if(BUILD_TESTING)
     target_link_libraries(test_serial_protocol wheelbot_serial_protocol)
     target_include_directories(test_serial_protocol PRIVATE include)
   endif()
+
+  ament_add_pytest_test(
+    test_active_modules_config
+    test/test_active_modules_config.py
+  )
 
   ament_lint_auto_find_test_dependencies()
 endif()

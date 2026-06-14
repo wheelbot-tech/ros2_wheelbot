@@ -85,7 +85,7 @@ private:
   bool shutdown_requested_{false};
   bool state_monitor_started_{false};
   bool state_timeout_fault_{false};
-  std::vector<std::string> active_modules_{"RL", "RR", "FL", "FR"};
+  std::vector<std::string> active_modules_{"FR", "RL"};
 
   int serial_fd_{-1};
   std::string rx_buffer_;
