@@ -1,7 +1,7 @@
-image: acasa_map.pgm
+image: acasa.pgm
 mode: trinary
 resolution: 0.050
-origin: [-4.941, -9.275, 0]
+origin: [-5.177, -2.168, 0]
 negate: 0
 occupied_thresh: 0.65
 free_thresh: 0.196
