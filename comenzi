@@ -58,16 +58,20 @@ SALVEAZA HARTA
 
 ****** TEST ROTATIE in jurul axei
 ruleaza pe desktop:
-ros2 run bringup_mobile record_static_steering_test.py   --namespace robot_1 --armed
-ruleaza pe jetson:
+ros2 run bringup_mobile record_rotation_test.py   --namespace robot_1 --armed
 ros2 run bringup_mobile start_rotation_test.py \
   --namespace robot_1 \
   --armed
+*************
+ros2 param set /robot_1/rotation_test_server turns 2
+ros2 param set /robot_1/rotation_test_server turn_order alternating
+
+ros2 run bringup_mobile start_rotation_test.py \
+  --armed \
+  --test-timeout 360
 
 
 ******* NAV2
 ros2 launch nav2 rviz_launch.py \
   namespace:=robot_1 \
   frame_prefix:=robot_1/
-
-  ROS_NAMESPACE=robot_1 ros2 launch nav2 wheelbot_navigation.launch.py
