@@ -45,6 +45,7 @@ install(
 
 install(
   PROGRAMS
+    scripts/analyze_steering_hysteresis.py
     scripts/record_rotation_test.py
     scripts/rotation_test_server.py
     scripts/start_rotation_test.py

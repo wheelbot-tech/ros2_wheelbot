@@ -88,6 +88,55 @@ ros2 launch mm_moveit_config mm_sim_moveit.launch.py
 
 Pe Balena, serviciul `base_control` lanseaza implicit `bringup_mobile swerve_2bot_serial.launch.py`. Namespace-ul ROS trebuie sa vina din numele device-ului Balena, de exemplu `robot_1`, iar `frame_prefix` devine `robot_1/`.
 
+### Configuratie Balena normala si mod test steering
+
+Configuratia normala activa in `docker-compose.yml`, cu Nav2 pornit pe Jetson,
+este:
+
+```yaml
+base_control:
+  environment:
+    ENABLE_ROTATION_TEST_SERVER: "false"
+
+nav2:
+  environment:
+    NAV2_ENABLED: "true"
+
+rmf_agent:
+  environment:
+    RMF_AGENT_ENABLED: "false"
+```
+
+Pentru testele fizice controlate de rotatie si masurarea histerezisului CW/CCW,
+modifica temporar numai:
+
+```yaml
+ENABLE_ROTATION_TEST_SERVER: "true"
+NAV2_ENABLED: "false"
+RMF_AGENT_ENABLED: "false"
+```
+
+In modul temporar de test:
+
+- serverul ROS `rotation_test_server` este pornit pe Jetson si accepta testul numai prin cererea explicita armata;
+- Nav2 nu publica `cmd_vel_nav` si nu poate concura cu testul prin `twist_mux`;
+- agentul RMF nu poate trimite comenzi de miscare;
+- serviciul `nav2` ramane pornit pentru supravegherea RPLIDAR, dar stack-ul Nav2 ramane dezactivat;
+- joystickul F710 nu trebuie activat in timpul testului, deoarece `joy_vel` are prioritate mai mare decat `key_vel` in `twist_mux`;
+- orice schimbare a acestor valori necesita rebuild/redeploy cu `balena push` si restartul serviciilor afectate.
+
+Modul de test nu este configuratia normala de operare. Dupa terminarea
+investigatiei, revino la:
+
+```yaml
+ENABLE_ROTATION_TEST_SERVER: "false"
+NAV2_ENABLED: "true"
+RMF_AGENT_ENABLED: "false"
+```
+
+Nu porni testul de rotatie daca robotul nu are zona libera, oprirea de urgenta nu
+este disponibila sau exista o alta sursa activa de comenzi.
+
 Vizualizarea RViz a robotului real namespaced trebuie sa pastreze separate trei lucruri care altfel se amesteca usor:
 
 - Joint names din `/robot_1/joint_states` raman neprefixate (`virtual_front_right_steering_joint`, `virtual_rear_left_wheel_joint` etc.). Nu genera URDF-ul real cu `tf_prefix:=robot_1/`, pentru ca `robot_state_publisher` nu va mai potrivi jointurile reale.

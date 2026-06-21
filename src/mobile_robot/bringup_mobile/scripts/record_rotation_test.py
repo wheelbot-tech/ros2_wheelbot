@@ -36,6 +36,45 @@ def degrees(angle_rad):
     return math.degrees(angle_rad)
 
 
+def steering_hysteresis_summary(results):
+    """Aggregate CW/CCW steering means for each physical module."""
+    summary = {}
+    for module in ('FR', 'RL'):
+        means = {'cw': [], 'ccw': []}
+        for result in results:
+            module_result = result['module_steering'].get(module, {})
+            if module_result.get('sample_count', 0) == 0:
+                continue
+            means[result['direction']].append(
+                math.radians(module_result['steering_mean_deg'])
+            )
+        if not means['cw'] or not means['ccw']:
+            summary[module] = {'available': False}
+            continue
+        cw_mean = math.atan2(
+            sum(math.sin(value) for value in means['cw']),
+            sum(math.cos(value) for value in means['cw']),
+        )
+        ccw_mean = math.atan2(
+            sum(math.sin(value) for value in means['ccw']),
+            sum(math.cos(value) for value in means['ccw']),
+        )
+        hysteresis = math.atan2(
+            math.sin(cw_mean - ccw_mean),
+            math.cos(cw_mean - ccw_mean),
+        )
+        summary[module] = {
+            'available': True,
+            'cw_sample_count': len(means['cw']),
+            'ccw_sample_count': len(means['ccw']),
+            'cw_mean_deg': degrees(cw_mean),
+            'ccw_mean_deg': degrees(ccw_mean),
+            'cw_minus_ccw_deg': degrees(hysteresis),
+            'absolute_hysteresis_deg': abs(degrees(hysteresis)),
+        }
+    return summary
+
+
 def normalized_namespace(value):
     return value.strip().strip('/')
 
@@ -670,8 +709,8 @@ class RotationRecorder(Node):
                 'dry-run only; pass --armed after lifting hazards and clearing the robot area'
             )
             self.get_logger().info(
-                f'plan: {self.args.turns} CW 360-degree turn(s), then '
-                f'{self.args.turns} CCW turn(s), controlled by {self.args.imu_topic}'
+                f'plan: {self.args.turns} turn(s) per direction in '
+                f'{self.args.turn_order} order, controlled by {self.args.imu_topic}'
             )
             return
 
@@ -697,12 +736,24 @@ class RotationRecorder(Node):
 
         if not self.args.disable_recording:
             self.start_recording(bag_path)
+        trial_plan = []
+        if self.args.turn_order == 'grouped':
+            trial_plan.extend(
+                (-1.0, f'CW turn {index + 1}')
+                for index in range(self.args.turns)
+            )
+            trial_plan.extend(
+                (1.0, f'CCW turn {index + 1}')
+                for index in range(self.args.turns)
+            )
+        else:
+            for index in range(self.args.turns):
+                trial_plan.append((-1.0, f'CW turn {index + 1}'))
+                trial_plan.append((1.0, f'CCW turn {index + 1}'))
+
         try:
-            for index in range(self.args.turns):
-                results.append(self.rotate_once(-1.0, f'CW turn {index + 1}'))
-                self.stop_robot(self.args.between_turns_time)
-            for index in range(self.args.turns):
-                results.append(self.rotate_once(1.0, f'CCW turn {index + 1}'))
+            for direction, label in trial_plan:
+                results.append(self.rotate_once(direction, label))
                 self.stop_robot(self.args.between_turns_time)
         except Exception as error:
             failure = str(error)
@@ -723,12 +774,14 @@ class RotationRecorder(Node):
             suite_end['odom_x'] - suite_start_x,
             suite_end['odom_y'] - suite_start_y,
         )
+        hysteresis = steering_hysteresis_summary(results)
         report = {
             'timestamp': timestamp,
             'odom_topic': self.args.odom_topic,
             'raw_odom_topic': self.args.raw_odom_topic,
             'imu_topic': self.args.imu_topic,
             'turns_per_direction': self.args.turns,
+            'turn_order': self.args.turn_order,
             'angular_speed_rad_s': self.args.angular_speed,
             'slow_angular_speed_rad_s': self.args.slow_angular_speed,
             'max_turn_error_deg': degrees(self.args.max_turn_error),
@@ -753,6 +806,7 @@ class RotationRecorder(Node):
             'rotation_stall_timeout_s': self.args.rotation_stall_timeout,
             'stall_progress_deg': degrees(self.args.stall_progress),
             'trials': results,
+            'steering_hysteresis': hysteresis,
             'return_to_start_imu_yaw_error_deg': degrees(suite_imu_yaw_error),
             'return_to_start_fused_odom_yaw_error_deg': degrees(
                 suite_odom_yaw_error
@@ -786,6 +840,15 @@ class RotationRecorder(Node):
             f'position drift={position_error:.3f} m, '
             f'result={"PASS" if report["return_to_start_pass"] else "FAIL"}'
         )
+        for module, module_hysteresis in hysteresis.items():
+            if not module_hysteresis['available']:
+                continue
+            self.get_logger().info(
+                f'{module} steering hysteresis: '
+                f'CW={module_hysteresis["cw_mean_deg"]:+.2f} deg, '
+                f'CCW={module_hysteresis["ccw_mean_deg"]:+.2f} deg, '
+                f'CW-CCW={module_hysteresis["cw_minus_ccw_deg"]:+.2f} deg'
+            )
         self.get_logger().info(f'report saved to {report_path}')
         if interrupted:
             raise KeyboardInterrupt
@@ -842,6 +905,12 @@ def parse_args():
     )
     parser.add_argument('--output-dir', default='DEBUG')
     parser.add_argument('--turns', type=positive_int, default=1)
+    parser.add_argument(
+        '--turn-order',
+        choices=('grouped', 'alternating'),
+        default='grouped',
+        help='run all CW then CCW trials, or alternate directions',
+    )
     parser.add_argument('--angular-speed', type=positive_float, default=0.15)
     parser.add_argument('--slow-angular-speed', type=positive_float, default=0.10)
     parser.add_argument(
@@ -908,7 +977,7 @@ def parse_args():
     parser.add_argument(
         '--steering-watchdog-grace',
         type=positive_float,
-        default=3.0,
+        default=6.0,
         help='initial steering alignment time before enabling the watchdog',
     )
     parser.add_argument(

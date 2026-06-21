@@ -18,6 +18,8 @@ def normalized_namespace(value):
 
 
 class RotationTestServer(Node):
+    """Expose an explicitly armed service for running rotation tests."""
+
     def __init__(self):
         super().__init__('rotation_test_server')
         default_namespace = normalized_namespace(
@@ -26,6 +28,9 @@ class RotationTestServer(Node):
         self.declare_parameter('namespace', default_namespace)
         self.declare_parameter('angular_speed', 0.15)
         self.declare_parameter('slow_angular_speed', 0.10)
+        self.declare_parameter('turns', 1)
+        self.declare_parameter('turn_order', 'alternating')
+        self.declare_parameter('steering_watchdog_grace', 6.0)
         self.declare_parameter('sensor_timeout', 15.0)
         self.running_lock = threading.Lock()
         self.process_lock = threading.Lock()
@@ -87,6 +92,12 @@ class RotationTestServer(Node):
                 str(self.get_parameter('angular_speed').value),
                 '--slow-angular-speed',
                 str(self.get_parameter('slow_angular_speed').value),
+                '--turns',
+                str(self.get_parameter('turns').value),
+                '--turn-order',
+                str(self.get_parameter('turn_order').value),
+                '--steering-watchdog-grace',
+                str(self.get_parameter('steering_watchdog_grace').value),
                 '--sensor-timeout',
                 str(self.get_parameter('sensor_timeout').value),
             ]
