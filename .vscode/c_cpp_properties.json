@@ -3,16 +3,38 @@
     {
       "browse": {
         "databaseFilename": "${default}",
-        "limitSymbolsToIncludedHeaders": false
+        "limitSymbolsToIncludedHeaders": true,
+        "path": [
+          "${workspaceFolder}/src/**",
+          "/opt/ros/kilted/include/**"
+        ]
       },
       "includePath": [
-        "/usr/include/**"
+        "${workspaceFolder}/src/**",
+        "/opt/ros/kilted/include/**"
+      ],
+      "excludePath": [
+        "**/build/**",
+        "**/install/**",
+        "**/log/**",
+        "**/.colcon/**",
+        "**/node_modules/**",
+        "**/__pycache__/**",
+        "**/*.egg-info/**",
+        "**/.git/**",
+        "**/.venv/**",
+        "**/venv/**",
+        "**/.env/**",
+        "**/*.o",
+        "**/*.a",
+        "**/*.so"
       ],
       "name": "ROS",
+      "intelliSenseEngine": "tag parser",
       "intelliSenseMode": "gcc-x64",
       "compilerPath": "/usr/bin/gcc",
       "cStandard": "gnu11",
-      "cppStandard": "c++14"
+      "cppStandard": "c++17"
     }
   ],
   "version": 4

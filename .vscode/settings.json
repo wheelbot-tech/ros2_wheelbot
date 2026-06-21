@@ -92,8 +92,54 @@
     "variant": "cpp"
   },
   "files.exclude": {
-    "**/.git": false
+    "**/.git": false,
+    "**/build": true,
+    "**/install": true,
+    "**/log": true,
+    "**/.colcon": true,
+    "**/node_modules": true,
+    "**/__pycache__": true,
+    "**/*.egg-info": true,
+    "**/devel": true,
+    "**/.pytest_cache": true,
+    "**/.mypy_cache": true
   },
+  "search.exclude": {
+    "**/build": true,
+    "**/install": true,
+    "**/log": true,
+    "**/.colcon": true,
+    "**/node_modules": true,
+    "**/__pycache__": true,
+    "**/*.egg-info": true,
+    "**/devel": true
+  },
+  "C_Cpp.files.exclude": {
+    "**/build": true,
+    "**/install": true,
+    "**/__pycache__": true,
+    "**/.git": true,
+    "**/node_modules": true,
+    "**/.colcon": true,
+    "**/log": true,
+    "**/*.o": true,
+    "**/*.a": true,
+    "**/*.so": true
+  },
+  "C_Cpp.default.includePath": [
+    "${workspaceFolder}/src/**",
+    "/opt/ros/kilted/include/**"
+  ],
+  "C_Cpp.intelliSenseEngineOverride": "tag parser",
+  "C_Cpp.codeAnalysis.exclude": {
+    "**/build": true,
+    "**/install": true,
+    "**/node_modules": true,
+    "**/__pycache__": true
+  },
+  "C_Cpp.codeAnalysis.runAutomatically": false,
+  "C_Cpp.doxygen.enabled": false,
+  "C_Cpp.enhancedColorization": "disabled",
   "idf.currentSetup": "/home/george/.espressif/v6.0.1/esp-idf",
   "editor.tabSize": 2,
   "editor.insertSpaces": true,
