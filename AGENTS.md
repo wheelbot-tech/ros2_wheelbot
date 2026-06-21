@@ -20,6 +20,7 @@ Sistemul curent important este varianta swerve cu 2 module fizice differential-d
 - Porneste local bridge-ul Zenoh MCP inainte de sesiunea Codex/VSCode:
   `zenoh-bridge-mcp --connect tcp/127.0.0.1:7447 --mcp-listen 127.0.0.1:8808`.
   Configuratia Codex trebuie sa pointeze connectorul `zenoh` la `http://127.0.0.1:8808/mcp`.
+- Daca `mcp__zenoh` nu este disponibil in timpul unei sesiuni, agentul trebuie sa incerce mai intai sa lanseze comanda de mai sus si sa reverifice connectorul Zenoh MCP inainte de a folosi ROS MCP sau comenzile `ros2` ca fallback.
 - Foloseste `ros-mcp-server` doar ca fallback pentru sisteme ROS/rosbridge care sunt vizibile direct prin el. Daca `ros-mcp-server` raporteaza `No nodes found`/`No topics found`, dar Zenoh MCP vede chei `robot_1/...`, considera Zenoh MCP sursa corecta pentru graful activ.
 - Apeleaza la comenzi shell (`ros2 node list`, `ros2 topic echo`, `ros2 launch`, `colcon` etc.) doar cand MCP-urile nu acopera operatia, cand ai nevoie de output brut, sau cand utilizatorul cere explicit comanda.
 - Nu sterge sau rescrie modificari existente fara cerere explicita. Workspace-ul poate avea multe fisiere modificate local.

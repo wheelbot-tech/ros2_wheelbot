@@ -18,10 +18,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 WORKDIR ${ROS_WS}
 
 COPY src/sensors/rplidar_ros src/sensors/rplidar_ros
+COPY src/mobile_robot/navigation_ws/nav2 src/mobile_robot/navigation_ws/nav2
 COPY balena/nav2_entrypoint.sh /entrypoint.sh
 
 RUN source /opt/ros/${ROS_DISTRO}/setup.bash \
-  && colcon build --merge-install --packages-select rplidar_ros \
+  && colcon build --merge-install --packages-select rplidar_ros nav2 \
        --cmake-args -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF \
   && chmod +x /entrypoint.sh \
   && rm -rf build log

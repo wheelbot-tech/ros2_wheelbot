@@ -11,9 +11,9 @@ services:
       ROS_DOMAIN_ID: "0"
       RMW_IMPLEMENTATION: "rmw_zenoh_cpp"
       ZENOH_REMOTE_ROUTER_ENDPOINT: "tcp/192.168.1.133:7447"
-      ZENOH_REMOTE_RETRY_INIT_MS: "250"
-      ZENOH_REMOTE_RETRY_MAX_MS: "1000"
-      ZENOH_REMOTE_BLOCK_WAIT_US: "1000000"
+      ZENOH_REMOTE_RETRY_INIT_MS: "1000"
+      ZENOH_REMOTE_RETRY_MAX_MS: "10000"
+      ZENOH_REMOTE_BLOCK_WAIT_US: "30000000"
 
   base_control:
     build:
@@ -63,8 +63,8 @@ services:
       RPLIDAR_SERIAL_BAUDRATE: "115200"
       RPLIDAR_SCAN_MODE: "Sensitivity"
       RPLIDAR_ANGLE_COMPENSATE: "true"
-      NAV2_ENABLED: "false"
-      NAV2_COMMAND: ""
+      NAV2_ENABLED: "true"
+      NAV2_COMMAND: "ros2 launch nav2 wheelbot_navigation.launch.py"
 
   rmf_agent:
     build:

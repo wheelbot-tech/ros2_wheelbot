@@ -13,6 +13,8 @@ DEBUG/
 !src/mobile_robot/
 !src/mobile_robot/bringup_mobile/**
 !src/mobile_robot/description_mobile/**
+!src/mobile_robot/navigation_ws/
+!src/mobile_robot/navigation_ws/nav2/**
 !src/husarion_components_description/
 !src/husarion_components_description/**
 !src/sensors/

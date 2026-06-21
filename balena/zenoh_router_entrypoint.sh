@@ -7,9 +7,9 @@ if [ -n "${ZENOH_REMOTE_ROUTER_ENDPOINT:-}" ] &&
   [ -z "${ZENOH_ROUTER_CONFIG_URI:-}" ] &&
   [ -z "${ZENOH_CONFIG_OVERRIDE:-}" ]
 then
-  retry_init_ms="${ZENOH_REMOTE_RETRY_INIT_MS:-250}"
-  retry_max_ms="${ZENOH_REMOTE_RETRY_MAX_MS:-1000}"
-  block_wait_us="${ZENOH_REMOTE_BLOCK_WAIT_US:-1000000}"
+  retry_init_ms="${ZENOH_REMOTE_RETRY_INIT_MS:-1000}"
+  retry_max_ms="${ZENOH_REMOTE_RETRY_MAX_MS:-10000}"
+  block_wait_us="${ZENOH_REMOTE_BLOCK_WAIT_US:-30000000}"
   config_template="/etc/wheelbot/zenoh_router_config.json5.in"
   config_file="/tmp/wheelbot_zenoh_router_config.json5"
   sed \

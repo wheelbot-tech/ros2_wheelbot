@@ -6,6 +6,7 @@ target="${1:-/tmp/ros2_wheelbot_balena}"
 
 rm -rf "${target}"
 mkdir -p "${target}/src/mobile_robot"
+mkdir -p "${target}/src/mobile_robot/navigation_ws"
 mkdir -p "${target}/src/husarion_components_description"
 mkdir -p "${target}/src/sensors"
 mkdir -p "${target}/src/wheelbot_ros2_controllers"
@@ -17,6 +18,8 @@ cp "${repo_root}/.dockerignore" "${target}/"
 cp -a "${repo_root}/balena" "${target}/balena"
 cp -a "${repo_root}/src/mobile_robot/bringup_mobile" "${target}/src/mobile_robot/"
 cp -a "${repo_root}/src/mobile_robot/description_mobile" "${target}/src/mobile_robot/"
+cp -a "${repo_root}/src/mobile_robot/navigation_ws/nav2" \
+  "${target}/src/mobile_robot/navigation_ws/"
 cp -a "${repo_root}/src/husarion_components_description" "${target}/src/"
 cp -a "${repo_root}/src/sensors/rplidar_ros" "${target}/src/sensors/"
 cp -a "${repo_root}/src/wheelbot_ros2_controllers/swerve_drive_controller" \
