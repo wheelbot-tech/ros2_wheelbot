@@ -88,18 +88,10 @@
 		"ROS2.distro": "kilted",
 		"python.autoComplete.extraPaths": [
 			"/home/george/ROS2/ros2_wheelbot/install/mm_moveit_config/lib/python3.12/site-packages",
-			"/home/george/ROS2/ros2_wheelbot/build/rqt_joint_trajectory_controller",
-			"/home/george/ROS2/ros2_wheelbot/install/rqt_joint_trajectory_controller/lib/python3.12/site-packages",
-			"/home/george/ROS2/ros2_wheelbot/build/ros2_controllers_test_nodes",
-			"/home/george/ROS2/ros2_wheelbot/install/ros2_controllers_test_nodes/lib/python3.12/site-packages",
 			"/opt/ros/kilted/lib/python3.12/site-packages"
 		],
 		"python.analysis.extraPaths": [
 			"/home/george/ROS2/ros2_wheelbot/install/mm_moveit_config/lib/python3.12/site-packages",
-			"/home/george/ROS2/ros2_wheelbot/build/rqt_joint_trajectory_controller",
-			"/home/george/ROS2/ros2_wheelbot/install/rqt_joint_trajectory_controller/lib/python3.12/site-packages",
-			"/home/george/ROS2/ros2_wheelbot/build/ros2_controllers_test_nodes",
-			"/home/george/ROS2/ros2_wheelbot/install/ros2_controllers_test_nodes/lib/python3.12/site-packages",
 			"/opt/ros/kilted/lib/python3.12/site-packages"
 		]
 	}

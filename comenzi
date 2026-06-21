@@ -33,16 +33,16 @@ ros2 launch ros2_medkit_gateway gateway.launch.py
 
 colcon build --symlink-install --packages-select
 *****************************************************
-ZENOH
+****** ZENOH
 RUST_LOG=debug ros2 run rmw_zenoh_cpp rmw_zenohd
 zenoh-bridge-mcp --connect tcp/127.0.0.1:7447 --mcp-listen 127.0.0.1:8808
 
-BALENA
+****** BALENA
 balena login
 bash balena/prepare_push_context.sh
 balena push Wheelbot_nano --source /tmp/ros2_wheelbot_balena
 
-RVIZ
+****** RVIZ
 Pentru local fără prefix:
 ros2 launch description_mobile view_robot_swerve.launch.py
 Pentru TF prefixat:
@@ -51,18 +51,23 @@ ros2 launch description_mobile view_robot_swerve.launch.py \
   frame_prefix:=robot_1/ \
   rviz_config:=amr_view_robot_1.rviz
 
-CREAZA HARTA
+****** CREAZA HARTA
 ros2 launch nav2 wheelbot_mapping.launch.py
 SALVEAZA HARTA
-ros2 run nav2_map_server map_saver_cli \
-  -t /robot_1/map \
-  -f /home/george/ROS2/ros2_wheelbot/src/mobile_robot/navigation_ws/nav2/maps/wheelbot_map \
-  --ros-args -p save_map_timeout:=10.0
 
-TEST ROTATIE in jurul axei
+
+****** TEST ROTATIE in jurul axei
 ruleaza pe desktop:
 ros2 run bringup_mobile record_static_steering_test.py   --namespace robot_1 --armed
 ruleaza pe jetson:
 ros2 run bringup_mobile start_rotation_test.py \
   --namespace robot_1 \
   --armed
+
+
+******* NAV2
+ros2 launch nav2 rviz_launch.py \
+  namespace:=robot_1 \
+  frame_prefix:=robot_1/
+
+  ROS_NAMESPACE=robot_1 ros2 launch nav2 wheelbot_navigation.launch.py
