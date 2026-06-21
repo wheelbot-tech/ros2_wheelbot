@@ -42,7 +42,7 @@ Each sub-package can be developed, launched, and tested independently.
 
 ## ⚙️ Features
 
-- **ROS 2** Jazzy   
+- **ROS 2** Kilted   
 - **ros2_control** actuator interfaces for direct and EtherCAT drives  
 - **topic_based_ros2_control** integration for distributed control  
 - **Zenoh / rmw_zenoh** and **Agnocast** for zero-copy data sharing  
@@ -71,8 +71,8 @@ source install/setup.bash
 
 ---
 **Development Notes**
-Tested on Ubuntu 24.04 with ROS 2 Jazzy
-Compatible with Zenoh ≥ 1.0, CycloneDDS, rmw_zenoh
+Tested on Ubuntu 24.04 with ROS 2 Kilted
+Compatible with Zenoh ≥ 1.0, rmw_zenoh
 Recommended Python 3.10+ and C++17
 Configurations and parameters are stored in config/ and launch/ folders of each sub-package.
 ---

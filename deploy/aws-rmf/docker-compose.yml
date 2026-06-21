@@ -1,0 +1,67 @@
+services:
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    depends_on:
+      dashboard-smoke:
+        condition: service_started
+      api-smoke:
+        condition: service_started
+    environment:
+      ACME_EMAIL: ${ACME_EMAIL}
+      FLEET_DOMAIN: ${FLEET_DOMAIN}
+      API_DOMAIN: ${API_DOMAIN}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - public
+
+  dashboard-smoke:
+    image: traefik/whoami:v1.11
+    restart: unless-stopped
+    command:
+      - --name=wheelbot-rmf-dashboard-skeleton
+    networks:
+      - public
+
+  api-smoke:
+    image: traefik/whoami:v1.11
+    restart: unless-stopped
+    command:
+      - --name=wheelbot-rmf-api-skeleton
+    networks:
+      - public
+
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      TZ: ${TZ}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - internal
+
+networks:
+  public:
+  internal:
+    internal: true
+
+volumes:
+  caddy_data:
+  caddy_config:
+  postgres_data:
+

@@ -1,0 +1,8 @@
+zenohd
+ros2 run hmr_free_fleet nav2_get_tf.py     --namespace nav2_hmr
+ros2 launch hmr_free_fleet hmr_rmf_common.launch.xml
+# ros2 launch hmr_free_fleet nav2_hmr_simulation_fleet_adapter.launch.xml
+ros2 launch hmr_free_fleet nav2_hmr_simulation_fleet_adapter.launch.xml  server_uri:="ws://localhost:8000/_internal"
+/rmf-web/packages/rmf-dashboard-framework$ pnpm start
+
+traffic-editor

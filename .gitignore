@@ -5,3 +5,7 @@ DEBUG/
 .codex
 __pycache__/
 *.py[cod]
+
+# Local deployment secrets
+deploy/aws-rmf/.env
+deploy/aws-rmf/certs/

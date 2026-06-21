@@ -1,0 +1,31 @@
+{
+	email {$ACME_EMAIL}
+}
+
+{$FLEET_DOMAIN} {
+	encode zstd gzip
+
+	header {
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+	}
+
+	reverse_proxy dashboard-smoke:80
+}
+
+{$API_DOMAIN} {
+	encode zstd gzip
+
+	header {
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+	}
+
+	@health path /health
+	handle @health {
+		respond "ok\n" 200
+	}
+
+	reverse_proxy api-smoke:80
+}
+
