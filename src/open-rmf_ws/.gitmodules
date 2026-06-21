@@ -1,9 +1,0 @@
-[submodule "src/hmr_free_fleet"]
-	path = src/hmr_free_fleet
-	url = https://github.com/wheelbot-tech/hmr_free_fleet.git
-	branch = main
-
-[submodule "src/free_fleet"]
-	path = src/free_fleet
-	url = https://github.com/wheelbot-tech/free_fleet.git
-	branch = main
