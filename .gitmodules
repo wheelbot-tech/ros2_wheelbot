@@ -8,7 +8,7 @@
 	branch = wheelbot-fix
 [submodule "src/teleop_ws/twist_mux"]
 	path = src/teleop_ws/twist_mux
-	url = https://github.com/aentinger/twist_mux.git
+	url = https://github.com/wheelbot-tech/twist_mux
 	branch = rolling
 [submodule "src/sensors/rplidar_ros"]
 	path = src/sensors/rplidar_ros
